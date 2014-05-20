@@ -2,11 +2,11 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.50])
 
-AC_INIT([rs-cll], [20131204.2148], [rs@ralph-schleicher.de])
+AC_INIT([rs-cll], [20140303.2107], [rs@ralph-schleicher.de])
 AM_INIT_AUTOMAKE([foreign no-define dist-bzip2])
 
 AC_CONFIG_SRCDIR([lib/rs-cll.asd])
-AC_CONFIG_FILES([Makefile lib/Makefile doc/Makefile])
+AC_CONFIG_FILES([Makefile lib/Makefile doc/Makefile extensions/Makefile])
 
 dnl Optional features.
 AM_MAINTAINER_MODE
@@ -27,6 +27,7 @@ lispdir=$ax_lisp_dir
 AC_SUBST([lispdir])
 
 AC_SUBST([rs_clldir], ['$(lispdir)/$(PACKAGE_TARNAME)-$(PACKAGE_VERSION)'])
+AC_SUBST([rs_cll_extensionsdir], ['$(rs_clldir)/extensions'])
 
 AC_SUBST([PACKAGE_NAME])
 AC_SUBST([PACKAGE_VERSION])
