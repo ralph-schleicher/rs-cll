@@ -50,7 +50,7 @@
 
 (defun make-match-data (&optional (n 0))
   "Create a match data object."
-  (declare (type (fixnum 0) n))
+  (declare (type (integer 0) n))
   (make-array n :initial-element nil :adjustable t))
 
 (defmacro adjust-match-data (self n &environment env)
@@ -130,24 +130,24 @@ See the `cl-ppcre:scan' function, for more details."
 
 (defsubst %match-start (subexp)
   "Return start index of text matched by last search."
-  (declare (type (fixnum 0) subexp))
+  (declare (type (integer 0) subexp))
   (car (aref *match-data* subexp)))
 
 (defsubst %match-end (subexp)
   "Return end index of text matched by last search."
-  (declare (type (fixnum 0) subexp))
+  (declare (type (integer 0) subexp))
   (cdr (aref *match-data* subexp)))
 
 (export 'match-start)
 (defun match-start (&optional (subexp 0))
   "Return start index of text matched by last search.
 
-Optional argument SUBEXP (a non-negative fixnum) specifies a
+Optional argument SUBEXP (a non-negative integer) specifies a
  parenthesized expression.  A value of zero means the entire
  match.  This is the default.
 
 Value is nil if there is no match."
-  (declare (type (fixnum 0) subexp))
+  (declare (type (integer 0) subexp))
   (when (< subexp (length *match-data*))
     (%match-start subexp)))
 
@@ -155,12 +155,12 @@ Value is nil if there is no match."
 (defun match-end (&optional (subexp 0))
   "Return end index of text matched by last search.
 
-Optional argument SUBEXP (a non-negative fixnum) specifies a
+Optional argument SUBEXP (a non-negative integer) specifies a
  parenthesized expression.  A value of zero means the entire
  match.  This is the default.
 
 Value is nil if there was no match."
-  (declare (type (fixnum 0) subexp))
+  (declare (type (integer 0) subexp))
   (when (< subexp (length *match-data*))
     (%match-end subexp)))
 
@@ -181,7 +181,7 @@ Value is the value of the last form in BODY."
 
 (defsubst %match-string (subexp)
   "Return matched text, or nil if SUBEXP does not match."
-  (declare (type (fixnum 0) subexp))
+  (declare (type (integer 0) subexp))
   (let ((elem (aref *match-data* subexp)))
     (and elem (subseq *last-thing-searched* (car elem) (cdr elem)))))
 
@@ -189,12 +189,12 @@ Value is the value of the last form in BODY."
 (defun match-string (&optional (subexp 0))
   "Return string of text matched by last search.
 
-Optional argument SUBEXP (a non-negative fixnum) specifies a
+Optional argument SUBEXP (a non-negative integer) specifies a
  parenthesized expression.  A value of zero means the entire
  match.  This is the default.
 
 Value is nil if there is no match."
-  (declare (type (fixnum 0) subexp))
+  (declare (type (integer 0) subexp))
   (when (< subexp (length *match-data*))
     (%match-string subexp)))
 
@@ -211,10 +211,10 @@ parenthesized expression did not match."
 (defun replace-match (new-text &optional (subexp 0))
   "Replace text matched by last search.
 
-Optional argument SUBEXP (a non-negative fixnum) specifies a
+Optional argument SUBEXP (a non-negative integer) specifies a
  parenthesized expression.  A value of zero means the entire
  match.  This is the default."
-  (declare (type (fixnum 0) subexp))
+  (declare (type (integer 0) subexp))
   (if (< subexp (length *match-data*))
       (concatenate 'string
 		   (subseq *last-thing-searched* 0 (%match-start subexp))
