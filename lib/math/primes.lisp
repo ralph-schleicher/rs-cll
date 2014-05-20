@@ -50,7 +50,7 @@
     ;; tested numbers can be divided by two.
     (iter (for n :from 3 :below *primes-cache-size* :by 2)
 	  (iter (for d :from 3 :to (isqrt n) :by 2)
-		(when (zerop (rem n d))
+		(when (and (= (sbit p d) 1) (zerop (rem n d)))
 		  (leave))
 		(finally
 		 ;; N is prime.
