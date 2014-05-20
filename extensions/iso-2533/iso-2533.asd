@@ -38,7 +38,7 @@
   :description "ISO 2533 standard atmosphere."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
-  :version "20140301.2146"
+  :version "20140302.1818"
   :depends-on (:iterate :rs-cll)
   :components ((:file "iso-2533")))
 
