@@ -1,4 +1,4 @@
 @set PACKAGE rs-cll
-@set VERSION 20131008.0250
+@set VERSION 20131204.2148
 @set ADDRESS rs@@ralph-schleicher.de
 @set TARNAME rs-cll

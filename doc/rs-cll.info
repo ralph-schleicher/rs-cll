@@ -1,7 +1,7 @@
-This is rs-cll.info, produced by makeinfo version 5.1 from rs-cll.texi.
+This is rs-cll.info, produced by makeinfo version 5.2 from rs-cll.texi.
 
-This is edition 1 (draft), last updated 2013-10-08, of 'Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20131008.0250.
+This is edition 1 (draft), last updated 2013-12-04, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20131204.2148.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -21,8 +21,8 @@ File: rs-cll.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 RS-CLL
 ******
 
-This is edition 1 (draft), last updated 2013-10-08, of 'Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20131008.0250.
+This is edition 1 (draft), last updated 2013-12-04, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20131204.2148.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -604,6 +604,16 @@ File: rs-cll.info,  Node: Trigonometric Functions,  Next: Exponential Functions,
      three-dimensional Cartesian coordinate system.
 
      Arguments X, Y, and Z have to be real numbers.
+
+ -- Function: real-sin angle
+     Return the sine of ANGLE.
+
+     Argument ANGLE has to be a real number given in radian.
+
+ -- Function: real-cos angle
+     Return the cosine of ANGLE.
+
+     Argument ANGLE has to be a real number given in radian.
 
 
 File: rs-cll.info,  Node: Exponential Functions,  Next: Optimization,  Prev: Trigonometric Functions,  Up: Mathematics
@@ -1366,6 +1376,10 @@ Symbol Index
 * radian-from-degree:                    Quantities.          (line   6)
 * random-string:                         Strings.             (line  10)
 * read-file:                             Streams.             (line   6)
+* real-cos:                              Trigonometric Functions.
+                                                              (line  23)
+* real-sin:                              Trigonometric Functions.
+                                                              (line  18)
 * replace-match:                         Regular Expressions. (line  64)
 * roman-numeral:                         Number Systems.      (line   6)
 * save-match-data:                       Regular Expressions. (line  44)
@@ -1488,68 +1502,70 @@ Node: Mathematics18017
 Node: Trigonometric Functions18242
 Ref: rs:hypot18420
 Ref: rs:hypot318605
-Node: Exponential Functions18799
-Ref: rs:cbrt18974
-Ref: rs:square19111
-Ref: rs:square-root19250
-Ref: rs:cube19471
-Ref: rs:cube-root19608
-Node: Optimization19954
-Ref: rs:brent20099
-Node: Polynomials21473
-Ref: rs:evaluate-polynomial21586
-Ref: rs:quadratic-formula-121905
-Ref: rs:quadratic-formula22133
-Ref: rs:cubic-formula-122369
-Ref: rs:cubic-formula22647
-Node: Miscellaneous22890
-Node: Regular Expressions23069
-Ref: rs:string-match23402
-Ref: rs:match-start23865
-Ref: rs:match-end24172
-Ref: rs:match-data24476
-Ref: rs:save-match-data24572
-Ref: rs:match-string24724
-Ref: rs:match-strings25027
-Ref: rs:replace-match25228
-Node: Programming for the Real World25491
-Node: Environment Variables26042
-Ref: rs:environment-variables26248
-Ref: rs:environment-variable26509
-Node: Program Arguments27067
-Ref: rs:program-invocation-name27254
-Ref: rs:program-invocation-short-name27520
-Ref: rs:program-arguments27687
-Node: Program Termination27924
-Ref: rs:exit-success28113
-Ref: rs:exit-failure28202
-Node: Diagnostic Messages28289
-Ref: rs:diagnostic-message28786
-Ref: rs:say29504
-Ref: rs:die29781
-Ref: rs:standalone-program-p30585
-Ref: rs:standalone-program30672
-Node: Working Directory30762
-Ref: rs:get-working-directory30959
-Ref: rs:set-working-directory31136
-Ref: rs:with-working-directory31660
-Node: Temporary Files and Directories31820
-Ref: rs:temporary-file-name32043
-Ref: rs:temporary-file33342
-Ref: rs:with-temporary-file33858
-Ref: rs:temporary-directory34361
-Ref: rs:with-temporary-directory34635
-Node: External Programs35227
-Ref: rs:execute-program35396
-Ref: rs:with-input-from-program38920
-Ref: rs:with-output-to-program39666
-Ref: rs:with-program-io40393
-Ref: rs:program-input-stream41091
-Ref: rs:program-output-stream41329
-Ref: rs:program-error-stream41571
-Ref: rs:program-exit-status41810
-Ref: rs:close-program-streams42015
-Node: Symbol Index42175
-Node: Concept Index51918
+Ref: rs:real-sin18799
+Ref: rs:real-cos18922
+Node: Exponential Functions19047
+Ref: rs:cbrt19222
+Ref: rs:square19359
+Ref: rs:square-root19498
+Ref: rs:cube19719
+Ref: rs:cube-root19856
+Node: Optimization20202
+Ref: rs:brent20347
+Node: Polynomials21721
+Ref: rs:evaluate-polynomial21834
+Ref: rs:quadratic-formula-122153
+Ref: rs:quadratic-formula22381
+Ref: rs:cubic-formula-122617
+Ref: rs:cubic-formula22895
+Node: Miscellaneous23138
+Node: Regular Expressions23317
+Ref: rs:string-match23650
+Ref: rs:match-start24113
+Ref: rs:match-end24420
+Ref: rs:match-data24724
+Ref: rs:save-match-data24820
+Ref: rs:match-string24972
+Ref: rs:match-strings25275
+Ref: rs:replace-match25476
+Node: Programming for the Real World25739
+Node: Environment Variables26290
+Ref: rs:environment-variables26496
+Ref: rs:environment-variable26757
+Node: Program Arguments27315
+Ref: rs:program-invocation-name27502
+Ref: rs:program-invocation-short-name27768
+Ref: rs:program-arguments27935
+Node: Program Termination28172
+Ref: rs:exit-success28361
+Ref: rs:exit-failure28450
+Node: Diagnostic Messages28537
+Ref: rs:diagnostic-message29034
+Ref: rs:say29752
+Ref: rs:die30029
+Ref: rs:standalone-program-p30833
+Ref: rs:standalone-program30920
+Node: Working Directory31010
+Ref: rs:get-working-directory31207
+Ref: rs:set-working-directory31384
+Ref: rs:with-working-directory31908
+Node: Temporary Files and Directories32068
+Ref: rs:temporary-file-name32291
+Ref: rs:temporary-file33590
+Ref: rs:with-temporary-file34106
+Ref: rs:temporary-directory34609
+Ref: rs:with-temporary-directory34883
+Node: External Programs35475
+Ref: rs:execute-program35644
+Ref: rs:with-input-from-program39168
+Ref: rs:with-output-to-program39914
+Ref: rs:with-program-io40641
+Ref: rs:program-input-stream41339
+Ref: rs:program-output-stream41577
+Ref: rs:program-error-stream41819
+Ref: rs:program-exit-status42058
+Ref: rs:close-program-streams42263
+Node: Symbol Index42423
+Node: Concept Index52444
 
 End Tag Table
