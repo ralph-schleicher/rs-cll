@@ -34,7 +34,11 @@
 
 (in-package :rs-cll)
 
-(defvar *primes-cache-size* (expt 2 19) ;64 kiB
+(defvar *primes-cache-size*
+  (min (expt 2 19) ;64 kiB
+       (if (evenp array-dimension-limit)
+	   array-dimension-limit
+	 (1- array-dimension-limit)))
   "Cache size.  Value has to be an even number.")
 
 (defvar *primes-cache*
