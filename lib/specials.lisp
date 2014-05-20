@@ -73,7 +73,10 @@ usage is to wrap your code as follows:
 	(define (gensym "DEF"))
 	(arg (gensym "ARG"))
 	(cache (gensym)))
-    `(let ((,cache (iter (for ,arg :in (quote ,variables))
+    `(let ((,cache (iter (with ,symbol)
+			 (with ,value)
+			 (with ,define)
+			 (for ,arg :in (quote ,variables))
 			 (if (consp ,arg)
 			     (progn
 			       (when (/= (length ,arg) 2)
