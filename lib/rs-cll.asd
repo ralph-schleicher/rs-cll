@@ -61,7 +61,8 @@
 		:serial t
 		:components ((:file "math")
 			     (:file "brent")
-			     (:file "polynomials")))
+			     (:file "polynomials")
+			     (:file "trig")))
 	       (:module "misc"
 		:serial t
 		:components ((:file "regex")
