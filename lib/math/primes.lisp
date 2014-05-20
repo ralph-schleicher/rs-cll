@@ -186,35 +186,66 @@ Argument N is one-based, i.e.
 	  )))
 
 (export 'prime-factors)
-(defun prime-factors (n)
+(defun prime-factors (n &optional primary)
   "Return a list of prime factors of N.
-If N is prime, return value is the list (N)."
+
+First argument N has to be a number (an integer).
+If optional argument PRIMARY is true, value is a list of cons cells
+ where the `car' is the prime factor and the `cdr' is it's order, i.e.
+ it's exponent or repeat count.  Otherwise, value is a list of prime
+ factors where higher order prime factors occur multiple times.
+
+If N is not greater than one, value is the empty list.  If N is a
+prime number, value is a list of length one.
+
+Examples:
+
+     (prime-factors 90)
+      => (2 3 3 5)
+     (prime-factors 90 t)
+      => ((2 . 1) (3 . 2) (5 . 1))
+     (prime-factors 7)
+      => (7)
+     (prime-factors 1)
+      => nil"
   (declare #.optimize-for-speed)
-  (when (and (integerp n) (> n 1))
-    (iter (with n = n)
-	  ;; Trial divisor.
-	  (with d = 2)
-	  ;; Maximum divisor.
-	  (with m = (isqrt n))
-	  (cond ((> d m)
-		 ;; N is prime.
-		 (collect n)
-		 (finish))
-		;; Need quotient and remainder of the trial
-		;; division.  If the remainder is non-zero,
-		;; the clause fails.
-		((multiple-value-bind (q r)
-		     (truncate n d)
-		   (when (zerop r)
-		     (collect d)
-		     (setf n q ;(/ n d)
-			   m (isqrt n)))))
-		((> d 2)
-		 (iter (incf d 2)
-		       (while (< d *primes-cache-size*))
-		       (until (%primep d))))
-		(t
-		 (setf d 3))
-		))))
+  (declare (type integer n))
+  (when (> n 1)
+    (macrolet ((main (collect)
+		 `(iter (with n = n)
+			;; Trial divisor.
+			(with d = 2)
+			;; Maximum divisor.
+			(with m = (isqrt n))
+			(cond ((> d m)
+			       ;; N is prime.
+			       (,collect n)
+			       (finish))
+			      ;; Need quotient and remainder of the trial
+			      ;; division.  If the remainder is non-zero,
+			      ;; the clause fails.
+			      ((multiple-value-bind (q r)
+				   (truncate n d)
+				 (when (zerop r)
+				   (,collect d)
+				   (setf n q ;(/ n d)
+					 m (isqrt n)))))
+			      ((> d 2)
+			       (iter (incf d 2)
+				     (while (< d *primes-cache-size*))
+				     (until (%primep d))))
+			      (t
+			       (setf d 3))
+			      ))))
+      (if (not primary)
+	  (main collect)
+	(let (ans)
+	  (flet ((collect* (p)
+		   (if (and ans (= (caar ans) p))
+		       (incf (cdar ans))
+		     (push (cons p 1) ans))))
+	    (main collect*))
+	  (nreverse ans))
+	))))
 
 ;;; primes.lisp ends here
