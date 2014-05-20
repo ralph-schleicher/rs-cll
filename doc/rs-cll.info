@@ -1,6 +1,6 @@
 This is rs-cll.info, produced by makeinfo version 5.2 from rs-cll.texi.
 
-This is edition 1 (draft), last updated 2013-12-04, of 'Ralph's Common
+This is edition 1 (draft), last updated 2014-02-28, of 'Ralph's Common
 Lisp Library Reference Manual', for RS-CLL version 20131204.2148.
 
      Copyright (C) 2013 Ralph Schleicher
@@ -21,7 +21,7 @@ File: rs-cll.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 RS-CLL
 ******
 
-This is edition 1 (draft), last updated 2013-12-04, of 'Ralph's Common
+This is edition 1 (draft), last updated 2014-02-28, of 'Ralph's Common
 Lisp Library Reference Manual', for RS-CLL version 20131204.2148.
 
      Copyright (C) 2013 Ralph Schleicher
@@ -586,6 +586,7 @@ File: rs-cll.info,  Node: Mathematics,  Next: Miscellaneous,  Prev: Basic Defini
 * Exponential Functions::
 * Optimization::
 * Polynomials::
+* Prime Numbers::
 
 
 File: rs-cll.info,  Node: Trigonometric Functions,  Next: Exponential Functions,  Prev: Mathematics,  Up: Mathematics
@@ -696,7 +697,7 @@ File: rs-cll.info,  Node: Optimization,  Next: Polynomials,  Prev: Exponential F
      iterations.
 
 
-File: rs-cll.info,  Node: Polynomials,  Prev: Optimization,  Up: Mathematics
+File: rs-cll.info,  Node: Polynomials,  Next: Prime Numbers,  Prev: Optimization,  Up: Mathematics
 
 3.4 Polynomials
 ===============
@@ -746,6 +747,42 @@ File: rs-cll.info,  Node: Polynomials,  Prev: Optimization,  Up: Mathematics
      Arguments A, B, C, and D are the coefficients of the polynomial.
 
      Value is a list of three numbers.
+
+
+File: rs-cll.info,  Node: Prime Numbers,  Prev: Polynomials,  Up: Mathematics
+
+3.5 Prime Numbers
+=================
+
+ -- Function: is-prime n
+     Return N if it is a prime number, or nil.
+
+ -- Function: next-prime n
+     Return the prime number greater than N, or nil.
+
+ -- Function: next-prime* n
+     Return the prime number greater than or equal to N, or nil.
+
+ -- Function: previous-prime n
+     Return the prime number less than N, or nil.
+
+ -- Function: previous-prime* n
+     Return the prime number less than or equal to N, or nil.
+
+ -- Function: primes-between from to
+     Return a list of prime numbers between FROM and TO, inclusive.
+
+ -- Function: nth-prime n
+     Return the Nth prime number, or nil.
+
+     The first prime number is 2.  Argument N is one-based, i.e.
+
+          (nth-prime 1)
+           => 2
+
+ -- Function: prime-factors n
+     Return a list of prime factors of N.  If N is prime, return value
+     is the list '(N)'.
 
 
 File: rs-cll.info,  Node: Miscellaneous,  Next: Programming for the Real World,  Prev: Mathematics,  Up: Top
@@ -1345,6 +1382,7 @@ Symbol Index
                                                               (line   6)
 * hypot3:                                Trigonometric Functions.
                                                               (line  12)
+* is-prime:                              Prime Numbers.       (line   6)
 * linear-index-from-subscripts:          Arrays.              (line   6)
 * list-of-strings:                       Types.               (line  11)
 * list-of-strings-p:                     Types.               (line   6)
@@ -1359,10 +1397,17 @@ Symbol Index
                                                               (line   9)
 * mulf:                                  Mathematical Operators.
                                                               (line  27)
+* next-prime:                            Prime Numbers.       (line   9)
+* next-prime*:                           Prime Numbers.       (line  12)
 * nothing:                               Data.                (line  24)
+* nth-prime:                             Prime Numbers.       (line  24)
 * pi/2:                                  Numerical Constants. (line  14)
 * pi/4:                                  Numerical Constants. (line  10)
 * pi/6:                                  Numerical Constants. (line   6)
+* previous-prime:                        Prime Numbers.       (line  15)
+* previous-prime*:                       Prime Numbers.       (line  18)
+* prime-factors:                         Prime Numbers.       (line  32)
+* primes-between:                        Prime Numbers.       (line  21)
 * program-arguments:                     Program Arguments.   (line  22)
 * program-error-stream:                  External Programs.   (line 143)
 * program-exit-status:                   External Programs.   (line 150)
@@ -1499,73 +1544,82 @@ Ref: rs:read-file15346
 Node: Reader16822
 Ref: rs:q-reader16923
 Node: Mathematics18017
-Node: Trigonometric Functions18242
-Ref: rs:hypot18420
-Ref: rs:hypot318605
-Ref: rs:real-sin18799
-Ref: rs:real-cos18922
-Node: Exponential Functions19047
-Ref: rs:cbrt19222
-Ref: rs:square19359
-Ref: rs:square-root19498
-Ref: rs:cube19719
-Ref: rs:cube-root19856
-Node: Optimization20202
-Ref: rs:brent20347
-Node: Polynomials21721
-Ref: rs:evaluate-polynomial21834
-Ref: rs:quadratic-formula-122153
-Ref: rs:quadratic-formula22381
-Ref: rs:cubic-formula-122617
-Ref: rs:cubic-formula22895
-Node: Miscellaneous23138
-Node: Regular Expressions23317
-Ref: rs:string-match23650
-Ref: rs:match-start24113
-Ref: rs:match-end24420
-Ref: rs:match-data24724
-Ref: rs:save-match-data24820
-Ref: rs:match-string24972
-Ref: rs:match-strings25275
-Ref: rs:replace-match25476
-Node: Programming for the Real World25739
-Node: Environment Variables26290
-Ref: rs:environment-variables26496
-Ref: rs:environment-variable26757
-Node: Program Arguments27315
-Ref: rs:program-invocation-name27502
-Ref: rs:program-invocation-short-name27768
-Ref: rs:program-arguments27935
-Node: Program Termination28172
-Ref: rs:exit-success28361
-Ref: rs:exit-failure28450
-Node: Diagnostic Messages28537
-Ref: rs:diagnostic-message29034
-Ref: rs:say29752
-Ref: rs:die30029
-Ref: rs:standalone-program-p30833
-Ref: rs:standalone-program30920
-Node: Working Directory31010
-Ref: rs:get-working-directory31207
-Ref: rs:set-working-directory31384
-Ref: rs:with-working-directory31908
-Node: Temporary Files and Directories32068
-Ref: rs:temporary-file-name32291
-Ref: rs:temporary-file33590
-Ref: rs:with-temporary-file34106
-Ref: rs:temporary-directory34609
-Ref: rs:with-temporary-directory34883
-Node: External Programs35475
-Ref: rs:execute-program35644
-Ref: rs:with-input-from-program39168
-Ref: rs:with-output-to-program39914
-Ref: rs:with-program-io40641
-Ref: rs:program-input-stream41339
-Ref: rs:program-output-stream41577
-Ref: rs:program-error-stream41819
-Ref: rs:program-exit-status42058
-Ref: rs:close-program-streams42263
-Node: Symbol Index42423
-Node: Concept Index52444
+Node: Trigonometric Functions18260
+Ref: rs:hypot18438
+Ref: rs:hypot318623
+Ref: rs:real-sin18817
+Ref: rs:real-cos18940
+Node: Exponential Functions19065
+Ref: rs:cbrt19240
+Ref: rs:square19377
+Ref: rs:square-root19516
+Ref: rs:cube19737
+Ref: rs:cube-root19874
+Node: Optimization20220
+Ref: rs:brent20365
+Node: Polynomials21739
+Ref: rs:evaluate-polynomial21874
+Ref: rs:quadratic-formula-122193
+Ref: rs:quadratic-formula22421
+Ref: rs:cubic-formula-122657
+Ref: rs:cubic-formula22935
+Node: Prime Numbers23178
+Ref: rs:is-prime23296
+Ref: rs:next-prime23369
+Ref: rs:next-prime*23450
+Ref: rs:previous-prime23544
+Ref: rs:previous-prime*23626
+Ref: rs:primes-between23721
+Ref: rs:nth-prime23827
+Ref: rs:prime-factors24003
+Node: Miscellaneous24129
+Node: Regular Expressions24308
+Ref: rs:string-match24641
+Ref: rs:match-start25104
+Ref: rs:match-end25411
+Ref: rs:match-data25715
+Ref: rs:save-match-data25811
+Ref: rs:match-string25963
+Ref: rs:match-strings26266
+Ref: rs:replace-match26467
+Node: Programming for the Real World26730
+Node: Environment Variables27281
+Ref: rs:environment-variables27487
+Ref: rs:environment-variable27748
+Node: Program Arguments28306
+Ref: rs:program-invocation-name28493
+Ref: rs:program-invocation-short-name28759
+Ref: rs:program-arguments28926
+Node: Program Termination29163
+Ref: rs:exit-success29352
+Ref: rs:exit-failure29441
+Node: Diagnostic Messages29528
+Ref: rs:diagnostic-message30025
+Ref: rs:say30743
+Ref: rs:die31020
+Ref: rs:standalone-program-p31824
+Ref: rs:standalone-program31911
+Node: Working Directory32001
+Ref: rs:get-working-directory32198
+Ref: rs:set-working-directory32375
+Ref: rs:with-working-directory32899
+Node: Temporary Files and Directories33059
+Ref: rs:temporary-file-name33282
+Ref: rs:temporary-file34581
+Ref: rs:with-temporary-file35097
+Ref: rs:temporary-directory35600
+Ref: rs:with-temporary-directory35874
+Node: External Programs36466
+Ref: rs:execute-program36635
+Ref: rs:with-input-from-program40159
+Ref: rs:with-output-to-program40905
+Ref: rs:with-program-io41632
+Ref: rs:program-input-stream42330
+Ref: rs:program-output-stream42568
+Ref: rs:program-error-stream42810
+Ref: rs:program-exit-status43049
+Ref: rs:close-program-streams43254
+Node: Symbol Index43414
+Node: Concept Index54019
 
 End Tag Table
