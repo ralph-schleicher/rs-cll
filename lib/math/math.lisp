@@ -1,6 +1,6 @@
 ;;; math.lisp --- mathematics.
 
-;; Copyright (C) 2012 Ralph Schleicher
+;; Copyright (C) 2012, 2013 Ralph Schleicher
 
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions
@@ -34,20 +34,7 @@
 
 (in-package :rs-cll)
 
-(export 'cbrt)
-(if (realp (expt -8 1/3))
-    (defsubst cbrt (number)
-      (declare (type number number))
-      (expt number 1/3))
-  (defun cbrt (number)
-    (declare (type number number))
-    (if (realp number)
-	(* (signum number) (expt (abs number) 1/3))
-      (expt number 1/3))))
-(setf (documentation 'cbrt 'function)
-      "Return the cube root of NUMBER.
-
-If NUMBER is a real number, value is the real cube root of NUMBER.")
+;;;; Trigonometric Functions
 
 (export 'hypot)
 (defsubst hypot (x y)
@@ -75,6 +62,49 @@ Arguments X, Y, and Z have to be real numbers."
 	    y (/ y s)
 	    z (/ z s)))
     (* s (sqrt (+ (* x x) (* y y) (* z z))))))
+
+(export 'real-sin)
+(defun real-sin (angle)
+  "Return the sine of ANGLE.
+
+Argument ANGLE has to be a real number given in radian."
+  (declare (type real angle))
+  (if (zerop (mod angle pi))
+      0
+    (let ((value (sin angle)))
+      (if (= (abs value) 1)
+	  (values (round value))
+	value))))
+
+(export 'real-cos)
+(defun real-cos (angle)
+  "Return the cosine of ANGLE.
+
+Argument ANGLE has to be a real number given in radian."
+  (declare (type real angle))
+  (if (zerop (mod (- angle pi/2) pi))
+      0
+    (let ((value (cos angle)))
+      (if (= (abs value) 1)
+	  (values (round value))
+	value))))
+
+;;;; Exponential Functions
+
+(export 'cbrt)
+(if (realp (expt -8 1/3))
+    (defsubst cbrt (number)
+      (declare (type number number))
+      (expt number 1/3))
+  (defun cbrt (number)
+    (declare (type number number))
+    (if (realp number)
+	(* (signum number) (expt (abs number) 1/3))
+      (expt number 1/3))))
+(setf (documentation 'cbrt 'function)
+      "Return the cube root of NUMBER.
+
+If NUMBER is a real number, value is the real cube root of NUMBER.")
 
 (export 'square)
 (defsubst square (z)
