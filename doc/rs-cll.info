@@ -1,7 +1,7 @@
-This is rs-cll.info, produced by makeinfo version 4.13 from rs-cll.texi.
+This is rs-cll.info, produced by makeinfo version 5.1 from rs-cll.texi.
 
-This is edition 1 (draft), last updated 2013-03-13, of `Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20130313.2302.
+This is edition 1 (draft), last updated 2013-03-25, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20130325.1852.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -10,7 +10,6 @@ Lisp Library Reference Manual', for RS-CLL version 20130313.2302.
      notice are preserved on all copies.
 
 Please report any errors in this manual to <rs@ralph-schleicher.de>.
-
 INFO-DIR-SECTION Libraries
 START-INFO-DIR-ENTRY
 * RS-CLL: (rs-cll).             Ralph's Common Lisp library.
@@ -22,8 +21,8 @@ File: rs-cll.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 RS-CLL
 ******
 
-This is edition 1 (draft), last updated 2013-03-13, of `Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20130313.2302.
+This is edition 1 (draft), last updated 2013-03-25, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20130325.1852.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -79,13 +78,13 @@ File: rs-cll.info,  Node: Data,  Next: Types,  Prev: Basic Definitions,  Up: Bas
  -- Macro: defconst name value &optional doc
      Define a constant variable.
 
-     This is like `defconstant' except that the initially set value is
-     reused when the `defconst' form is evaluated again.
+     This is like 'defconstant' except that the initially set value is
+     reused when the 'defconst' form is evaluated again.
 
  -- Macro: defsubst name arg-list &body body
      Define an inline function.
 
-     This is like `defun' except that the function is globally marked
+     This is like 'defun' except that the function is globally marked
      for inline expansion by the compiler.
 
  -- Function: false &rest arguments
@@ -118,7 +117,7 @@ File: rs-cll.info,  Node: Conditions,  Next: Symbols,  Prev: Types,  Up: Basic D
 ==============
 
  -- Function: ensure-type object type
-     Signal a `type-error' if OBJECT is not of the type TYPE.
+     Signal a 'type-error' if OBJECT is not of the type TYPE.
      Otherwise, return OBJECT.
 
 
@@ -131,8 +130,8 @@ File: rs-cll.info,  Node: Symbols,  Next: Numbers,  Prev: Conditions,  Up: Basic
      Return the name of SYMBOL including the package prefix.
 
      If SYMBOL does not belong to a package, just return it's name.  If
-     SYMBOL is a keyword, add a leading colon character to the name.
-     If SYMBOL is an external symbol of a package, seperate the package
+     SYMBOL is a keyword, add a leading colon character to the name.  If
+     SYMBOL is an external symbol of a package, seperate the package
      name and the symbol name by a colon character.  Otherwise, seperate
      the package name and the symbol name by two colon characters.
 
@@ -213,22 +212,21 @@ Combined Arithmetics
      Multiply NUMBER by MULTIPLICAND, then add SUMMAND.  Attempt to
      perform a fused multiply-add operation.
 
-     This is the inverse of the `fsd' function.
+     This is the inverse of the 'fsd' function.
 
  -- Function: fsd number subtrahend divisor
      Subtract SUBTRAHEND from NUMBER, then divide by DIVISOR.  Attempt
      to perform a fused subtract-divide operation.
 
-     This is the inverse of the `fma' function.
+     This is the inverse of the 'fma' function.
 
  -- Macro: fmaf place multiplicand summand
      Multiply the value designated by PLACE by MULTIPLICAND, then add
      SUMMAND.  Attempt to perform a fused multiply-add operation.
 
  -- Macro: fsdf place subtrahend divisor
-     Subtract SUBTRAHEND from the value designated by PLACE, then
-     divide by DIVISOR.  Attempt to perform a fused subtract-divide
-     operation.
+     Subtract SUBTRAHEND from the value designated by PLACE, then divide
+     by DIVISOR.  Attempt to perform a fused subtract-divide operation.
 
 
 File: rs-cll.info,  Node: Floating-Point Numbers,  Next: Sorting Numbers,  Prev: Mathematical Operators,  Up: Numbers
@@ -301,8 +299,8 @@ File: rs-cll.info,  Node: Number Systems,  Prev: Sorting Numbers,  Up: Numbers
 --------------------
 
  -- Function: roman-numeral n
-     Convert the integral number N into a roman number (a string).  If
-     N is zero, the return value is nil.  If N is a negative number,
+     Convert the integral number N into a roman number (a string).  If N
+     is zero, the return value is nil.  If N is a negative number,
      utilize lowercase letters.  Otherwise, use uppercase letters.
 
 
@@ -367,6 +365,21 @@ File: rs-cll.info,  Node: Characters,  Next: Strings,  Prev: Quantities,  Up: Ba
 
      Argument CHAR has to be a character object.
 
+ -- Function: standard-alpha-char-p char
+     Return true if CHAR is a standard alphabetic character.
+
+     Argument CHAR has to be a character object.
+
+ -- Function: standard-digit-char-p char
+     Return true if CHAR is a standard digit character.
+
+        * First argument CHAR has to be a character object.
+
+        * Optional second argument RADIX is an integer between 2 and 36,
+          inclusive.  Default is 10.
+
+     Value is the weight of CHAR as an integer, or nil.
+
 
 File: rs-cll.info,  Node: Strings,  Next: Sequences,  Prev: Characters,  Up: Basic Definitions
 
@@ -374,8 +387,8 @@ File: rs-cll.info,  Node: Strings,  Next: Sequences,  Prev: Characters,  Up: Bas
 ===========
 
  -- Parameter: *random-string-alphabet*
-     The character set for generating random strings.  Value has to be
-     a vector.
+     The character set for generating random strings.  Value has to be a
+     vector.
 
  -- Function: random-string n
      Return a string with N random characters.
@@ -500,7 +513,7 @@ File: rs-cll.info,  Node: Exponential Functions,  Next: Optimization,  Prev: Tri
 
      Argument NUMBER has to be a number.
 
-     The `square-root' function attempts to propagate the type of the
+     The 'square-root' function attempts to propagate the type of the
      argument NUMBER to its value.
 
  -- Function: cube number
@@ -513,10 +526,10 @@ File: rs-cll.info,  Node: Exponential Functions,  Next: Optimization,  Prev: Tri
 
      Argument NUMBER has to be a number.
 
-     If argument NUMBER is zero, value is zero.  If argument NUMBER is
-     a real number, value is the real cube root of NUMBER.
+     If argument NUMBER is zero, value is zero.  If argument NUMBER is a
+     real number, value is the real cube root of NUMBER.
 
-     The `cube-root' function attempts to propagate the type of the
+     The 'cube-root' function attempts to propagate the type of the
      argument NUMBER to its value.
 
 
@@ -539,8 +552,8 @@ File: rs-cll.info,  Node: Optimization,  Next: Polynomials,  Prev: Exponential F
 
         * Keyword arguments LOWER-BOUND and UPPER-BOUND specify the
           interval bounds between which the root is searched.  If any
-          one of these two arguments is omitted, the interval bounds
-          are determined automatically around INITIAL-VALUE.
+          one of these two arguments is omitted, the interval bounds are
+          determined automatically around INITIAL-VALUE.
 
         * Keyword argument MAX-ITER is the maximum number of iterations
           to be performed.  Default is 1000.
@@ -571,8 +584,8 @@ File: rs-cll.info,  Node: Polynomials,  Prev: Optimization,  Up: Mathematics
         * First argument COEFFICIENTS is a sequence whose elements are
           the coefficients of the polynomial in descending order.
 
-        * Second argument NUMBER is the argument at which the
-          polynomial is evaluated.
+        * Second argument NUMBER is the argument at which the polynomial
+          is evaluated.
 
  -- Function: quadratic-formula-1 p q
      Calculate the roots of a monic quadratic function
@@ -642,7 +655,7 @@ syntactic sugar for working with the match data.
         * Keyword arguments START and END are bounding indices in
           STRING.  Default values are zero and the length of STRING.
 
-     See the `cl-ppcre:scan' function, for more details.
+     See the 'cl-ppcre:scan' function, for more details.
 
  -- Function: match-start &optional subexp
      Return start index of text matched by last search.
@@ -801,22 +814,22 @@ where PROGRAM-NAME is the name of the program issuing the diagnostic
 message and FILE-NAME and LINE-NUMBER should point to the location of
 the error.
 
- -- Condition: diagnostic-message (`simple-condition')
+ -- Condition: diagnostic-message ('simple-condition')
      Condition type for a diagnostic message.
 
         * Slot PROGRAM-NAME is the program name.  Default is the value
-          returned by the `program-invocation-short-name' function.  If
+          returned by the 'program-invocation-short-name' function.  If
           nil, the program name is not part of the message text.
 
         * Slot FILE-NAME is the file name operated on.  Default nil,
           that means not applicable.
 
         * Slot LINE-NUMBER is the line number operated on.  Default nil,
-          that means not applicable.  Value is only used if FILE-NAME
-          is not null.
+          that means not applicable.  Value is only used if FILE-NAME is
+          not null.
 
-        * Slot LEVEL is the severity level.  Value is either `:error',
-          `:warning', or `:message'.  Default is `:message'.
+        * Slot LEVEL is the severity level.  Value is either ':error',
+          ':warning', or ':message'.  Default is ':message'.
 
  -- Function: say datum &rest arguments
      Signal a condition.
@@ -824,7 +837,7 @@ the error.
      Argument is a condition designator.
 
      If the condition is not handled, print the condition report to the
-     `*error-output*' stream and return the condition object.
+     '*error-output*' stream and return the condition object.
      Otherwise, the value is nil.
 
  -- Function: die datum &rest arguments
@@ -833,10 +846,10 @@ the error.
      Argument is a condition designator.
 
      If the condition is not handled, print the condition report to the
-     `*error-output*' stream and terminate the program (see function
-     *note `exit-failure': rs:exit-failure.).
+     '*error-output*' stream and terminate the program (see function
+     *note 'exit-failure': rs:exit-failure.).
 
-You can call `say' and `die' in various ways.
+You can call 'say' and 'die' in various ways.
 
      (say (make-condition 'diagnostic-message
                           :file-name FILE-NAME
@@ -872,7 +885,7 @@ File: rs-cll.info,  Node: Working Directory,  Next: Temporary Files and Director
 
      Value is a pathname.
 
-     Signal a `file-error' if the directory can not be determined.
+     Signal a 'file-error' if the directory can not be determined.
 
  -- Function: set-working-directory directory &optional default
      Set the process's working directory to DIRECTORY.
@@ -883,10 +896,10 @@ File: rs-cll.info,  Node: Working Directory,  Next: Temporary Files and Director
           directory file name) or a pathspec.
 
         * If optional second argument DEFAULT is true, adjust the
-          special variable `*default-pathname-defaults*', too.  This is
+          special variable '*default-pathname-defaults*', too.  This is
           the default.
 
-     Signal a `file-error' if the directory can not be changed.
+     Signal a 'file-error' if the directory can not be changed.
 
  -- Macro: with-working-directory (directory &rest arg) &body body
      Temporarily change the process' working directory to DIRECTORY and
@@ -902,37 +915,37 @@ File: rs-cll.info,  Node: Temporary Files and Directories,  Next: External Progr
      Generate a pathname that may be used for a temporary file.
 
         * Keyword argument PREFIX is the initial sequence of characters
-          for the file name.  Default is `"temp"'.
+          for the file name.  Default is '"temp"'.
 
         * Keyword argument DIRECTORY specifies the directory in which
           the file name is created.  Value is either nil, t, a string,
-          or a pathname designator.  A value of nil means to utilize
-          the directory part of `*default-pathname-defaults*', t means
-          to use some system specific temporary directory, a string is
+          or a pathname designator.  A value of nil means to utilize the
+          directory part of '*default-pathname-defaults*', t means to
+          use some system specific temporary directory, a string is
           interpreted as a directory file name, and a pathname
           designator is used as is.
 
      Value is a pathname whose file name is PREFIX followed by six
-     random characters (see the `random-string' function).
+     random characters (see the 'random-string' function).
 
-     When keyword argument DIRECTORY is t, the system specific
-     temporary directory is chosen as follows.  First, the environment
-     variables `TMPDIR' and `TMP' are examined in that order.  If both
-     environment variables are not set, further processing depends on
-     the type of operating system.  On Unix, fall back to the `/tmp'
-     directory.  On Windows, check the value of the environment variable
-     `TEMP', then fall back to the `C:\Temp', directory.
+     When keyword argument DIRECTORY is t, the system specific temporary
+     directory is chosen as follows.  First, the environment variables
+     'TMPDIR' and 'TMP' are examined in that order.  If both environment
+     variables are not set, further processing depends on the type of
+     operating system.  On Unix, fall back to the '/tmp' directory.  On
+     Windows, check the value of the environment variable 'TEMP', then
+     fall back to the 'C:\Temp', directory.
 
  -- Function: temporary-file &key prefix directory direction
           element-type external-format
      Create a unique file.
 
         * Keyword arguments PREFIX and DIRECTORY have the same meaning
-          as for the `temporary-file-name' function.
+          as for the 'temporary-file-name' function.
 
-        * Keyword arguments DIRECTION (default `:output'), ELEMENT-TYPE
-          (default `character'), and EXTERNAL-FORMAT (default
-          `:default') have the same meaning as for the `open' function.
+        * Keyword arguments DIRECTION (default ':output'), ELEMENT-TYPE
+          (default 'character'), and EXTERNAL-FORMAT (default
+          ':default') have the same meaning as for the 'open' function.
 
      Value is a file stream to the newly created file.
 
@@ -942,7 +955,7 @@ File: rs-cll.info,  Node: Temporary Files and Directories,  Next: External Progr
         * First argument VAR is the variable name to which the file
           stream of the temporary file is bound.
 
-        * Remaining arguments are passed on to the `temporary-file'
+        * Remaining arguments are passed on to the 'temporary-file'
           function.
 
      When control leaves the body, either normally or abnormally, the
@@ -954,7 +967,7 @@ File: rs-cll.info,  Node: Temporary Files and Directories,  Next: External Progr
      Create a unique directory.
 
         * Keyword arguments PREFIX and DIRECTORY have the same meaning
-          as for the `temporary-file-name' function.
+          as for the 'temporary-file-name' function.
 
      Value is the pathname to the newly created directory.
 
@@ -964,7 +977,7 @@ File: rs-cll.info,  Node: Temporary Files and Directories,  Next: External Progr
         * First argument VAR is the variable name to which the pathname
           of the temporary directory is bound.
 
-        * Remaining arguments are passed on to the `temporary-directory'
+        * Remaining arguments are passed on to the 'temporary-directory'
           function.
 
      When control leaves the body, either normally or abnormally, the
@@ -989,41 +1002,41 @@ File: rs-cll.info,  Node: External Programs,  Prev: Temporary Files and Director
           explicit relative file name, execute the specified file.
           Otherwise, search for it in the standard program search path.
 
-        * Second argument ARGUMENTS are the program arguments.  Value
-          is a list of strings.
+        * Second argument ARGUMENTS are the program arguments.  Value is
+          a list of strings.
 
         * Keyword argument EXTRA-ARGUMENTS are additional program
           arguments.  Value is a list of strings.  These arguments are
           appended to the normal ARGUMENTS in a way similar to the
-          `xargs' utility.  Use of this keyword may result in multiple
+          'xargs' utility.  Use of this keyword may result in multiple
           invocations of PROGRAM.
 
         * Keyword argument INPUT is the source for the program's
-          standard input stream.  Value is either nil, t, `:stream', a
-          string, or a pathname.  Default is t and `:stream' is only
+          standard input stream.  Value is either nil, t, ':stream', a
+          string, or a pathname.  Default is t and ':stream' is only
           valid if WAIT is nil.
 
         * Keyword argument IF-INPUT-DOES-NOT-EXIST specifies what to do
-          if INPUT names a non-existing file.  Value is either `:error',
-          `:create', or nil.  Default is `:error'.
+          if INPUT names a non-existing file.  Value is either ':error',
+          ':create', or nil.  Default is ':error'.
 
         * Keyword argument OUTPUT is the destination for the program's
-          standard output stream.  Value is either nil, t, `:stream', a
-          string, or a pathname.  Default is t and `:stream' is only
+          standard output stream.  Value is either nil, t, ':stream', a
+          string, or a pathname.  Default is t and ':stream' is only
           valid if WAIT is nil.
 
         * Keyword argument IF-OUTPUT-EXISTS specifies what to do if
-          OUTPUT names an existing file.  Value is either `:error',
-          `:supersede', `:append', or nil.  Default is `:error'.
+          OUTPUT names an existing file.  Value is either ':error',
+          ':supersede', ':append', or nil.  Default is ':error'.
 
         * Keyword argument ERROR is the destination for the program's
-          standard error stream.  Value is either nil, t, `:stream', a
-          string, or a pathname.  Default is t and `:stream' is only
-          valid if `wait' is nil.
+          standard error stream.  Value is either nil, t, ':stream', a
+          string, or a pathname.  Default is t and ':stream' is only
+          valid if 'wait' is nil.
 
-        * Keyword argument IF-ERROR-EXISTS specifies what to do if
-          ERROR names am existing file.  Value is either `:error',
-          `:supersede', `:append', or nil.  Default is `:error'.
+        * Keyword argument IF-ERROR-EXISTS specifies what to do if ERROR
+          names am existing file.  Value is either ':error',
+          ':supersede', ':append', or nil.  Default is ':error'.
 
         * If keyword argument WAIT is true, block the Lisp process and
           wait for the program to terminate.  Otherwise run the program
@@ -1038,31 +1051,30 @@ File: rs-cll.info,  Node: External Programs,  Prev: Temporary Files and Director
 
      For INPUT, OUTPUT, and ERROR, a value of nil means that the stream
      is redirected to the null device, t means to inherit the stream
-     from the Lisp process, `:stream' means to create a new stream
-     (only valid if `wait' is nil), and a string or a pathname names a
-     file.
+     from the Lisp process, ':stream' means to create a new stream (only
+     valid if 'wait' is nil), and a string or a pathname names a file.
 
-     For IF-INPUT-DOES-NOT-EXIST, a value of `:error' means to signal a
-     file error, `:create' means to create the file, and nil means to
+     For IF-INPUT-DOES-NOT-EXIST, a value of ':error' means to signal a
+     file error, ':create' means to create the file, and nil means to
      fail silently.
 
-     For IF-OUTPUT-EXISTS and IF-ERROR-EXISTS, a value of `:error'
-     means to signal a file error, `:supersede' means to create a new
-     file with the same name, `:append' means to modify the existing
-     file at the end, and nil means to fail silently.
+     For IF-OUTPUT-EXISTS and IF-ERROR-EXISTS, a value of ':error' means
+     to signal a file error, ':supersede' means to create a new file
+     with the same name, ':append' means to modify the existing file at
+     the end, and nil means to fail silently.
 
- -- Macro: with-input-from-program (var program &optional arguments
-          &key input if-input-does-not-exist error if-error-exists)
-          &body body
+ -- Macro: with-input-from-program (var program &optional arguments &key
+          input if-input-does-not-exist error if-error-exists) &body
+          body
      Run an external program asynchronously and evaluate the body forms.
 
         * First argument VAR is the variable name to which the output
           stream of the external program is bound (see
-          `program-output-stream').  The Lisp process can read the
+          'program-output-stream').  The Lisp process can read the
           program's output via this stream.
 
         * Remaining arguments have the same meaning as for the
-          `execute-program' function.
+          'execute-program' function.
 
      When control leaves the body, either normally or abnormally, the
      open stream is automatically closed and deleted.
@@ -1075,11 +1087,11 @@ File: rs-cll.info,  Node: External Programs,  Prev: Temporary Files and Director
 
         * First argument VAR is the variable name to which the input
           stream of the external program is bound (see
-          `program-input-stream').  The Lisp process can write the
+          'program-input-stream').  The Lisp process can write the
           program's input via this stream.
 
         * Remaining arguments have the same meaning as for the
-          `execute-program' function.
+          'execute-program' function.
 
      When control leaves the body, either normally or abnormally, the
      open stream is automatically closed and deleted.
@@ -1096,7 +1108,7 @@ File: rs-cll.info,  Node: External Programs,  Prev: Temporary Files and Director
           output/input via this stream.
 
         * Remaining arguments have the same meaning as for the
-          `execute-program' function.
+          'execute-program' function.
 
      When control leaves the body, either normally or abnormally, the
      open stream is automatically closed and deleted.
@@ -1145,133 +1157,135 @@ Symbol Index
 * Menu:
 
 * (setf environment-variable):           Environment Variables.
-                                                              (line  21)
-* (setf program-arguments):              Program Arguments.   (line  28)
-* (setf program-invocation-name):        Program Arguments.   (line  12)
-* *random-string-alphabet*:              Strings.             (line   7)
-* 2*pi:                                  Numerical Constants. (line  19)
-* absolute-ascending:                    Sorting Numbers.     (line   7)
-* absolute-descending:                   Sorting Numbers.     (line  12)
+                                                              (line  20)
+* (setf program-arguments):              Program Arguments.   (line  27)
+* (setf program-invocation-name):        Program Arguments.   (line  11)
+* *random-string-alphabet*:              Strings.             (line   6)
+* 2*pi:                                  Numerical Constants. (line  18)
+* absolute-ascending:                    Sorting Numbers.     (line   6)
+* absolute-descending:                   Sorting Numbers.     (line  11)
 * addf:                                  Mathematical Operators.
-                                                              (line  21)
-* blank-char-p:                          Characters.          (line  12)
-* bounding-indices-if:                   Sequences.           (line  47)
-* bounding-indices-if-not:               Sequences.           (line  58)
-* brent:                                 Optimization.        (line   8)
+                                                              (line  20)
+* blank-char-p:                          Characters.          (line  11)
+* bounding-indices-if:                   Sequences.           (line  46)
+* bounding-indices-if-not:               Sequences.           (line  57)
+* brent:                                 Optimization.        (line   6)
 * cbrt:                                  Exponential Functions.
-                                                              (line   7)
-* close-program-streams:                 External Programs.   (line 158)
+                                                              (line   6)
+* close-program-streams:                 External Programs.   (line 156)
 * cube:                                  Exponential Functions.
-                                                              (line  25)
-* cube-root:                             Exponential Functions.
-                                                              (line  30)
-* cubic-formula:                         Polynomials.         (line  44)
-* cubic-formula-1:                       Polynomials.         (line  34)
-* decimal-digits:                        Floating-Point Numbers.
-                                                              (line  44)
-* defconst:                              Data.                (line   7)
-* defsubst:                              Data.                (line  13)
-* degree-from-radian:                    Quantities.          (line  14)
-* degree-from-sexagesimal:               Quantities.          (line  21)
-* diagnostic-message:                    Diagnostic Messages. (line  16)
-* die:                                   Diagnostic Messages. (line  42)
-* divf:                                  Mathematical Operators.
-                                                              (line  31)
-* end-index-if:                          Sequences.           (line  27)
-* end-index-if-not:                      Sequences.           (line  37)
-* ensure-type:                           Conditions.          (line   7)
-* environment-variable:                  Environment Variables.
-                                                              (line  16)
-* environment-variables:                 Environment Variables.
-                                                              (line   7)
-* evaluate-polynomial:                   Polynomials.         (line   7)
-* execute-program:                       External Programs.   (line   9)
-* exit-failure:                          Program Termination. (line  10)
-* exit-success:                          Program Termination. (line   7)
-* false:                                 Data.                (line  19)
-* float-digits*:                         Floating-Point Numbers.
-                                                              (line  23)
-* float-epsilon:                         Floating-Point Numbers.
-                                                              (line   7)
-* float-negative-epsilon:                Floating-Point Numbers.
-                                                              (line  15)
-* float-precision*:                      Floating-Point Numbers.
-                                                              (line  34)
-* fma:                                   Mathematical Operators.
-                                                              (line  38)
-* fmaf:                                  Mathematical Operators.
-                                                              (line  50)
-* fsd:                                   Mathematical Operators.
-                                                              (line  44)
-* fsdf:                                  Mathematical Operators.
-                                                              (line  54)
-* get-working-directory:                 Working Directory.   (line   7)
-* hypot:                                 Trigonometric Functions.
-                                                              (line   7)
-* hypot3:                                Trigonometric Functions.
-                                                              (line  13)
-* list-of-strings:                       Types.               (line  12)
-* list-of-strings-p:                     Types.               (line   7)
-* match-data:                            Regular Expressions. (line  42)
-* match-end:                             Regular Expressions. (line  33)
-* match-start:                           Regular Expressions. (line  24)
-* match-string:                          Regular Expressions. (line  50)
-* match-strings:                         Regular Expressions. (line  59)
-* maxf:                                  Mathematical Operators.
-                                                              (line  14)
-* minf:                                  Mathematical Operators.
-                                                              (line  10)
-* mulf:                                  Mathematical Operators.
-                                                              (line  28)
-* nothing:                               Data.                (line  25)
-* pi/2:                                  Numerical Constants. (line  15)
-* pi/4:                                  Numerical Constants. (line  11)
-* pi/6:                                  Numerical Constants. (line   7)
-* program-arguments:                     Program Arguments.   (line  23)
-* program-error-stream:                  External Programs.   (line 145)
-* program-exit-status:                   External Programs.   (line 152)
-* program-input-stream:                  External Programs.   (line 131)
-* program-invocation-name:               Program Arguments.   (line   7)
-* program-invocation-short-name:         Program Arguments.   (line  17)
-* program-output-stream:                 External Programs.   (line 138)
-* quadratic-formula:                     Polynomials.         (line  25)
-* quadratic-formula-1:                   Polynomials.         (line  16)
-* radian-from-degree:                    Quantities.          (line   7)
-* random-string:                         Strings.             (line  11)
-* replace-match:                         Regular Expressions. (line  65)
-* roman-numeral:                         Number Systems.      (line   7)
-* save-match-data:                       Regular Expressions. (line  45)
-* say:                                   Diagnostic Messages. (line  33)
-* set-working-directory:                 Working Directory.   (line  14)
-* sexagesimal-from-degree:               Quantities.          (line  37)
-* square:                                Exponential Functions.
-                                                              (line  12)
-* square-root:                           Exponential Functions.
-                                                              (line  17)
-* standalone-program:                    Diagnostic Messages. (line  73)
-* standalone-program-p:                  Diagnostic Messages. (line  70)
-* start-index-if:                        Sequences.           (line   7)
-* start-index-if-not:                    Sequences.           (line  17)
-* string-match:                          Regular Expressions. (line  11)
-* subf:                                  Mathematical Operators.
                                                               (line  24)
-* symbol-name*:                          Symbols.             (line   7)
-* temporary-directory:                   Temporary Files and Directories.
-                                                              (line  59)
-* temporary-file:                        Temporary Files and Directories.
+* cube-root:                             Exponential Functions.
+                                                              (line  29)
+* cubic-formula:                         Polynomials.         (line  43)
+* cubic-formula-1:                       Polynomials.         (line  33)
+* decimal-digits:                        Floating-Point Numbers.
+                                                              (line  43)
+* defconst:                              Data.                (line   6)
+* defsubst:                              Data.                (line  12)
+* degree-from-radian:                    Quantities.          (line  13)
+* degree-from-sexagesimal:               Quantities.          (line  20)
+* diagnostic-message:                    Diagnostic Messages. (line  15)
+* die:                                   Diagnostic Messages. (line  41)
+* divf:                                  Mathematical Operators.
+                                                              (line  30)
+* end-index-if:                          Sequences.           (line  26)
+* end-index-if-not:                      Sequences.           (line  36)
+* ensure-type:                           Conditions.          (line   6)
+* environment-variable:                  Environment Variables.
+                                                              (line  15)
+* environment-variables:                 Environment Variables.
+                                                              (line   6)
+* evaluate-polynomial:                   Polynomials.         (line   6)
+* execute-program:                       External Programs.   (line   6)
+* exit-failure:                          Program Termination. (line   9)
+* exit-success:                          Program Termination. (line   6)
+* false:                                 Data.                (line  18)
+* float-digits*:                         Floating-Point Numbers.
+                                                              (line  22)
+* float-epsilon:                         Floating-Point Numbers.
+                                                              (line   6)
+* float-negative-epsilon:                Floating-Point Numbers.
+                                                              (line  14)
+* float-precision*:                      Floating-Point Numbers.
                                                               (line  33)
+* fma:                                   Mathematical Operators.
+                                                              (line  37)
+* fmaf:                                  Mathematical Operators.
+                                                              (line  49)
+* fsd:                                   Mathematical Operators.
+                                                              (line  43)
+* fsdf:                                  Mathematical Operators.
+                                                              (line  53)
+* get-working-directory:                 Working Directory.   (line   6)
+* hypot:                                 Trigonometric Functions.
+                                                              (line   6)
+* hypot3:                                Trigonometric Functions.
+                                                              (line  12)
+* list-of-strings:                       Types.               (line  11)
+* list-of-strings-p:                     Types.               (line   6)
+* match-data:                            Regular Expressions. (line  41)
+* match-end:                             Regular Expressions. (line  32)
+* match-start:                           Regular Expressions. (line  23)
+* match-string:                          Regular Expressions. (line  49)
+* match-strings:                         Regular Expressions. (line  58)
+* maxf:                                  Mathematical Operators.
+                                                              (line  13)
+* minf:                                  Mathematical Operators.
+                                                              (line   9)
+* mulf:                                  Mathematical Operators.
+                                                              (line  27)
+* nothing:                               Data.                (line  24)
+* pi/2:                                  Numerical Constants. (line  14)
+* pi/4:                                  Numerical Constants. (line  10)
+* pi/6:                                  Numerical Constants. (line   6)
+* program-arguments:                     Program Arguments.   (line  22)
+* program-error-stream:                  External Programs.   (line 143)
+* program-exit-status:                   External Programs.   (line 150)
+* program-input-stream:                  External Programs.   (line 129)
+* program-invocation-name:               Program Arguments.   (line   6)
+* program-invocation-short-name:         Program Arguments.   (line  16)
+* program-output-stream:                 External Programs.   (line 136)
+* quadratic-formula:                     Polynomials.         (line  24)
+* quadratic-formula-1:                   Polynomials.         (line  15)
+* radian-from-degree:                    Quantities.          (line   6)
+* random-string:                         Strings.             (line  10)
+* replace-match:                         Regular Expressions. (line  64)
+* roman-numeral:                         Number Systems.      (line   6)
+* save-match-data:                       Regular Expressions. (line  44)
+* say:                                   Diagnostic Messages. (line  32)
+* set-working-directory:                 Working Directory.   (line  13)
+* sexagesimal-from-degree:               Quantities.          (line  36)
+* square:                                Exponential Functions.
+                                                              (line  11)
+* square-root:                           Exponential Functions.
+                                                              (line  16)
+* standalone-program:                    Diagnostic Messages. (line  72)
+* standalone-program-p:                  Diagnostic Messages. (line  69)
+* standard-alpha-char-p:                 Characters.          (line  16)
+* standard-digit-char-p:                 Characters.          (line  21)
+* start-index-if:                        Sequences.           (line   6)
+* start-index-if-not:                    Sequences.           (line  16)
+* string-match:                          Regular Expressions. (line  10)
+* subf:                                  Mathematical Operators.
+                                                              (line  23)
+* symbol-name*:                          Symbols.             (line   6)
+* temporary-directory:                   Temporary Files and Directories.
+                                                              (line  58)
+* temporary-file:                        Temporary Files and Directories.
+                                                              (line  31)
 * temporary-file-name:                   Temporary Files and Directories.
-                                                              (line   7)
-* true:                                  Data.                (line  22)
-* whitespace-char-p:                     Characters.          (line   7)
-* with-input-from-program:               External Programs.   (line  81)
-* with-output-to-program:                External Programs.   (line  98)
-* with-program-io:                       External Programs.   (line 115)
+                                                              (line   6)
+* true:                                  Data.                (line  21)
+* whitespace-char-p:                     Characters.          (line   6)
+* with-input-from-program:               External Programs.   (line  77)
+* with-output-to-program:                External Programs.   (line  95)
+* with-program-io:                       External Programs.   (line 112)
 * with-temporary-directory:              Temporary Files and Directories.
-                                                              (line  67)
+                                                              (line  66)
 * with-temporary-file:                   Temporary Files and Directories.
-                                                              (line  45)
-* with-working-directory:                Working Directory.   (line  28)
+                                                              (line  44)
+* with-working-directory:                Working Directory.   (line  27)
 
 
 File: rs-cll.info,  Node: Concept Index,  Prev: Symbol Index,  Up: Top
@@ -1279,139 +1293,139 @@ File: rs-cll.info,  Node: Concept Index,  Prev: Symbol Index,  Up: Top
 Concept Index
 *************
 
- [index ]
-* Menu:
 
 
 Tag Table:
-Node: Top632
-Node: Introduction1309
-Node: Basic Definitions1538
-Node: Data1801
-Ref: rs:defconst1918
-Ref: rs:defsubst2126
-Ref: rs:false2318
-Ref: rs:true2397
-Ref: rs:nothing2473
-Node: Types2560
-Ref: rs:list-of-strings-p2672
-Ref: rs:list-of-strings2816
-Node: Conditions2886
-Ref: rs:ensure-type3011
-Node: Symbols3143
-Ref: rs:symbol-name*3264
-Node: Numbers3714
-Node: Numerical Constants3962
-Ref: rs:pi/64125
-Ref: rs:pi/44255
-Ref: rs:pi/24388
-Ref: rs:2*pi4517
-Node: Mathematical Operators4645
-Ref: rs:minf4870
-Ref: rs:maxf5000
-Ref: rs:addf5167
-Ref: rs:subf5255
-Ref: rs:mulf5407
-Ref: rs:divf5500
-Ref: rs:fma5681
-Ref: rs:fsd5890
-Ref: rs:fmaf6106
-Ref: rs:fsdf6286
-Node: Floating-Point Numbers6478
-Ref: rs:float-epsilon6658
-Ref: rs:float-negative-epsilon6905
-Ref: rs:float-digits*7161
-Ref: rs:float-precision*7560
-Ref: rs:decimal-digits7949
-Node: Sorting Numbers8140
-Ref: rs:absolute-ascending8298
-Ref: rs:absolute-descending8505
-Node: Number Systems8717
-Ref: rs:roman-numeral8842
-Node: Quantities9080
-Ref: rs:radian-from-degree9210
-Ref: rs:degree-from-radian9408
-Ref: rs:degree-from-sexagesimal9606
-Ref: rs:sexagesimal-from-degree10208
-Node: Characters10633
-Ref: rs:whitespace-char-p10763
-Ref: rs:blank-char-p10903
-Node: Strings11051
-Ref: rs:*random-string-alphabet*11174
-Ref: rs:random-string11301
-Node: Sequences11379
-Ref: rs:start-index-if11487
-Ref: rs:start-index-if-not11850
-Ref: rs:end-index-if12221
-Ref: rs:end-index-if-not12581
-Ref: rs:bounding-indices-if12949
-Ref: rs:bounding-indices-if-not13360
-Node: Mathematics13779
-Node: Trigonometric Functions14004
-Ref: rs:hypot14182
-Ref: rs:hypot314367
-Node: Exponential Functions14561
-Ref: rs:cbrt14736
-Ref: rs:square14873
-Ref: rs:square-root15012
-Ref: rs:cube15233
-Ref: rs:cube-root15370
-Node: Optimization15716
-Ref: rs:brent15861
-Node: Polynomials17235
-Ref: rs:evaluate-polynomial17348
-Ref: rs:quadratic-formula-117667
-Ref: rs:quadratic-formula17895
-Ref: rs:cubic-formula-118131
-Ref: rs:cubic-formula18409
-Node: Miscellaneous18652
-Node: Regular Expressions18831
-Ref: rs:string-match19164
-Ref: rs:match-start19627
-Ref: rs:match-end19934
-Ref: rs:match-data20238
-Ref: rs:save-match-data20334
-Ref: rs:match-string20486
-Ref: rs:match-strings20789
-Ref: rs:replace-match20990
-Node: Programming for the Real World21253
-Node: Environment Variables21804
-Ref: rs:environment-variables22010
-Ref: rs:environment-variable22271
-Node: Program Arguments22829
-Ref: rs:program-invocation-name23016
-Ref: rs:program-invocation-short-name23282
-Ref: rs:program-arguments23449
-Node: Program Termination23686
-Ref: rs:exit-success23875
-Ref: rs:exit-failure23964
-Node: Diagnostic Messages24051
-Ref: rs:diagnostic-message24548
-Ref: rs:say25266
-Ref: rs:die25543
-Ref: rs:standalone-program-p26347
-Ref: rs:standalone-program26434
-Node: Working Directory26524
-Ref: rs:get-working-directory26721
-Ref: rs:set-working-directory26898
-Ref: rs:with-working-directory27422
-Node: Temporary Files and Directories27582
-Ref: rs:temporary-file-name27805
-Ref: rs:temporary-file29104
-Ref: rs:with-temporary-file29620
-Ref: rs:temporary-directory30123
-Ref: rs:with-temporary-directory30397
-Node: External Programs30989
-Ref: rs:execute-program31158
-Ref: rs:with-input-from-program34687
-Ref: rs:with-output-to-program35433
-Ref: rs:with-program-io36160
-Ref: rs:program-input-stream36858
-Ref: rs:program-output-stream37096
-Ref: rs:program-error-stream37338
-Ref: rs:program-exit-status37577
-Ref: rs:close-program-streams37782
-Node: Symbol Index37942
-Node: Concept Index47247
+Node: Top630
+Node: Introduction1307
+Node: Basic Definitions1536
+Node: Data1799
+Ref: rs:defconst1916
+Ref: rs:defsubst2124
+Ref: rs:false2316
+Ref: rs:true2395
+Ref: rs:nothing2471
+Node: Types2558
+Ref: rs:list-of-strings-p2670
+Ref: rs:list-of-strings2814
+Node: Conditions2884
+Ref: rs:ensure-type3009
+Node: Symbols3141
+Ref: rs:symbol-name*3262
+Node: Numbers3713
+Node: Numerical Constants3961
+Ref: rs:pi/64124
+Ref: rs:pi/44254
+Ref: rs:pi/24387
+Ref: rs:2*pi4516
+Node: Mathematical Operators4644
+Ref: rs:minf4869
+Ref: rs:maxf4999
+Ref: rs:addf5166
+Ref: rs:subf5254
+Ref: rs:mulf5406
+Ref: rs:divf5499
+Ref: rs:fma5680
+Ref: rs:fsd5889
+Ref: rs:fmaf6105
+Ref: rs:fsdf6285
+Node: Floating-Point Numbers6472
+Ref: rs:float-epsilon6652
+Ref: rs:float-negative-epsilon6899
+Ref: rs:float-digits*7155
+Ref: rs:float-precision*7554
+Ref: rs:decimal-digits7943
+Node: Sorting Numbers8134
+Ref: rs:absolute-ascending8292
+Ref: rs:absolute-descending8499
+Node: Number Systems8711
+Ref: rs:roman-numeral8836
+Node: Quantities9074
+Ref: rs:radian-from-degree9204
+Ref: rs:degree-from-radian9402
+Ref: rs:degree-from-sexagesimal9600
+Ref: rs:sexagesimal-from-degree10202
+Node: Characters10627
+Ref: rs:whitespace-char-p10757
+Ref: rs:blank-char-p10897
+Ref: rs:standard-alpha-char-p11045
+Ref: rs:standard-digit-char-p11198
+Node: Strings11525
+Ref: rs:*random-string-alphabet*11648
+Ref: rs:random-string11775
+Node: Sequences11853
+Ref: rs:start-index-if11961
+Ref: rs:start-index-if-not12324
+Ref: rs:end-index-if12695
+Ref: rs:end-index-if-not13055
+Ref: rs:bounding-indices-if13423
+Ref: rs:bounding-indices-if-not13834
+Node: Mathematics14253
+Node: Trigonometric Functions14478
+Ref: rs:hypot14656
+Ref: rs:hypot314841
+Node: Exponential Functions15035
+Ref: rs:cbrt15210
+Ref: rs:square15347
+Ref: rs:square-root15486
+Ref: rs:cube15707
+Ref: rs:cube-root15844
+Node: Optimization16190
+Ref: rs:brent16335
+Node: Polynomials17709
+Ref: rs:evaluate-polynomial17822
+Ref: rs:quadratic-formula-118141
+Ref: rs:quadratic-formula18369
+Ref: rs:cubic-formula-118605
+Ref: rs:cubic-formula18883
+Node: Miscellaneous19126
+Node: Regular Expressions19305
+Ref: rs:string-match19638
+Ref: rs:match-start20101
+Ref: rs:match-end20408
+Ref: rs:match-data20712
+Ref: rs:save-match-data20808
+Ref: rs:match-string20960
+Ref: rs:match-strings21263
+Ref: rs:replace-match21464
+Node: Programming for the Real World21727
+Node: Environment Variables22278
+Ref: rs:environment-variables22484
+Ref: rs:environment-variable22745
+Node: Program Arguments23303
+Ref: rs:program-invocation-name23490
+Ref: rs:program-invocation-short-name23756
+Ref: rs:program-arguments23923
+Node: Program Termination24160
+Ref: rs:exit-success24349
+Ref: rs:exit-failure24438
+Node: Diagnostic Messages24525
+Ref: rs:diagnostic-message25022
+Ref: rs:say25740
+Ref: rs:die26017
+Ref: rs:standalone-program-p26821
+Ref: rs:standalone-program26908
+Node: Working Directory26998
+Ref: rs:get-working-directory27195
+Ref: rs:set-working-directory27372
+Ref: rs:with-working-directory27896
+Node: Temporary Files and Directories28056
+Ref: rs:temporary-file-name28279
+Ref: rs:temporary-file29578
+Ref: rs:with-temporary-file30094
+Ref: rs:temporary-directory30597
+Ref: rs:with-temporary-directory30871
+Node: External Programs31463
+Ref: rs:execute-program31632
+Ref: rs:with-input-from-program35156
+Ref: rs:with-output-to-program35902
+Ref: rs:with-program-io36629
+Ref: rs:program-input-stream37327
+Ref: rs:program-output-stream37565
+Ref: rs:program-error-stream37807
+Ref: rs:program-exit-status38046
+Ref: rs:close-program-streams38251
+Node: Symbol Index38411
+Node: Concept Index47862
 
 End Tag Table
