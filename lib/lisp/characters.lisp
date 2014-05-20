@@ -1,6 +1,6 @@
 ;;; characters.lisp --- characters.
 
-;; Copyright (C) 2012, 2013 Ralph Schleicher
+;; Copyright (C) 2012 Ralph Schleicher
 
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions
