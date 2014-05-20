@@ -52,6 +52,7 @@
 			     (:file "numbers")
 			     (:file "quantities")
 			     (:file "characters")
+			     (:file "arrays")
 			     (:file "strings")
 			     (:file "sequences")
 			     (:file "streams")
