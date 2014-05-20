@@ -38,10 +38,11 @@
   :description "Ralph's Common Lisp library."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
-  :version "20131204.2148"
+  :version "20131205.2303"
   :depends-on (:trivial-features :iterate :cl-fad :cl-ppcre)
   :serial t
   :components ((:file "rs-cll")
+	       (:file "specials")
 	       ;; Portable Common Lisp extensions.
 	       (:module "lisp"
 		:serial t
@@ -62,7 +63,8 @@
 		:components ((:file "math")
 			     (:file "brent")
 			     (:file "polynomials")
-			     (:file "trig")))
+			     (:file "trig")
+			     (:file "primes")))
 	       (:module "misc"
 		:serial t
 		:components ((:file "regex")
