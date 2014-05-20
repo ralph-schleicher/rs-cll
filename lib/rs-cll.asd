@@ -38,7 +38,7 @@
   :description "Ralph's Common Lisp library."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
-  :version "20130325.1852"
+  :version "20130410.1625"
   :depends-on (:trivial-features :iterate :cl-fad :cl-ppcre)
   :serial t
   :components ((:file "rs-cll")
