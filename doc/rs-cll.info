@@ -1,7 +1,7 @@
 This is rs-cll.info, produced by makeinfo version 5.1 from rs-cll.texi.
 
-This is edition 1 (draft), last updated 2013-05-17, of 'Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20130517.1949.
+This is edition 1 (draft), last updated 2013-10-08, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20131008.0250.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -21,8 +21,8 @@ File: rs-cll.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 RS-CLL
 ******
 
-This is edition 1 (draft), last updated 2013-05-17, of 'Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20130517.1949.
+This is edition 1 (draft), last updated 2013-10-08, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20131008.0250.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -66,6 +66,7 @@ File: rs-cll.info,  Node: Basic Definitions,  Next: Mathematics,  Prev: Introduc
 * Numbers::
 * Quantities::
 * Characters::
+* Arrays::
 * Strings::
 * Sequences::
 * Streams::
@@ -352,7 +353,7 @@ File: rs-cll.info,  Node: Quantities,  Next: Characters,  Prev: Numbers,  Up: Ba
      one specifying the sign of the angle.
 
 
-File: rs-cll.info,  Node: Characters,  Next: Strings,  Prev: Quantities,  Up: Basic Definitions
+File: rs-cll.info,  Node: Characters,  Next: Arrays,  Prev: Quantities,  Up: Basic Definitions
 
 2.7 Characters
 ==============
@@ -383,9 +384,36 @@ File: rs-cll.info,  Node: Characters,  Next: Strings,  Prev: Quantities,  Up: Ba
      Value is the weight of CHAR as an integer, or nil.
 
 
-File: rs-cll.info,  Node: Strings,  Next: Sequences,  Prev: Characters,  Up: Basic Definitions
+File: rs-cll.info,  Node: Arrays,  Next: Strings,  Prev: Characters,  Up: Basic Definitions
 
-2.8 Strings
+2.8 Arrays
+==========
+
+ -- Function: linear-index-from-subscripts dimensions subscripts
+     Return the linear index corresponding to a set of subscript values.
+
+        * First argument DIMENSIONS is a list of valid array dimensions.
+
+        * Second argument SUBSCRIPTS is a list of valid array indices.
+
+     The return value of the 'linear-index-from-subscripts' function is
+     equal to the value of the form
+
+          (apply #'array-row-major-index (make-array DIMENSIONS) SUBSCRIPTS)
+
+ -- Function: subscripts-from-linear-index dimensions index
+     Return the set of subscript values corresponding to a linear index.
+
+        * First argument DIMENSIONS is a list of valid array dimensions.
+
+        * Second argument INDEX is a valid array index.
+
+     This is the inverse function of 'linear-index-from-subscripts'.
+
+
+File: rs-cll.info,  Node: Strings,  Next: Sequences,  Prev: Arrays,  Up: Basic Definitions
+
+2.9 Strings
 ===========
 
  -- Parameter: *random-string-alphabet*
@@ -398,8 +426,8 @@ File: rs-cll.info,  Node: Strings,  Next: Sequences,  Prev: Characters,  Up: Bas
 
 File: rs-cll.info,  Node: Sequences,  Next: Streams,  Prev: Strings,  Up: Basic Definitions
 
-2.9 Sequences
-=============
+2.10 Sequences
+==============
 
  -- Function: start-index-if predicate seq &key start end key
      Return start index of first element in SEQ matching PREDICATE.
@@ -466,7 +494,7 @@ File: rs-cll.info,  Node: Sequences,  Next: Streams,  Prev: Strings,  Up: Basic 
 
 File: rs-cll.info,  Node: Streams,  Next: Reader,  Prev: Sequences,  Up: Basic Definitions
 
-2.10 Streams
+2.11 Streams
 ============
 
  -- Function: read-file &optional input-stream element-length
@@ -509,7 +537,7 @@ File: rs-cll.info,  Node: Streams,  Next: Reader,  Prev: Sequences,  Up: Basic D
 
 File: rs-cll.info,  Node: Reader,  Prev: Streams,  Up: Basic Definitions
 
-2.11 Reader
+2.12 Reader
 ===========
 
  -- Function: q-reader stream sub-char arg
@@ -1307,6 +1335,7 @@ Symbol Index
                                                               (line   6)
 * hypot3:                                Trigonometric Functions.
                                                               (line  12)
+* linear-index-from-subscripts:          Arrays.              (line   6)
 * list-of-strings:                       Types.               (line  11)
 * list-of-strings-p:                     Types.               (line   6)
 * match-data:                            Regular Expressions. (line  41)
@@ -1356,6 +1385,7 @@ Symbol Index
 * string-match:                          Regular Expressions. (line  10)
 * subf:                                  Mathematical Operators.
                                                               (line  23)
+* subscripts-from-linear-index:          Arrays.              (line  18)
 * symbol-name*:                          Symbols.             (line   6)
 * temporary-directory:                   Temporary Files and Directories.
                                                               (line  58)
@@ -1386,137 +1416,140 @@ Tag Table:
 Node: Top630
 Node: Introduction1307
 Node: Basic Definitions1536
-Node: Data1822
-Ref: rs:defconst1939
-Ref: rs:defsubst2147
-Ref: rs:false2339
-Ref: rs:true2418
-Ref: rs:nothing2494
-Node: Types2581
-Ref: rs:list-of-strings-p2693
-Ref: rs:list-of-strings2837
-Node: Conditions2907
-Ref: rs:ensure-type3032
-Node: Symbols3164
-Ref: rs:symbol-name*3285
-Node: Numbers3736
-Node: Numerical Constants3984
-Ref: rs:pi/64147
-Ref: rs:pi/44277
-Ref: rs:pi/24410
-Ref: rs:2*pi4539
-Node: Mathematical Operators4667
-Ref: rs:minf4892
-Ref: rs:maxf5022
-Ref: rs:addf5189
-Ref: rs:subf5277
-Ref: rs:mulf5429
-Ref: rs:divf5522
-Ref: rs:fma5703
-Ref: rs:fsd5912
-Ref: rs:fmaf6128
-Ref: rs:fsdf6308
-Node: Floating-Point Numbers6495
-Ref: rs:float-epsilon6675
-Ref: rs:float-negative-epsilon6922
-Ref: rs:float-digits*7178
-Ref: rs:float-precision*7577
-Ref: rs:decimal-digits7966
-Node: Sorting Numbers8157
-Ref: rs:absolute-ascending8315
-Ref: rs:absolute-descending8522
-Node: Number Systems8734
-Ref: rs:roman-numeral8859
-Node: Quantities9097
-Ref: rs:radian-from-degree9227
-Ref: rs:degree-from-radian9425
-Ref: rs:degree-from-sexagesimal9623
-Ref: rs:sexagesimal-from-degree10225
-Node: Characters10650
-Ref: rs:whitespace-char-p10780
-Ref: rs:blank-char-p10920
-Ref: rs:standard-alpha-char-p11068
-Ref: rs:standard-digit-char-p11221
-Node: Strings11548
-Ref: rs:*random-string-alphabet*11671
-Ref: rs:random-string11798
-Node: Sequences11876
-Ref: rs:start-index-if12000
-Ref: rs:start-index-if-not12363
-Ref: rs:end-index-if12734
-Ref: rs:end-index-if-not13094
-Ref: rs:bounding-indices-if13462
-Ref: rs:bounding-indices-if-not13873
-Node: Streams14292
-Ref: rs:read-file14413
-Node: Reader15889
-Ref: rs:q-reader15990
-Node: Mathematics17084
-Node: Trigonometric Functions17309
-Ref: rs:hypot17487
-Ref: rs:hypot317672
-Node: Exponential Functions17866
-Ref: rs:cbrt18041
-Ref: rs:square18178
-Ref: rs:square-root18317
-Ref: rs:cube18538
-Ref: rs:cube-root18675
-Node: Optimization19021
-Ref: rs:brent19166
-Node: Polynomials20540
-Ref: rs:evaluate-polynomial20653
-Ref: rs:quadratic-formula-120972
-Ref: rs:quadratic-formula21200
-Ref: rs:cubic-formula-121436
-Ref: rs:cubic-formula21714
-Node: Miscellaneous21957
-Node: Regular Expressions22136
-Ref: rs:string-match22469
-Ref: rs:match-start22932
-Ref: rs:match-end23239
-Ref: rs:match-data23543
-Ref: rs:save-match-data23639
-Ref: rs:match-string23791
-Ref: rs:match-strings24094
-Ref: rs:replace-match24295
-Node: Programming for the Real World24558
-Node: Environment Variables25109
-Ref: rs:environment-variables25315
-Ref: rs:environment-variable25576
-Node: Program Arguments26134
-Ref: rs:program-invocation-name26321
-Ref: rs:program-invocation-short-name26587
-Ref: rs:program-arguments26754
-Node: Program Termination26991
-Ref: rs:exit-success27180
-Ref: rs:exit-failure27269
-Node: Diagnostic Messages27356
-Ref: rs:diagnostic-message27853
-Ref: rs:say28571
-Ref: rs:die28848
-Ref: rs:standalone-program-p29652
-Ref: rs:standalone-program29739
-Node: Working Directory29829
-Ref: rs:get-working-directory30026
-Ref: rs:set-working-directory30203
-Ref: rs:with-working-directory30727
-Node: Temporary Files and Directories30887
-Ref: rs:temporary-file-name31110
-Ref: rs:temporary-file32409
-Ref: rs:with-temporary-file32925
-Ref: rs:temporary-directory33428
-Ref: rs:with-temporary-directory33702
-Node: External Programs34294
-Ref: rs:execute-program34463
-Ref: rs:with-input-from-program37987
-Ref: rs:with-output-to-program38733
-Ref: rs:with-program-io39460
-Ref: rs:program-input-stream40158
-Ref: rs:program-output-stream40396
-Ref: rs:program-error-stream40638
-Ref: rs:program-exit-status40877
-Ref: rs:close-program-streams41082
-Node: Symbol Index41242
-Node: Concept Index50839
+Node: Data1833
+Ref: rs:defconst1950
+Ref: rs:defsubst2158
+Ref: rs:false2350
+Ref: rs:true2429
+Ref: rs:nothing2505
+Node: Types2592
+Ref: rs:list-of-strings-p2704
+Ref: rs:list-of-strings2848
+Node: Conditions2918
+Ref: rs:ensure-type3043
+Node: Symbols3175
+Ref: rs:symbol-name*3296
+Node: Numbers3747
+Node: Numerical Constants3995
+Ref: rs:pi/64158
+Ref: rs:pi/44288
+Ref: rs:pi/24421
+Ref: rs:2*pi4550
+Node: Mathematical Operators4678
+Ref: rs:minf4903
+Ref: rs:maxf5033
+Ref: rs:addf5200
+Ref: rs:subf5288
+Ref: rs:mulf5440
+Ref: rs:divf5533
+Ref: rs:fma5714
+Ref: rs:fsd5923
+Ref: rs:fmaf6139
+Ref: rs:fsdf6319
+Node: Floating-Point Numbers6506
+Ref: rs:float-epsilon6686
+Ref: rs:float-negative-epsilon6933
+Ref: rs:float-digits*7189
+Ref: rs:float-precision*7588
+Ref: rs:decimal-digits7977
+Node: Sorting Numbers8168
+Ref: rs:absolute-ascending8326
+Ref: rs:absolute-descending8533
+Node: Number Systems8745
+Ref: rs:roman-numeral8870
+Node: Quantities9108
+Ref: rs:radian-from-degree9238
+Ref: rs:degree-from-radian9436
+Ref: rs:degree-from-sexagesimal9634
+Ref: rs:sexagesimal-from-degree10236
+Node: Characters10661
+Ref: rs:whitespace-char-p10790
+Ref: rs:blank-char-p10930
+Ref: rs:standard-alpha-char-p11078
+Ref: rs:standard-digit-char-p11231
+Node: Arrays11558
+Ref: rs:linear-index-from-subscripts11676
+Ref: rs:subscripts-from-linear-index12148
+Node: Strings12483
+Ref: rs:*random-string-alphabet*12602
+Ref: rs:random-string12729
+Node: Sequences12807
+Ref: rs:start-index-if12933
+Ref: rs:start-index-if-not13296
+Ref: rs:end-index-if13667
+Ref: rs:end-index-if-not14027
+Ref: rs:bounding-indices-if14395
+Ref: rs:bounding-indices-if-not14806
+Node: Streams15225
+Ref: rs:read-file15346
+Node: Reader16822
+Ref: rs:q-reader16923
+Node: Mathematics18017
+Node: Trigonometric Functions18242
+Ref: rs:hypot18420
+Ref: rs:hypot318605
+Node: Exponential Functions18799
+Ref: rs:cbrt18974
+Ref: rs:square19111
+Ref: rs:square-root19250
+Ref: rs:cube19471
+Ref: rs:cube-root19608
+Node: Optimization19954
+Ref: rs:brent20099
+Node: Polynomials21473
+Ref: rs:evaluate-polynomial21586
+Ref: rs:quadratic-formula-121905
+Ref: rs:quadratic-formula22133
+Ref: rs:cubic-formula-122369
+Ref: rs:cubic-formula22647
+Node: Miscellaneous22890
+Node: Regular Expressions23069
+Ref: rs:string-match23402
+Ref: rs:match-start23865
+Ref: rs:match-end24172
+Ref: rs:match-data24476
+Ref: rs:save-match-data24572
+Ref: rs:match-string24724
+Ref: rs:match-strings25027
+Ref: rs:replace-match25228
+Node: Programming for the Real World25491
+Node: Environment Variables26042
+Ref: rs:environment-variables26248
+Ref: rs:environment-variable26509
+Node: Program Arguments27067
+Ref: rs:program-invocation-name27254
+Ref: rs:program-invocation-short-name27520
+Ref: rs:program-arguments27687
+Node: Program Termination27924
+Ref: rs:exit-success28113
+Ref: rs:exit-failure28202
+Node: Diagnostic Messages28289
+Ref: rs:diagnostic-message28786
+Ref: rs:say29504
+Ref: rs:die29781
+Ref: rs:standalone-program-p30585
+Ref: rs:standalone-program30672
+Node: Working Directory30762
+Ref: rs:get-working-directory30959
+Ref: rs:set-working-directory31136
+Ref: rs:with-working-directory31660
+Node: Temporary Files and Directories31820
+Ref: rs:temporary-file-name32043
+Ref: rs:temporary-file33342
+Ref: rs:with-temporary-file33858
+Ref: rs:temporary-directory34361
+Ref: rs:with-temporary-directory34635
+Node: External Programs35227
+Ref: rs:execute-program35396
+Ref: rs:with-input-from-program38920
+Ref: rs:with-output-to-program39666
+Ref: rs:with-program-io40393
+Ref: rs:program-input-stream41091
+Ref: rs:program-output-stream41329
+Ref: rs:program-error-stream41571
+Ref: rs:program-exit-status41810
+Ref: rs:close-program-streams42015
+Node: Symbol Index42175
+Node: Concept Index51918
 
 End Tag Table
