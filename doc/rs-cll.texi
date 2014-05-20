@@ -5,7 +5,7 @@
 @settitle Ralph's Common Lisp Library
 
 @set EDITION 1 (draft)
-@set UPDATED 2013-03-25
+@set UPDATED 2013-04-10
 
 @include package.texi
 
@@ -108,6 +108,7 @@ of routines for programming in Common Lisp.
 * Characters::
 * Strings::
 * Sequences::
+* Streams::
 @end menu
 
 
@@ -555,7 +556,7 @@ Return a string with @var{n} random characters.
 @end defun
 
 
-@node Sequences,  , Strings, Basic Definitions
+@node Sequences, Streams, Strings, Basic Definitions
 @section Sequences
 
 @c ----------------------------------------------------------------------
@@ -663,6 +664,64 @@ Keyword @var{key} is a function designator of one argument.
 
 If all elements match @var{predicate}, return the end index positions.
 Likewise if @var{seq} is empty.
+@end defun
+
+
+@node Streams,  , Sequences, Basic Definitions
+@section Streams
+
+@c ----------------------------------------------------------------------
+@anchor{rs:read-file}
+@defun read-file @k{optional} input-stream element-length
+Read all elements from a stream.
+
+@itemize
+@item
+Optional first argument @var{input-stream} has to be an open input
+stream.  The default is standard input.
+
+@item
+Optional second argument @var{element-length} is the size of an element
+in the external format given in byte.  This argument has no effect for
+binary streams.
+@end itemize
+
+If the element type of the stream is a character, value is a string.
+Otherwise, value is a vector.
+
+The @var{element-length} argument may be used to speed up reading from
+the stream by allocating the resulting sequence all at once.  This only
+works if the file size of the stream can be determined, too.  If the
+external format has a variable length element size like, for example,
+the UTF-8 character encoding, then @var{element-length} should be the
+minimum length of an element.  In such a case, more memory than actually
+needed may be allocated for the return value.
+
+@noindent
+Reading a text file:
+
+@lisp
+@group
+(with-open-file (s ... :direction :input)
+  (read-file s))
+
+(with-open-file (s ... :direction :input :external-format :UTF-8)
+  (read-file s 1))
+
+(with-open-file (s ... :direction :input :external-format :UCS-2BE)
+  (read-file s 2))
+@end group
+@end lisp
+
+@noindent
+Reading a binary file:
+
+@lisp
+@group
+(with-open-file (s ... :direction :input :element-type '(unsigned-byte 8))
+  (read-file s))"
+@end group
+@end lisp
 @end defun
 
 
