@@ -53,7 +53,8 @@
 			     (:file "quantities")
 			     (:file "characters")
 			     (:file "strings")
-			     (:file "sequences")))
+			     (:file "sequences")
+			     (:file "streams")))
 	       (:module "math"
 		:serial t
 		:components ((:file "math")
