@@ -221,6 +221,7 @@ pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
+rs_cll_extensionsdir = @rs_cll_extensionsdir@
 rs_clldir = @rs_clldir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
@@ -230,7 +231,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = lib doc
+SUBDIRS = lib doc extensions
 all: all-recursive
 
 .SUFFIXES:

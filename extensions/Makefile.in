@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-# Copyright (C) 2012, 2013 Ralph Schleicher
+# Copyright (C) 2014 Ralph Schleicher
 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -78,9 +78,9 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = lib
-DIST_COMMON = $(nobase_dist_rs_cll_DATA) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in
+subdir = extensions
+DIST_COMMON = $(nobase_dist_rs_cll_extensions_DATA) \
+	$(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -122,8 +122,8 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(rs_clldir)"
-DATA = $(nobase_dist_rs_cll_DATA)
+am__installdirs = "$(DESTDIR)$(rs_cll_extensionsdir)"
+DATA = $(nobase_dist_rs_cll_extensions_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -201,35 +201,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-nobase_dist_rs_cll_DATA = \
-rs-cll.asd \
-rs-cll.lisp \
-lisp/data.lisp \
-lisp/types.lisp \
-lisp/conditions.lisp \
-lisp/symbols.lisp \
-lisp/numbers.lisp \
-lisp/quantities.lisp \
-lisp/characters.lisp \
-lisp/strings.lisp \
-lisp/sequences.lisp \
-math/math.lisp \
-math/brent.lisp \
-math/polynomials.lisp \
-misc/regex.lisp \
-misc/bugs.lisp \
-app/environ.lisp \
-app/argv.lisp \
-app/exit.lisp \
-app/diag.lisp \
-app/work-dir.lisp \
-app/temp-dir.lisp \
-app/getopt.lisp \
-exec/exec.lisp \
-exec/exec-ccl.lisp \
-exec/exec-clisp.lisp \
-exec/exec-ecl.lisp \
-exec/exec-sbcl.lisp \
+nobase_dist_rs_cll_extensions_DATA = \
+iso-2533/iso-2533.asd \
+iso-2533/iso-2533.lisp \
 $(nil)
 
 all: all-am
@@ -244,9 +218,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign lib/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign extensions/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign lib/Makefile
+	  $(AUTOMAKE) --foreign extensions/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -265,12 +239,12 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-install-nobase_dist_rs_cllDATA: $(nobase_dist_rs_cll_DATA)
+install-nobase_dist_rs_cll_extensionsDATA: $(nobase_dist_rs_cll_extensions_DATA)
 	@$(NORMAL_INSTALL)
-	@list='$(nobase_dist_rs_cll_DATA)'; test -n "$(rs_clldir)" || list=; \
+	@list='$(nobase_dist_rs_cll_extensions_DATA)'; test -n "$(rs_cll_extensionsdir)" || list=; \
 	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(rs_clldir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(rs_clldir)" || exit 1; \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(rs_cll_extensionsdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(rs_cll_extensionsdir)" || exit 1; \
 	fi; \
 	$(am__nobase_list) | while read dir files; do \
 	  xfiles=; for file in $$files; do \
@@ -278,17 +252,17 @@ install-nobase_dist_rs_cllDATA: $(nobase_dist_rs_cll_DATA)
 	    else xfiles="$$xfiles $(srcdir)/$$file"; fi; done; \
 	  test -z "$$xfiles" || { \
 	    test "x$$dir" = x. || { \
-	      echo " $(MKDIR_P) '$(DESTDIR)$(rs_clldir)/$$dir'"; \
-	      $(MKDIR_P) "$(DESTDIR)$(rs_clldir)/$$dir"; }; \
-	    echo " $(INSTALL_DATA) $$xfiles '$(DESTDIR)$(rs_clldir)/$$dir'"; \
-	    $(INSTALL_DATA) $$xfiles "$(DESTDIR)$(rs_clldir)/$$dir" || exit $$?; }; \
+	      echo " $(MKDIR_P) '$(DESTDIR)$(rs_cll_extensionsdir)/$$dir'"; \
+	      $(MKDIR_P) "$(DESTDIR)$(rs_cll_extensionsdir)/$$dir"; }; \
+	    echo " $(INSTALL_DATA) $$xfiles '$(DESTDIR)$(rs_cll_extensionsdir)/$$dir'"; \
+	    $(INSTALL_DATA) $$xfiles "$(DESTDIR)$(rs_cll_extensionsdir)/$$dir" || exit $$?; }; \
 	done
 
-uninstall-nobase_dist_rs_cllDATA:
+uninstall-nobase_dist_rs_cll_extensionsDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(nobase_dist_rs_cll_DATA)'; test -n "$(rs_clldir)" || list=; \
+	@list='$(nobase_dist_rs_cll_extensions_DATA)'; test -n "$(rs_cll_extensionsdir)" || list=; \
 	$(am__nobase_strip_setup); files=`$(am__nobase_strip)`; \
-	dir='$(DESTDIR)$(rs_clldir)'; $(am__uninstall_files_from_dir)
+	dir='$(DESTDIR)$(rs_cll_extensionsdir)'; $(am__uninstall_files_from_dir)
 tags: TAGS
 TAGS:
 
@@ -332,7 +306,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(rs_clldir)"; do \
+	for dir in "$(DESTDIR)$(rs_cll_extensionsdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -385,7 +359,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-nobase_dist_rs_cllDATA
+install-data-am: install-nobase_dist_rs_cll_extensionsDATA
 
 install-dvi: install-dvi-am
 
@@ -429,7 +403,7 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-nobase_dist_rs_cllDATA
+uninstall-am: uninstall-nobase_dist_rs_cll_extensionsDATA
 
 .MAKE: install-am install-strip
 
@@ -438,12 +412,12 @@ uninstall-am: uninstall-nobase_dist_rs_cllDATA
 	install install-am install-data install-data-am install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am install-man \
-	install-nobase_dist_rs_cllDATA install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	install-nobase_dist_rs_cll_extensionsDATA install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
 	pdf-am ps ps-am uninstall uninstall-am \
-	uninstall-nobase_dist_rs_cllDATA
+	uninstall-nobase_dist_rs_cll_extensionsDATA
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

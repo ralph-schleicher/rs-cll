@@ -1,7 +1,7 @@
 This is rs-cll.info, produced by makeinfo version 5.2 from rs-cll.texi.
 
-This is edition 1 (draft), last updated 2014-02-28, of 'Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20131204.2148.
+This is edition 1 (draft), last updated 2014-03-03, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20140303.2107.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -21,8 +21,8 @@ File: rs-cll.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 RS-CLL
 ******
 
-This is edition 1 (draft), last updated 2014-02-28, of 'Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20131204.2148.
+This is edition 1 (draft), last updated 2014-03-03, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20140303.2107.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -312,6 +312,17 @@ File: rs-cll.info,  Node: Quantities,  Next: Characters,  Prev: Numbers,  Up: Ba
 2.6 Quantities
 ==============
 
+* Menu:
+
+* Angle::
+* Temperature::
+
+
+File: rs-cll.info,  Node: Angle,  Next: Temperature,  Prev: Quantities,  Up: Quantities
+
+2.6.1 Angle
+-----------
+
  -- Function: radian-from-degree deg
      Convert a plane angle from degree to radian.
 
@@ -351,6 +362,109 @@ File: rs-cll.info,  Node: Quantities,  Next: Characters,  Prev: Numbers,  Up: Ba
      The number of arc seconds may be a floating point number with
      fractions of a second.  Fourth value is either plus one or minus
      one specifying the sign of the angle.
+
+
+File: rs-cll.info,  Node: Temperature,  Prev: Angle,  Up: Quantities
+
+2.6.2 Temperature
+-----------------
+
+The following temperature units are supported:
+
+   * kelvin
+
+   * degree Celsius
+
+   * degree Rankine
+
+   * degree Fahrenheit
+
+All temperature conversion functions are exact as long as the argument
+is an exact number.
+
+ -- Function: kelvin-from-degree-celsius value
+     Convert temperature from degree Celsius to kelvin.
+
+        * Argument VALUE is the temperature in degree Celsius.
+
+     Value is the corresponding temperature in kelvin.
+
+ -- Function: kelvin-from-degree-rankine value
+     Convert temperature from degree Rankine to kelvin.
+
+        * Argument VALUE is the temperature in degree Rankine.
+
+     Value is the corresponding temperature in kelvin.
+
+ -- Function: kelvin-from-degree-fahrenheit value
+     Convert temperature from degree Fahrenheit to kelvin.
+
+        * Argument VALUE is the temperature in degree Fahrenheit.
+
+     Value is the corresponding temperature in kelvin.
+
+ -- Function: degree-celsius-from-kelvin value
+     Convert temperature from kelvin to degree Celsius.
+
+        * Argument VALUE is the temperature in kelvin.
+
+     Value is the corresponding temperature in .
+
+ -- Function: degree-celsius-from-degree-rankine value
+     Convert temperature from degree Rankine to degree Celsius.
+
+        * Argument VALUE is the temperature in degree Rankine.
+
+     Value is the corresponding temperature in degree Celsius.
+
+ -- Function: degree-celsius-from-degree-fahrenheit value
+     Convert temperature from degree Fahrenheit to degree Celsius.
+
+        * Argument VALUE is the temperature in degree Fahrenheit.
+
+     Value is the corresponding temperature in degree Celsius.
+
+ -- Function: degree-rankine-from-kelvin value
+     Convert temperature from kelvin to degree Rankine.
+
+        * Argument VALUE is the temperature in kelvin.
+
+     Value is the corresponding temperature in degree Rankine.
+
+ -- Function: degree-rankine-from-degree-celsius value
+     Convert temperature from degree Celsius to degree Rankine.
+
+        * Argument VALUE is the temperature in degree Celsius.
+
+     Value is the corresponding temperature in degree Rankine.
+
+ -- Function: degree-rankine-from-degree-fahrenheit value
+     Convert temperature from degree Fahrenheit to degree Rankine.
+
+        * Argument VALUE is the temperature in degree Fahrenheit.
+
+     Value is the corresponding temperature in degree Rankine.
+
+ -- Function: degree-fahrenheit-from-kelvin value
+     Convert temperature from kelvin to degree Fahrenheit.
+
+        * Argument VALUE is the temperature in kelvin.
+
+     Value is the corresponding temperature in degree Fahrenheit.
+
+ -- Function: degree-fahrenheit-from-degree-celsius value
+     Convert temperature from degree Celsius to degree Fahrenheit.
+
+        * Argument VALUE is the temperature in degree Celsius.
+
+     Value is the corresponding temperature in degree Fahrenheit.
+
+ -- Function: degree-fahrenheit-from-degree-rankine value
+     Convert temperature from degree Rankine to degree Fahrenheit.
+
+        * Argument VALUE is the temperature in degree Rankine.
+
+     Value is the corresponding temperature in degree Fahrenheit.
 
 
 File: rs-cll.info,  Node: Characters,  Next: Arrays,  Prev: Quantities,  Up: Basic Definitions
@@ -1343,8 +1457,17 @@ Symbol Index
                                                               (line  43)
 * defconst:                              Data.                (line   6)
 * defsubst:                              Data.                (line  12)
-* degree-from-radian:                    Quantities.          (line  13)
-* degree-from-sexagesimal:               Quantities.          (line  20)
+* degree-celsius-from-degree-fahrenheit: Temperature.         (line  54)
+* degree-celsius-from-degree-rankine:    Temperature.         (line  47)
+* degree-celsius-from-kelvin:            Temperature.         (line  40)
+* degree-fahrenheit-from-degree-celsius: Temperature.         (line  89)
+* degree-fahrenheit-from-degree-rankine: Temperature.         (line  96)
+* degree-fahrenheit-from-kelvin:         Temperature.         (line  82)
+* degree-from-radian:                    Angle.               (line  13)
+* degree-from-sexagesimal:               Angle.               (line  20)
+* degree-rankine-from-degree-celsius:    Temperature.         (line  68)
+* degree-rankine-from-degree-fahrenheit: Temperature.         (line  75)
+* degree-rankine-from-kelvin:            Temperature.         (line  61)
 * diagnostic-message:                    Diagnostic Messages. (line  15)
 * die:                                   Diagnostic Messages. (line  41)
 * divf:                                  Mathematical Operators.
@@ -1383,6 +1506,9 @@ Symbol Index
 * hypot3:                                Trigonometric Functions.
                                                               (line  12)
 * is-prime:                              Prime Numbers.       (line   6)
+* kelvin-from-degree-celsius:            Temperature.         (line  19)
+* kelvin-from-degree-fahrenheit:         Temperature.         (line  33)
+* kelvin-from-degree-rankine:            Temperature.         (line  26)
 * linear-index-from-subscripts:          Arrays.              (line   6)
 * list-of-strings:                       Types.               (line  11)
 * list-of-strings-p:                     Types.               (line   6)
@@ -1418,7 +1544,7 @@ Symbol Index
 * q-reader:                              Reader.              (line   6)
 * quadratic-formula:                     Polynomials.         (line  24)
 * quadratic-formula-1:                   Polynomials.         (line  15)
-* radian-from-degree:                    Quantities.          (line   6)
+* radian-from-degree:                    Angle.               (line   6)
 * random-string:                         Strings.             (line  10)
 * read-file:                             Streams.             (line   6)
 * real-cos:                              Trigonometric Functions.
@@ -1430,7 +1556,7 @@ Symbol Index
 * save-match-data:                       Regular Expressions. (line  44)
 * say:                                   Diagnostic Messages. (line  32)
 * set-working-directory:                 Working Directory.   (line  13)
-* sexagesimal-from-degree:               Quantities.          (line  36)
+* sexagesimal-from-degree:               Angle.               (line  36)
 * square:                                Exponential Functions.
                                                               (line  11)
 * square-root:                           Exponential Functions.
@@ -1517,109 +1643,123 @@ Ref: rs:absolute-descending8533
 Node: Number Systems8745
 Ref: rs:roman-numeral8870
 Node: Quantities9108
-Ref: rs:radian-from-degree9238
-Ref: rs:degree-from-radian9436
-Ref: rs:degree-from-sexagesimal9634
-Ref: rs:sexagesimal-from-degree10236
-Node: Characters10661
-Ref: rs:whitespace-char-p10790
-Ref: rs:blank-char-p10930
-Ref: rs:standard-alpha-char-p11078
-Ref: rs:standard-digit-char-p11231
-Node: Arrays11558
-Ref: rs:linear-index-from-subscripts11676
-Ref: rs:subscripts-from-linear-index12148
-Node: Strings12483
-Ref: rs:*random-string-alphabet*12602
-Ref: rs:random-string12729
-Node: Sequences12807
-Ref: rs:start-index-if12933
-Ref: rs:start-index-if-not13296
-Ref: rs:end-index-if13667
-Ref: rs:end-index-if-not14027
-Ref: rs:bounding-indices-if14395
-Ref: rs:bounding-indices-if-not14806
-Node: Streams15225
-Ref: rs:read-file15346
-Node: Reader16822
-Ref: rs:q-reader16923
-Node: Mathematics18017
-Node: Trigonometric Functions18260
-Ref: rs:hypot18438
-Ref: rs:hypot318623
-Ref: rs:real-sin18817
-Ref: rs:real-cos18940
-Node: Exponential Functions19065
-Ref: rs:cbrt19240
-Ref: rs:square19377
-Ref: rs:square-root19516
-Ref: rs:cube19737
-Ref: rs:cube-root19874
-Node: Optimization20220
-Ref: rs:brent20365
-Node: Polynomials21739
-Ref: rs:evaluate-polynomial21874
-Ref: rs:quadratic-formula-122193
-Ref: rs:quadratic-formula22421
-Ref: rs:cubic-formula-122657
-Ref: rs:cubic-formula22935
-Node: Prime Numbers23178
-Ref: rs:is-prime23296
-Ref: rs:next-prime23369
-Ref: rs:next-prime*23450
-Ref: rs:previous-prime23544
-Ref: rs:previous-prime*23626
-Ref: rs:primes-between23721
-Ref: rs:nth-prime23827
-Ref: rs:prime-factors24003
-Node: Miscellaneous24129
-Node: Regular Expressions24308
-Ref: rs:string-match24641
-Ref: rs:match-start25104
-Ref: rs:match-end25411
-Ref: rs:match-data25715
-Ref: rs:save-match-data25811
-Ref: rs:match-string25963
-Ref: rs:match-strings26266
-Ref: rs:replace-match26467
-Node: Programming for the Real World26730
-Node: Environment Variables27281
-Ref: rs:environment-variables27487
-Ref: rs:environment-variable27748
-Node: Program Arguments28306
-Ref: rs:program-invocation-name28493
-Ref: rs:program-invocation-short-name28759
-Ref: rs:program-arguments28926
-Node: Program Termination29163
-Ref: rs:exit-success29352
-Ref: rs:exit-failure29441
-Node: Diagnostic Messages29528
-Ref: rs:diagnostic-message30025
-Ref: rs:say30743
-Ref: rs:die31020
-Ref: rs:standalone-program-p31824
-Ref: rs:standalone-program31911
-Node: Working Directory32001
-Ref: rs:get-working-directory32198
-Ref: rs:set-working-directory32375
-Ref: rs:with-working-directory32899
-Node: Temporary Files and Directories33059
-Ref: rs:temporary-file-name33282
-Ref: rs:temporary-file34581
-Ref: rs:with-temporary-file35097
-Ref: rs:temporary-directory35600
-Ref: rs:with-temporary-directory35874
-Node: External Programs36466
-Ref: rs:execute-program36635
-Ref: rs:with-input-from-program40159
-Ref: rs:with-output-to-program40905
-Ref: rs:with-program-io41632
-Ref: rs:program-input-stream42330
-Ref: rs:program-output-stream42568
-Ref: rs:program-error-stream42810
-Ref: rs:program-exit-status43049
-Ref: rs:close-program-streams43254
-Node: Symbol Index43414
-Node: Concept Index54019
+Node: Angle9274
+Ref: rs:radian-from-degree9390
+Ref: rs:degree-from-radian9588
+Ref: rs:degree-from-sexagesimal9786
+Ref: rs:sexagesimal-from-degree10388
+Node: Temperature10813
+Ref: rs:kelvin-from-degree-celsius11141
+Ref: rs:kelvin-from-degree-rankine11365
+Ref: rs:kelvin-from-degree-fahrenheit11589
+Ref: rs:degree-celsius-from-kelvin11822
+Ref: rs:degree-celsius-from-degree-rankine12032
+Ref: rs:degree-celsius-from-degree-fahrenheit12280
+Ref: rs:degree-rankine-from-kelvin12537
+Ref: rs:degree-rankine-from-degree-celsius12761
+Ref: rs:degree-rankine-from-degree-fahrenheit13009
+Ref: rs:degree-fahrenheit-from-kelvin13266
+Ref: rs:degree-fahrenheit-from-degree-celsius13499
+Ref: rs:degree-fahrenheit-from-degree-rankine13756
+Node: Characters14013
+Ref: rs:whitespace-char-p14142
+Ref: rs:blank-char-p14282
+Ref: rs:standard-alpha-char-p14430
+Ref: rs:standard-digit-char-p14583
+Node: Arrays14910
+Ref: rs:linear-index-from-subscripts15028
+Ref: rs:subscripts-from-linear-index15500
+Node: Strings15835
+Ref: rs:*random-string-alphabet*15954
+Ref: rs:random-string16081
+Node: Sequences16159
+Ref: rs:start-index-if16285
+Ref: rs:start-index-if-not16648
+Ref: rs:end-index-if17019
+Ref: rs:end-index-if-not17379
+Ref: rs:bounding-indices-if17747
+Ref: rs:bounding-indices-if-not18158
+Node: Streams18577
+Ref: rs:read-file18698
+Node: Reader20174
+Ref: rs:q-reader20275
+Node: Mathematics21369
+Node: Trigonometric Functions21612
+Ref: rs:hypot21790
+Ref: rs:hypot321975
+Ref: rs:real-sin22169
+Ref: rs:real-cos22292
+Node: Exponential Functions22417
+Ref: rs:cbrt22592
+Ref: rs:square22729
+Ref: rs:square-root22868
+Ref: rs:cube23089
+Ref: rs:cube-root23226
+Node: Optimization23572
+Ref: rs:brent23717
+Node: Polynomials25091
+Ref: rs:evaluate-polynomial25226
+Ref: rs:quadratic-formula-125545
+Ref: rs:quadratic-formula25773
+Ref: rs:cubic-formula-126009
+Ref: rs:cubic-formula26287
+Node: Prime Numbers26530
+Ref: rs:is-prime26648
+Ref: rs:next-prime26721
+Ref: rs:next-prime*26802
+Ref: rs:previous-prime26896
+Ref: rs:previous-prime*26978
+Ref: rs:primes-between27073
+Ref: rs:nth-prime27179
+Ref: rs:prime-factors27355
+Node: Miscellaneous27481
+Node: Regular Expressions27660
+Ref: rs:string-match27993
+Ref: rs:match-start28456
+Ref: rs:match-end28763
+Ref: rs:match-data29067
+Ref: rs:save-match-data29163
+Ref: rs:match-string29315
+Ref: rs:match-strings29618
+Ref: rs:replace-match29819
+Node: Programming for the Real World30082
+Node: Environment Variables30633
+Ref: rs:environment-variables30839
+Ref: rs:environment-variable31100
+Node: Program Arguments31658
+Ref: rs:program-invocation-name31845
+Ref: rs:program-invocation-short-name32111
+Ref: rs:program-arguments32278
+Node: Program Termination32515
+Ref: rs:exit-success32704
+Ref: rs:exit-failure32793
+Node: Diagnostic Messages32880
+Ref: rs:diagnostic-message33377
+Ref: rs:say34095
+Ref: rs:die34372
+Ref: rs:standalone-program-p35176
+Ref: rs:standalone-program35263
+Node: Working Directory35353
+Ref: rs:get-working-directory35550
+Ref: rs:set-working-directory35727
+Ref: rs:with-working-directory36251
+Node: Temporary Files and Directories36411
+Ref: rs:temporary-file-name36634
+Ref: rs:temporary-file37933
+Ref: rs:with-temporary-file38449
+Ref: rs:temporary-directory38952
+Ref: rs:with-temporary-directory39226
+Node: External Programs39818
+Ref: rs:execute-program39987
+Ref: rs:with-input-from-program43511
+Ref: rs:with-output-to-program44257
+Ref: rs:with-program-io44984
+Ref: rs:program-input-stream45682
+Ref: rs:program-output-stream45920
+Ref: rs:program-error-stream46162
+Ref: rs:program-exit-status46401
+Ref: rs:close-program-streams46606
+Node: Symbol Index46766
+Node: Concept Index58247
 
 End Tag Table
