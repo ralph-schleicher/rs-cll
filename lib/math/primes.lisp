@@ -40,6 +40,7 @@
 	   array-dimension-limit
 	 (1- array-dimension-limit)))
   "Cache size.  Value has to be an even number.")
+(declaim (type fixnum *primes-cache-size*))
 
 (defvar *primes-cache*
   (let ((p (make-array *primes-cache-size* :element-type 'bit :initial-element 0)))
