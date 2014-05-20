@@ -1,0 +1,1526 @@
+\input texinfo.tex
+
+@c %**start of header
+@setfilename rs-cll.info
+@settitle Ralph's Common Lisp Library
+
+@set EDITION 1 (draft)
+@set UPDATED 2013-03-13
+
+@include package.texi
+
+@syncodeindex vr fn
+@syncodeindex tp fn
+@syncodeindex ky cp
+@syncodeindex pg cp
+
+@ifinfo
+@paragraphindent 0
+@end ifinfo
+
+@iftex
+@finalout
+@paragraphindent 1
+@afourpaper
+@end iftex
+
+@setchapternewpage odd
+@setcontentsaftertitlepage
+
+@c Lambda list keywords.
+@macro k {NAME}
+@r{&\NAME\}
+@end macro
+@c %**end of header
+
+@copying
+This is edition @value{EDITION}, last updated @value{UPDATED},
+of @cite{Ralph's Common Lisp Library Reference Manual}, for
+@acronym{RS-CLL} version @value{VERSION}.
+
+@quotation
+Copyright @copyright{} 2013 Ralph Schleicher
+
+Permission is granted to make and distribute verbatim copies of this
+manual, provided the copyright notice and this permission notice are
+preserved on all copies.
+@end quotation
+
+Please report any errors in this manual to @email{@value{ADDRESS}}.
+@end copying
+
+@dircategory Libraries
+@direntry
+* RS-CLL: (rs-cll).             Ralph's Common Lisp library.
+@end direntry
+
+@ifnothtml
+@titlepage
+@title Ralph's Common Lisp Library
+@subtitle Edition @value{EDITION}, @value{UPDATED}, for @acronym{RS-CLL} version @value{VERSION}
+
+@author Ralph Schleicher
+
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@c Table of contents.
+@contents
+@end ifnothtml
+
+@ifnottex
+@node Top, Introduction, (dir), (dir)
+@top RS-CLL
+
+@insertcopying
+@end ifnottex
+
+@menu
+* Introduction::
+* Basic Definitions::
+* Mathematics::
+* Miscellaneous::
+* Programming for the Real World::
+* Symbol Index::
+* Concept Index::
+@end menu
+
+
+@node Introduction, Basic Definitions, Top, Top
+@chapter Introduction
+
+Ralph's Common Lisp Library, @acronym{RS-CLL} for short, is a collection
+of routines for programming in Common Lisp.
+
+
+@node Basic Definitions, Mathematics, Introduction, Top
+@chapter Basic Definitions
+
+@menu
+* Data::
+* Types::
+* Conditions::
+* Symbols::
+* Numbers::
+* Quantities::
+* Characters::
+* Strings::
+* Sequences::
+@end menu
+
+
+@node Data, Types, Basic Definitions, Basic Definitions
+@section Data
+
+@c ----------------------------------------------------------------------
+@anchor{rs:defconst}
+@defmac defconst name value @k{optional} doc
+Define a constant variable.
+
+This is like @code{defconstant} except that the initially set value is
+reused when the @code{defconst} form is evaluated again.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:defsubst}
+@defmac defsubst name arg-list @k{body} body
+Define an inline function.
+
+This is like @code{defun} except that the function is globally marked
+for inline expansion by the compiler.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:false}
+@defun false @k{rest} arguments
+Ignore all arguments and return nil.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:true}
+@defun true @k{rest} arguments
+Ignore all arguments and return t.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:nothing}
+@defun nothing @k{rest} arguments
+Ignore all arguments and return no values.
+@end defun
+
+
+@node Types, Conditions, Data, Basic Definitions
+@section Types
+
+@c ----------------------------------------------------------------------
+@anchor{rs:list-of-strings-p}
+@defun list-of-strings-p object
+Return true if @var{object} is a list of strings.
+
+If @var{object} is the empty list, value is true, too.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:list-of-strings}
+@deftp Type list-of-strings
+Type specifier for a list of strings.
+@end deftp
+
+
+@node Conditions, Symbols, Types, Basic Definitions
+@section Conditions
+
+@c ----------------------------------------------------------------------
+@anchor{rs:ensure-type}
+@defun ensure-type object type
+Signal a @code{type-error} if @var{object} is not of the type
+@var{type}.  Otherwise, return @var{object}.
+@end defun
+
+
+@node Symbols, Numbers, Conditions, Basic Definitions
+@section Symbols
+
+@c ----------------------------------------------------------------------
+@anchor{rs:symbol-name*}
+@defun symbol-name* symbol
+Return the name of @var{symbol} including the package prefix.
+
+If @var{symbol} does not belong to a package, just return it's name.
+If @var{symbol} is a keyword, add a leading colon character to the name.
+If @var{symbol} is an external symbol of a package, seperate the package
+name and the symbol name by a colon character.  Otherwise, seperate
+the package name and the symbol name by two colon characters.
+@end defun
+
+
+@node Numbers, Quantities, Symbols, Basic Definitions
+@section Numbers
+
+@menu
+* Numerical Constants::
+* Mathematical Operators::
+* Floating-Point Numbers::
+* Sorting Numbers::
+* Number Systems::
+@end menu
+
+
+@node Numerical Constants, Mathematical Operators, Numbers, Numbers
+@subsection Numerical Constants
+
+@c ----------------------------------------------------------------------
+@anchor{rs:pi/6}
+@defvr Constant pi/6
+One sixth of the ratio of a circle's circumference to its diameter.
+This is equal to 30 arc degree.
+@end defvr
+
+@c ----------------------------------------------------------------------
+@anchor{rs:pi/4}
+@defvr Constant pi/4
+One quarter of the ratio of a circle's circumference to its diameter.
+This is equal to 45 arc degree.
+@end defvr
+
+@c ----------------------------------------------------------------------
+@anchor{rs:pi/2}
+@defvr Constant pi/2
+One half of the ratio of a circle's circumference to its diameter.
+This is equal to 90 arc degree.
+@end defvr
+
+@c ----------------------------------------------------------------------
+@anchor{rs:2*pi}
+@defvr Constant 2*pi
+Two times the ratio of a circle's circumference to its diameter.
+This is equal to 360 arc degree.
+@end defvr
+
+
+@node Mathematical Operators, Floating-Point Numbers, Numerical Constants, Numbers
+@subsection Mathematical Operators
+
+@c ----------------------------------------------------------------------
+@anchor{rs:fma}
+@defun fma number multiplicand summand
+Multiply @var{number} by @var{multiplicand}, then add @var{summand}.
+Attempt to perform a fused multiply-add operation.
+
+This is the inverse of the @code{fsd} function.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:fsd}
+@defun fsd number subtrahend divisor
+Subtract @var{subtrahend} from @var{number}, then divide by @var{divisor}.
+Attempt to perform a fused subtract-divide operation.
+
+This is the inverse of the @code{fma} function.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:fmaf}
+@defmac fmaf place multiplicand summand
+Multiply the value designated by @var{place} by @var{multiplicand}, then
+add @var{summand}.  Attempt to perform a fused multiply-add operation.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:fsdf}
+@defmac fsdf place subtrahend divisor
+Subtract @var{subtrahend} from the value designated by @var{place}, then
+divide by @var{divisor}.  Attempt to perform a fused subtract-divide
+operation.
+@end defmac
+
+
+@node Floating-Point Numbers, Sorting Numbers, Mathematical Operators, Numbers
+@subsection Floating-Point Numbers
+
+@c ----------------------------------------------------------------------
+@anchor{rs:float-epsilon}
+@defun float-epsilon @k{optional} float
+Return the smallest positive floating-point number used in the
+representation of @var{float}, such that the expression
+
+@lisp
+(= (float 1 @var{epsilon}) (+ (float 1 @var{epsilon}) @var{epsilon}))
+@end lisp
+
+@noindent
+is false.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:float-negative-epsilon}
+@defun float-negative-epsilon @k{optional} float
+Return the smallest positive floating-point number used in the
+representation of @var{float}, such that the expression
+
+@lisp
+(= (float 1 @var{epsilon}) (- (float 1 @var{epsilon}) @var{epsilon}))
+@end lisp
+
+@noindent
+is false.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:float-digits*}
+@defun float-digits* float @k{optional} base
+Return the number of digits used in the representation of @var{float}.
+This includes any implicit digits.
+
+Optional argument @var{base} is the radix for the return value.  Default
+is 10.
+
+If @var{base} is equal to the radix of @var{float}, value is an integral
+number.  Otherwise, value is a floating-point number in the format of
+@var{float}.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:float-precision*}
+@defun float-precision* float @k{optional} base
+Return the number of significant digits present in @var{float}.
+
+Optional argument @var{base} is the radix for the return value.  Default
+is 10.
+
+If @var{base} is equal to the radix of @var{float}, value is an integral
+number.  Otherwise, value is a floating-point number in the format of
+@var{float}.  If @var{float} is zero, value is zero.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:decimal-digits}
+@defun decimal-digits float
+Return the number of decimal digits needed to preserve the original
+floating-point number when converting it to a decimal character format.
+@end defun
+
+
+@node Sorting Numbers, Number Systems, Floating-Point Numbers, Numbers
+@subsection Sorting Numbers
+
+@c ----------------------------------------------------------------------
+@anchor{rs:absolute-ascending}
+@defun absolute-ascending a b
+Return true if the absolute value of number @var{a} is less than the
+absolute value of number @var{b}.  This function can be used to sort
+numbers in ascending order.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:absolute-descending}
+@defun absolute-descending a b
+Return true if the absolute value of number @var{a} is greater than the
+absolute value of number @var{b}.  This function can be used to sort
+numbers in descending order.
+@end defun
+
+
+@node Number Systems,  , Sorting Numbers, Numbers
+@subsection Number Systems
+
+@c ----------------------------------------------------------------------
+@anchor{rs:roman-numeral}
+@defun roman-numeral n
+Convert the integral number @var{n} into a roman number (a string).  If
+@var{n} is zero, the return value is nil.  If @var{n} is a negative
+number, utilize lowercase letters.  Otherwise, use uppercase letters.
+@end defun
+
+
+@node Quantities, Characters, Numbers, Basic Definitions
+@section Quantities
+
+@c ----------------------------------------------------------------------
+@anchor{rs:radian-from-degree}
+@defun radian-from-degree deg
+Convert a plane angle from degree to radian.
+
+@itemize
+@item
+Argument @var{deg} is the angle given in degree.
+@end itemize
+
+Value is the corresponding angle given in radian.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-from-radian}
+@defun degree-from-radian rad
+Convert a plane angle from radian to degree.
+
+@itemize
+@item
+Argument @var{rad} is the angle given in radian.
+@end itemize
+
+Value is the corresponding angle given in degree.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-from-sexagesimal}
+@defun degree-from-sexagesimal deg @k{optional} min s sign
+Join sexagesimal subdivisions of an arc degree into a plane angle.
+
+@itemize
+@item
+First argument @var{deg} is the number of arc degrees.
+
+@item
+Optional second argument @var{min} is the number of arc minutes.
+
+@item
+Optional third argument @var{s} is the number of arc seconds.
+
+@item
+Optional fourth argument @var{sign} specifies the sign.
+@end itemize
+
+Arguments @var{deg}, @var{min}, and @var{s} have to be non-negative
+numbers.
+
+Value is the corresponding angle given in degree.  If none of the
+arguments is a floating-point number, value is a rational number.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:sexagesimal-from-degree}
+@defun sexagesimal-from-degree angle
+Split a plane angle into sexagesimal subdivisions of an arc degree.
+
+@itemize
+@item
+Argument @var{angle} is the angle given in degree.
+@end itemize
+
+Return values are the arc degrees, arc minutes, and arc seconds.  The
+number of arc seconds may be a floating point number with fractions of
+a second.  Fourth value is either plus one or minus one specifying the
+sign of the angle.
+@end defun
+
+
+@node Characters, Strings, Quantities, Basic Definitions
+@section Characters
+
+@c ----------------------------------------------------------------------
+@anchor{rs:whitespace-char-p}
+@defun whitespace-char-p char
+Return true if @var{char} is a whitespace character.
+
+Argument @var{char} has to be a character object.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:blank-char-p}
+@defun blank-char-p char
+Return true if @var{char} is a space or horizontal tab character.
+
+Argument @var{char} has to be a character object.
+@end defun
+
+
+@node Strings, Sequences, Characters, Basic Definitions
+@section Strings
+
+@c ----------------------------------------------------------------------
+@anchor{rs:*random-string-alphabet*}
+@defvr Parameter *random-string-alphabet*
+The character set for generating random strings.
+Value has to be a vector.
+@end defvr
+
+@c ----------------------------------------------------------------------
+@anchor{rs:random-string}
+@defun random-string n
+Return a string with @var{n} random characters.
+@end defun
+
+
+@node Sequences,  , Strings, Basic Definitions
+@section Sequences
+
+@c ----------------------------------------------------------------------
+@anchor{rs:start-index-if}
+@defun start-index-if predicate seq @k{key} start end key
+Return start index of first element in @var{seq} matching
+@var{predicate}.
+
+@itemize
+@item
+Keywords @var{start} and @var{end} are bounding index designators.
+
+@item
+Keyword @var{key} is a function designator of one argument.
+@end itemize
+
+If no element matches @var{predicate}, return the end index position.
+Likewise if @var{seq} is empty.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:start-index-if-not}
+@defun start-index-if-not predicate seq @k{key} start end key
+Return start index of first element in @var{seq} not matching
+@var{predicate}.
+
+@itemize
+@item
+Keywords @var{start} and @var{end} are bounding index designators.
+
+@item
+Keyword @var{key} is a function designator of one argument.
+@end itemize
+
+If all elements match @var{predicate}, return the end index position.
+Likewise if @var{seq} is empty.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:end-index-if}
+@defun end-index-if predicate seq @k{key} start end key
+Return end index of last element in @var{seq} matching @var{predicate}.
+
+@itemize
+@item
+Keywords @var{start} and @var{end} are bounding index designators.
+
+@item
+Keyword @var{key} is a function designator of one argument.
+@end itemize
+
+If no element matches @var{predicate}, return the start index position.
+Likewise if @var{seq} is empty.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:end-index-if-not}
+@defun end-index-if-not predicate seq @k{key} start end key
+Return end index of last element in @var{seq} not matching
+@var{predicate}.
+
+@itemize
+@item
+Keywords @var{start} and @var{end} are bounding index designators.
+
+@item
+Keyword @var{key} is a function designator of one argument.
+@end itemize
+
+If all elements match @var{predicate}, return the start index position.
+Likewise if @var{seq} is empty.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:bounding-indices-if}
+@defun bounding-indices-if predicate seq @k{key} start end key
+Return start index of first element in @var{seq} and end index of last
+element in @var{seq} matching @var{predicate}.
+
+@itemize
+@item
+Keywords @var{start} and @var{end} are bounding index designators.
+
+@item
+Keyword @var{key} is a function designator of one argument.
+@end itemize
+
+If no element matches @var{predicate}, return the end index positions.
+Likewise if @var{seq} is empty.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:bounding-indices-if-not}
+@defun bounding-indices-if-not predicate seq @k{key} start end key
+Return start index of first element in @var{seq} and end index of last
+element in @var{seq} not matching @var{predicate}.
+
+@itemize
+@item
+Keywords @var{start} and @var{end} are bounding index designators.
+
+@item
+Keyword @var{key} is a function designator of one argument.
+@end itemize
+
+If all elements match @var{predicate}, return the end index positions.
+Likewise if @var{seq} is empty.
+@end defun
+
+
+@node Mathematics, Miscellaneous, Basic Definitions, Top
+@chapter Mathematics
+
+@menu
+* Trigonometric Functions::
+* Exponential Functions::
+* Optimization::
+* Polynomials::
+@end menu
+
+
+@node Trigonometric Functions, Exponential Functions, Mathematics, Mathematics
+@section Trigonometric Functions
+
+@c ----------------------------------------------------------------------
+@anchor{rs:hypot}
+@defun hypot x y
+Return the distance between a point and the origin in a two-dimensional
+Cartesian coordinate system.
+
+Arguments @var{x} and @var{y} have to be real numbers.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:hypot3}
+@defun hypot3 x y z
+Return the distance between a point and the origin in a
+three-dimensional Cartesian coordinate system.
+
+Arguments @var{x}, @var{y}, and @var{z} have to be real numbers.
+@end defun
+
+
+@node Exponential Functions, Optimization, Trigonometric Functions, Mathematics
+@section Exponential Functions
+
+@c ----------------------------------------------------------------------
+@anchor{rs:cbrt}
+@defun cbrt number
+Return the cube root of @var{number}.
+
+If @var{number} is a real number, value is the real cube root of
+@var{number}.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:square}
+@defun square number
+Return @var{number} squared, that is @var{number} raised to the power
+two.
+
+Argument @var{number} has to be a number.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:square-root}
+@defun square-root number
+Return the square root of @var{number}.
+
+Argument @var{number} has to be a number.
+
+The @code{square-root} function attempts to propagate the type of the
+argument @var{number} to its value.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:cube}
+@defun cube number
+Return @var{number} cubed, that is @var{number} raised to the power
+three.
+
+Argument @var{number} has to be a number.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:cube-root}
+@defun cube-root number
+Return the cube root of @var{number}.
+
+Argument @var{number} has to be a number.
+
+If argument @var{number} is zero, value is zero.  If argument
+@var{number} is a real number, value is the real cube root of
+@var{number}.
+
+The @code{cube-root} function attempts to propagate the type of the
+argument @var{number} to its value.
+@end defun
+
+
+@node Optimization, Polynomials, Exponential Functions, Mathematics
+@section Optimization
+
+@c ----------------------------------------------------------------------
+@anchor{rs:brent}
+@defun brent f @k{key} y initial-value lower-bound upper-bound max-iter rel-tol abs-tol
+Solve univariate function @math{y = f(x)} using Brent's method.
+
+@itemize
+@item
+First argument @var{f} is a function taking one numeric argument.
+Return value of @var{f} has to be a real number.
+
+@item
+Keyword argument @var{y} is the function value.  Default is zero.
+
+@item
+Keyword argument @var{initial-value} is the initial value for the
+function argument @var{x}.
+
+@item
+Keyword arguments @var{lower-bound} and @var{upper-bound} specify the
+interval bounds between which the root is searched.  If any one of these
+two arguments is omitted, the interval bounds are determined
+automatically around @var{initial-value}.
+
+@item
+Keyword argument @var{max-iter} is the maximum number of iterations
+to be performed.  Default is 1000.
+
+@item
+Keyword argument @var{rel-tol} is the relative tolerance.  Default
+is machine precision.
+
+@item
+Keyword argument @var{abs-tol} is the absolute tolerance.  Default
+is zero.
+@end itemize
+
+The iteration stops if half of the interval is less than or equal to
+@w{@math{2 @w{@var{rel-tol}} |x| + @w{@var{abs-tol}} / 2}}.
+
+Primary value is the argument @var{x} for which @math{y = f(x)} is true.
+Secondary value is the number of iterations performed; nil means that
+the algorithm did not converge within the given number of iterations.
+@end defun
+
+
+@node Polynomials,  , Optimization, Mathematics
+@section Polynomials
+
+@c ----------------------------------------------------------------------
+@anchor{rs:evaluate-polynomial}
+@defun evaluate-polynomial coefficients number
+Evaluate a polynomial.
+
+@itemize
+@item
+First argument @var{coefficients} is a sequence whose elements are the
+coefficients of the polynomial in descending order.
+
+@item
+Second argument @var{number} is the argument at which the polynomial is
+evaluated.
+@end itemize
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:quadratic-formula-1}
+@defun quadratic-formula-1 p q
+Calculate the roots of a monic quadratic function
+
+@display
+@math{f(x) = x^2 + p x + q}
+@end display
+
+@noindent
+Arguments @var{p} and @var{q} are the coefficients of the polynomial.
+
+Value is a list of two numbers.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:quadratic-formula}
+@defun quadratic-formula a b c
+Calculate the roots of a general quadratic function
+
+@display
+@math{f(x) = a x^2 + b x + c}
+@end display
+
+@noindent
+Arguments @var{a}, @var{b}, and @var{c} are the coefficients of the
+polynomial.
+
+Value is a list of two numbers.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:cubic-formula-1}
+@defun cubic-formula-1 p q r
+Calculate the roots of a monic cubic function
+
+@display
+@math{f(x) = x^3 + p x^2 + q x + r}
+@end display
+
+@noindent
+Arguments @var{p}, @var{q}, and @var{r} are the coefficients of the
+polynomial.
+
+Value is a list of three numbers.  The first element is a real number.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:cubic-formula}
+@defun cubic-formula a b c d
+Calculate the roots of a general cubic function
+
+@display
+@math{f(x) = a x^3 + b x^2 + c x + d}
+@end display
+
+@noindent
+Arguments @var{a}, @var{b}, @var{c}, and @var{d} are the coefficients of
+the polynomial.
+
+Value is a list of three numbers.
+@end defun
+
+
+@node Miscellaneous, Programming for the Real World, Mathematics, Top
+@chapter Miscellaneous
+
+@menu
+* Regular Expressions::
+@end menu
+
+
+@node Regular Expressions,  , Miscellaneous, Miscellaneous
+@section Regular Expressions
+
+The symbols documented in this section are an extension to the
+@acronym{CL-PPCRE} package.  It provides caching of compiled regular
+expressions and some syntactic sugar for working with the match data.
+
+@c ----------------------------------------------------------------------
+@anchor{rs:string-match}
+@defun string-match regexp string @k{key} start end
+Return start position of first match for @var{regexp} in @var{string},
+or nil if there is no match.
+
+@itemize
+@item
+First argument @var{regexp} is a regular expression.
+
+@item
+Second argument @var{string} is the target string.
+
+@item
+Keyword arguments @var{start} and @var{end} are bounding indices in
+@var{string}.  Default values are zero and the length of @var{string}.
+@end itemize
+
+See the @code{cl-ppcre:scan} function, for more details.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:match-start}
+@defun match-start @k{optional} subexp
+Return start index of text matched by last search.
+
+Optional argument @var{subexp} (a non-negative integer) specifies a
+parenthesized expression.  A value of zero means the entire match.
+This is the default.
+
+Value is nil if there is no match.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:match-end}
+@defun match-end @k{optional} subexp
+Return end index of text matched by last search.
+
+Optional argument @var{subexp} (a non-negative integer) specifies a
+parenthesized expression.  A value of zero means the entire match.
+This is the default.
+
+Value is nil if there was no match.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:match-data}
+@defun match-data
+Return list of bounding indices on what the last search matched.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:save-match-data}
+@defmac save-match-data @k{body} body
+Save match data, execute @var{body} forms, restore match data.
+
+Value is the value of the last form in @var{body}.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:match-string}
+@defun match-string @k{optional} subexp
+Return string of text matched by last search.
+
+Optional argument @var{subexp} (a non-negative integer) specifies a
+parenthesized expression.  A value of zero means the entire match.
+This is the default.
+
+Value is nil if there is no match.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:match-strings}
+@defun match-strings
+Return strings of text matched by last search.
+
+Value is a list.  A list element of nil means that the corresponding
+parenthesized expression did not match.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:replace-match}
+@defun replace-match new-text @k{optional} subexp
+Replace text matched by last search.
+
+Optional argument @var{subexp} (a non-negative integer) specifies a
+parenthesized expression.  A value of zero means the entire match.
+This is the default.
+@end defun
+
+
+@node Programming for the Real World, Symbol Index, Miscellaneous, Top
+@chapter Programming for the Real World
+
+This chapter documents features for interfacing with the operating
+system.  While these are especially useful when creating standalone
+applications, they are also highly non-portable.
+
+@menu
+* Environment Variables::
+* Program Arguments::
+* Program Termination::
+* Diagnostic Messages::
+* Working Directory::
+* Temporary Files and Directories::
+* External Programs::
+@end menu
+
+
+@node Environment Variables, Program Arguments, Programming for the Real World, Programming for the Real World
+@section Environment Variables
+
+@c ----------------------------------------------------------------------
+@anchor{rs:environment-variables}
+@defun environment-variables
+Return all environment variables as an associated list.  List elements
+are cons cells of the form
+
+@lisp
+(@var{name} . @var{value})
+@end lisp
+
+@noindent
+where @var{name} and @var{value} are the name respective value of an
+environment variable.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:environment-variable}
+@defun environment-variable name
+Return the value of the environment variable @var{name}.
+
+Value is nil if no entry with key @var{name} exists.
+@end defun
+
+@c ----------------------------------------------------------------------
+@defun {(setf environment-variable)} value name @k{optional} replace
+Set the value of the environment variable @var{name} to @var{value}.
+
+If the environment already contains an entry with key @var{name} and
+optional argument @var{replace} is true (this is the default), replace
+the entry with key @var{name}.  Otherwise, do nothing.
+
+If @var{value} is nil, remove the entry with key @var{name} from the
+environment.
+@end defun
+
+
+@node Program Arguments, Program Termination, Environment Variables, Programming for the Real World
+@section Program Arguments
+
+@c ----------------------------------------------------------------------
+@anchor{rs:program-invocation-name}
+@defun program-invocation-name
+Return the program name as invoked on the command line.
+
+Value is a string.
+@end defun
+
+@c ----------------------------------------------------------------------
+@defun {(setf program-invocation-name)} value
+Set the program name.
+
+Value has to be a string, a pathname, or a file stream.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:program-invocation-short-name}
+@defun program-invocation-short-name
+Return the program name as invoked on the command line but without the
+directory part.
+
+Value is a string.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:program-arguments}
+@defun program-arguments
+Return the list of program arguments.
+
+Value is a list of strings.
+@end defun
+
+@c ----------------------------------------------------------------------
+@defun {(setf program-arguments)} value
+Set the list of program arguments.
+
+Value has to be a list of strings.
+@end defun
+
+
+@node Program Termination, Diagnostic Messages, Program Arguments, Programming for the Real World
+@section Program Termination
+
+@c ----------------------------------------------------------------------
+@anchor{rs:exit-success}
+@defun exit-success
+Terminate the program indicating successful completion.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:exit-failure}
+@defun exit-failure
+Terminate the program indicating a failure condition.
+@end defun
+
+
+@node Diagnostic Messages, Working Directory, Program Termination, Programming for the Real World
+@section Diagnostic Messages
+
+Standalone programs should write diagnostic messages to standard error.
+Diagnostic messages have the form
+
+@example
+@var{program-name}:@var{file-name}:@var{line-number}: @var{message}
+@end example
+
+@noindent
+where @var{program-name} is the name of the program issuing the
+diagnostic message and @var{file-name} and @var{line-number} should
+point to the location of the error.
+
+@c ----------------------------------------------------------------------
+@anchor{rs:diagnostic-message}
+@deftp Condition diagnostic-message (@code{simple-condition})
+Condition type for a diagnostic message.
+
+@itemize
+@item
+Slot @var{program-name} is the program name.  Default is the value
+returned by the @code{program-invocation-short-name} function.  If nil,
+the program name is not part of the message text.
+
+@item
+Slot @var{file-name} is the file name operated on.  Default nil, that
+means not applicable.
+
+@item
+Slot @var{line-number} is the line number operated on.  Default nil,
+that means not applicable.  Value is only used if @var{file-name} is not
+null.
+
+@item
+Slot @var{level} is the severity level.  Value is either @code{:error},
+@code{:warning}, or @code{:message}.  Default is @code{:message}.
+@end itemize
+@end deftp
+
+@c ----------------------------------------------------------------------
+@anchor{rs:say}
+@defun say datum @k{rest} arguments
+Signal a condition.
+
+Argument is a condition designator.
+
+If the condition is not handled, print the condition report to the
+@code{*error-output*} stream and return the condition object.
+Otherwise, the value is nil.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:die}
+@defun die datum @k{rest} arguments
+Signal a fatal condition.
+
+Argument is a condition designator.
+
+If the condition is not handled, print the condition report to the
+@code{*error-output*} stream and terminate the program
+(see function @ref{rs:exit-failure, , @code{exit-failure}}).
+@end defun
+
+You can call @code{say} and @code{die} in various ways.
+
+@lisp
+@group
+(say (make-condition 'diagnostic-message
+                     :file-name @var{file-name}
+                     :format-control "no such file"))
+@end group
+@end lisp
+
+This is exactly equal to the form
+
+@lisp
+@group
+(say 'diagnostic-message
+     :file-name @var{file-name}
+     :format-control "no such file")
+@end group
+@end lisp
+
+The most simple form is by passing the format control string as the
+first argument.
+
+@lisp
+@group
+(let ((n 2))
+  (when (oddp n)
+    (die "should not happen")))
+@end group
+@end lisp
+
+@c ----------------------------------------------------------------------
+@anchor{rs:standalone-program-p}
+@defun standalone-program-p
+Return true if Lisp is running in batch mode.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:standalone-program}
+@defun standalone-program
+Disable features available in an interactive Lisp.
+@end defun
+
+
+@node Working Directory, Temporary Files and Directories, Diagnostic Messages, Programming for the Real World
+@section Working Directory
+
+@c ----------------------------------------------------------------------
+@anchor{rs:get-working-directory}
+@defun get-working-directory
+Return the process's working directory.
+
+Value is a pathname.
+
+Signal a @code{file-error} if the directory can not be determined.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:set-working-directory}
+@defun set-working-directory directory @k{optional} default
+Set the process's working directory to @var{directory}.
+
+Value is the pathname of the new working directory.
+
+@itemize
+@item
+First argument @var{directory} is either a string (interpreted as a
+directory file name) or a pathspec.
+
+@item
+If optional second argument @var{default} is true, adjust the special
+variable @code{*default-pathname-defaults*}, too.  This is the default.
+@end itemize
+
+Signal a @code{file-error} if the directory can not be changed.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:with-working-directory}
+@defmac with-working-directory @w{(directory @k{rest} arg)} @k{body} body
+Temporarily change the process' working directory to @var{directory}
+and evaluate @var{body}.
+@end defmac
+
+
+@node Temporary Files and Directories, External Programs, Working Directory, Programming for the Real World
+@section Temporary Files and Directories
+
+@c ----------------------------------------------------------------------
+@anchor{rs:temporary-file-name}
+@defun temporary-file-name @k{key} prefix directory
+Generate a pathname that may be used for a temporary file.
+
+@itemize
+@item
+Keyword argument @var{prefix} is the initial sequence of characters for
+the file name.  Default is @code{"temp"}.
+
+@item
+Keyword argument @var{directory} specifies the directory in which the
+file name is created.  Value is either nil, t, a string, or a pathname
+designator.  A value of nil means to utilize the directory part of
+@code{*default-pathname-defaults*}, t means to use some system specific
+temporary directory, a string is interpreted as a directory file name,
+and a pathname designator is used as is.
+@end itemize
+
+Value is a pathname whose file name is @var{prefix} followed by six
+random characters (see the @code{random-string} function).
+
+When keyword argument @var{directory} is t, the system specific
+temporary directory is chosen as follows.  First, the environment
+variables @env{TMPDIR} and @env{TMP} are examined in that order.  If
+both environment variables are not set, further processing depends on
+the type of operating system.  On Unix, fall back to the @file{/tmp}
+directory.  On Windows, check the value of the environment variable
+@env{TEMP}, then fall back to the @file{C:\Temp}, directory.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:temporary-file}
+@defun temporary-file @k{key} prefix directory direction element-type external-format
+Create a unique file.
+
+@itemize
+@item
+Keyword arguments @var{prefix} and @var{directory} have the same meaning
+as for the @code{temporary-file-name} function.
+
+@item
+Keyword arguments @var{direction} (default @code{:output}),
+@var{element-type} (default @code{character}), and @var{external-format}
+(default @code{:default}) have the same meaning as for the @code{open}
+function.
+@end itemize
+
+Value is a file stream to the newly created file.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:with-temporary-file}
+@defmac with-temporary-file @w{(var @k{rest} arg)} @k{body} body
+Create a temporary file and evaluate the body forms.
+
+@itemize
+@item
+First argument @var{var} is the variable name to which the file stream of
+the temporary file is bound.
+
+@item
+Remaining arguments are passed on to the @code{temporary-file} function.
+@end itemize
+
+When control leaves the body, either normally or abnormally, the
+temporary file is automatically closed and deleted.
+
+Value is the value of the last form of @var{body}.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:temporary-directory}
+@defun temporary-directory @k{key} prefix directory
+Create a unique directory.
+
+@itemize
+@item
+Keyword arguments @var{prefix} and @var{directory} have the same meaning
+as for the @code{temporary-file-name} function.
+@end itemize
+
+Value is the pathname to the newly created directory.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:with-temporary-directory}
+@defmac with-temporary-directory @w{(var @k{rest} arg)} @k{body} body
+Create a temporary directory and evaluate the body forms.
+
+@itemize
+@item
+First argument @var{var} is the variable name to which the pathname of
+the temporary directory is bound.
+
+@item
+Remaining arguments are passed on to the @code{temporary-directory}
+function.
+@end itemize
+
+When control leaves the body, either normally or abnormally, the
+temporary directory is automatically deleted.  This includes all
+files and directories within the temporary directory.
+
+Value is the value of the last form of @var{body}.
+@end defmac
+
+
+@node External Programs,  , Temporary Files and Directories, Programming for the Real World
+@section External Programs
+
+@c ----------------------------------------------------------------------
+@anchor{rs:execute-program}
+@defun execute-program program @k{optional} arguments @k{key} extra-arguments input if-input-does-not-exist output if-output-exists error if-error-exists wait
+Run an external program.
+
+@itemize
+@item
+First argument @var{program} is the program file name.  Value is either
+a string or a pathname.  If @var{program} is an absolute or explicit
+relative file name, execute the specified file.  Otherwise, search for
+it in the standard program search path.
+
+@item
+Second argument @var{arguments} are the program arguments.  Value is a
+list of strings.
+
+@item
+Keyword argument @var{extra-arguments} are additional program arguments.
+Value is a list of strings.  These arguments are appended to the normal
+@var{arguments} in a way similar to the @command{xargs} utility.  Use of
+this keyword may result in multiple invocations of @var{program}.
+
+@item
+Keyword argument @var{input} is the source for the program's standard
+input stream.  Value is either nil, t, @code{:stream}, a string, or a
+pathname.  Default is t and @code{:stream} is only valid if @var{wait}
+is nil.
+
+@item
+Keyword argument @var{if-input-does-not-exist} specifies what to do if
+@var{input} names a non-existing file.  Value is either @code{:error},
+@code{:create}, or nil.  Default is @code{:error}.
+
+@item
+Keyword argument @var{output} is the destination for the program's
+standard output stream.  Value is either nil, t, @code{:stream}, a
+string, or a pathname.  Default is t and @code{:stream} is only valid
+if @var{wait} is nil.
+
+@item
+Keyword argument @var{if-output-exists} specifies what to do if
+@var{output} names an existing file.  Value is either @code{:error},
+@code{:supersede}, @code{:append}, or nil.  Default is @code{:error}.
+
+@item
+Keyword argument @var{error} is the destination for the program's
+standard error stream.  Value is either nil, t, @code{:stream}, a
+string, or a pathname.  Default is t and @code{:stream} is only valid
+if @code{wait} is nil.
+
+@item
+Keyword argument @var{if-error-exists} specifies what to do if
+@var{error} names am existing file.  Value is either @code{:error},
+@code{:supersede}, @code{:append}, or nil.  Default is @code{:error}.
+
+@item
+If keyword argument @var{wait} is true, block the Lisp process and wait
+for the program to terminate.  Otherwise run the program asynchronously.
+Default is true.
+@end itemize
+
+If @var{input} names a non-existing file and
+@var{if-input-does-not-exist} is nil, value is nil (no error).
+Likewise if @var{output}/@var{error} names an existing file and
+@var{if-output-exists}/@var{if-error-exists} is nil.  Otherwise, the
+return value depends on the @var{wait} flag.  If @var{wait} is true,
+value is the program's exit status.  Otherwise, value is an object
+representing the external program.
+
+For @var{input}, @var{output}, and @var{error}, a value of nil means
+that the stream is redirected to the null device, t means to inherit the
+stream from the Lisp process, @code{:stream} means to create a new
+stream (only valid if @code{wait} is nil), and a string or a pathname
+names a file.
+
+For @var{if-input-does-not-exist}, a value of @code{:error} means to
+signal a file error, @code{:create} means to create the file, and nil
+means to fail silently.
+
+For @var{if-output-exists} and @var{if-error-exists}, a value of
+@code{:error} means to signal a file error, @code{:supersede} means to
+create a new file with the same name, @code{:append} means to modify the
+existing file at the end, and nil means to fail silently.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:with-input-from-program}
+@defmac with-input-from-program (var program @k{optional} arguments @k{key} input if-input-does-not-exist error if-error-exists) @k{body} body
+Run an external program asynchronously and evaluate the body forms.
+
+@itemize
+@item
+First argument @var{var} is the variable name to which the output stream
+of the external program is bound (see @code{program-output-stream}).
+The Lisp process can read the program's output via this stream.
+
+@item
+Remaining arguments have the same meaning as for the
+@code{execute-program} function.
+@end itemize
+
+When control leaves the body, either normally or abnormally, the open
+stream is automatically closed and deleted.
+
+Value is the value of the last form of @var{body}.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:with-output-to-program}
+@defmac with-output-to-program (var program @k{optional} arguments @k{key} output if-output-exists error if-error-exists) @k{body} body
+Run an external program asynchronously and evaluate the body forms.
+
+@itemize
+@item
+First argument @var{var} is the variable name to which the input stream
+of the external program is bound (see @code{program-input-stream}).
+The Lisp process can write the program's input via this stream.
+
+@item
+Remaining arguments have the same meaning as for the
+@code{execute-program} function.
+@end itemize
+
+When control leaves the body, either normally or abnormally, the open
+stream is automatically closed and deleted.
+
+Value is the value of the last form of @var{body}.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:with-program-io}
+@defmac with-program-io (var program @k{optional} arguments @k{key} error if-error-exists) @k{body} body
+Run an external program asynchronously and evaluate the body forms.
+
+@itemize
+@item
+First argument @var{var} is the variable name to which a bidirectional
+input/output stream of the external program is bound.  The Lisp process
+can read/write the program's output/input via this stream.
+
+@item
+Remaining arguments have the same meaning as for the
+@code{execute-program} function.
+@end itemize
+
+When control leaves the body, either normally or abnormally, the open
+stream is automatically closed and deleted.
+
+Value is the value of the last form of @var{body}.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:program-input-stream}
+@deffn {Generic Function} program-input-stream self
+The input stream of an external program, or nil.
+
+Argument @var{self} is an an object representing the external program.
+
+The Lisp process can write to the program's input stream.
+@end deffn
+
+@c ----------------------------------------------------------------------
+@anchor{rs:program-output-stream}
+@deffn {Generic Function} program-output-stream self
+The output stream of an external program, or nil.
+
+Argument @var{self} is an an object representing the external program.
+
+The Lisp process can read from the program's output stream.
+@end deffn
+
+@c ----------------------------------------------------------------------
+@anchor{rs:program-error-stream}
+@deffn {Generic Function} program-error-stream self
+The error stream of an external program, or nil.
+
+Argument @var{self} is an an object representing the external program.
+
+The Lisp process can read from the program's error stream.
+@end deffn
+
+@c ----------------------------------------------------------------------
+@anchor{rs:program-exit-status}
+@deffn {Generic Function} program-exit-status self
+The exit value of an external program or the negative signal value,
+or nil.
+
+Argument @var{self} is an an object representing the external program.
+@end deffn
+
+@c ----------------------------------------------------------------------
+@anchor{rs:close-program-streams}
+@defun close-program-streams self
+Close all streams of an external program.
+
+Argument @var{self} is an an object representing the external program.
+@end defun
+
+
+@node Symbol Index, Concept Index, Programming for the Real World, Top
+@unnumbered Symbol Index
+
+@printindex fn
+
+
+@node Concept Index,  , Symbol Index, Top
+@unnumbered Concept Index
+
+@printindex cp
+
+@bye
+
+
+@c LocalWords: texinfo tex texi pt filll dir
+
+@c local variables:
+@c mode: outline-minor
+@c outline-regexp: "@\\(chapt\\|unnum\\|appen\\|section\\|subsection\\)"
+@c time-stamp-format: "%:y-%02m-%02d"
+@c time-stamp-start: "^@set UPDATED[    ]+"
+@c time-stamp-end: "$"
+@c end:
