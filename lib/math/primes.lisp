@@ -34,60 +34,113 @@
 
 (in-package :rs-cll)
 
+(defvar *primes-cache-size* (expt 2 19) ;64 kiB
+  "Cache size.  Value has to be an even number.")
+
+(defvar *primes-cache*
+  (let ((p (make-array *primes-cache-size* :element-type 'bit :initial-element 0)))
+    ;; The only even prime number.
+    (setf (sbit p 2) 1)
+    ;; Loop over odd numbers; that means none of the
+    ;; tested numbers can be divided by two.
+    (iter (for n :from 3 :below *primes-cache-size* :by 2)
+	  (iter (for d :from 3 :to (isqrt n) :by 2)
+		(when (zerop (rem n d))
+		  (leave))
+		(finally
+		 ;; N is prime.
+		 (setf (sbit p n) 1))))
+    p)
+  "Cache of prime numbers (a simple bit vector).")
+
+(defmacro %is-prime (n)
+  "Query the cache whether or not N is a prime number."
+  `(= (sbit *primes-cache* ,n) 1))
+
+(defun %primep (n)
+  "Return N if it is a prime number, or nil.
+Argument N has to be a non-negative integral number."
+  (declare #.optimize-for-speed)
+  (declare (type integer n))
+  (cond ((< n *primes-cache-size*)
+	 (if (%is-prime n) n))
+	((oddp n)
+	 (let ((max-divisor (isqrt n)))
+	   (iter (for d :from 3 :to (min max-divisor *primes-cache-size*) :by 2)
+		 (when (and (%is-prime d) (zerop (rem n d)))
+		   (return-from %primep)))
+	   (iter (for d :from (1+ *primes-cache-size*) :to max-divisor :by 2)
+		 (when (zerop (rem n d))
+		   (return-from %primep)))
+	   ;; N is prime.
+	   n))))
+
+(defun %next-prime (n)
+  "Return the prime number greater than N.
+Argument N has to be an integral number."
+  (declare #.optimize-for-speed)
+  (declare (type integer n))
+  (if (> n 1)
+      ;; Start at next odd number after N.
+      (iter (with k = (if (oddp n) (+ n 2) (1+ n)))
+	    (when (%primep k)
+	      (leave k))
+	    (incf k 2))
+    2))
+
+(defun %previous-prime (n)
+  "Return the prime number less than N, or nil.
+Argument N has to be an integral number."
+  (declare #.optimize-for-speed)
+  (declare (type integer n))
+  (cond ((> n 3)
+	 ;; Start at previous odd number before N.
+	 (iter (with k = (if (oddp n) (- n 2) (1- n)))
+	       (when (%primep k)
+		 (leave k))
+	       (decf k 2)))
+	((= n 3)
+	 2)))
+
 (export 'primep)
 (defun primep (n)
   "Return N if it is a prime number, or nil."
-  (when (integerp n)
-    (cond ((< n 2)
-	   nil)
-	  ((= n 2)
-	   n)
-	  ((oddp n)
-	   (iter (for d :from 2 :to (isqrt n))
-		 (when (zerop (rem n d))
-		   (leave nil))
-		 (finally
-		  (return n))))
-	  )))
+  (declare #.optimize-for-speed)
+  (when (and (integerp n) (> n 1))
+    (%primep n)))
 
 (export 'next-prime)
 (defun next-prime (n)
   "Return the prime number greater than N, or nil."
+  (declare #.optimize-for-speed)
   (when (integerp n)
-    (if (> n 1)
-	;; Start at next odd number after N.
-	(iter (with k = (if (oddp n) (+ n 2) (1+ n)))
-	      (when (primep k)
-		(leave k))
-	      (incf k 2))
-      2)))
+    (%next-prime n)))
 
 (export 'next-prime*)
 (defun next-prime* (n)
   "Return the prime number greater than or equal to N, or nil."
-  (or (primep n) (next-prime n)))
+  (declare #.optimize-for-speed)
+  (when (integerp n)
+    (if (< n 2) 2 (or (%primep n) (%next-prime n)))))
 
 (export 'previous-prime)
 (defun previous-prime (n)
   "Return the prime number less than N, or nil."
+  (declare #.optimize-for-speed)
   (when (integerp n)
-    (cond ((> n 3)
-	   ;; Start at previous odd number before N.
-	   (iter (with k = (if (oddp n) (- n 2) (1- n)))
-		 (when (primep k)
-		   (leave k))
-		 (decf k 2)))
-	  ((= n 3)
-	   2))))
+    (%previous-prime n)))
 
 (export 'previous-prime*)
 (defun previous-prime* (n)
   "Return the prime number less than or equal to N, or nil."
-  (or (primep n) (previous-prime n)))
+  (declare #.optimize-for-speed)
+  (when (integerp n)
+    (if (> n 1) (or (%primep n) (%previous-prime n)))))
 
 (export 'primes-between)
 (defun primes-between (from to)
   "Return a list of prime numbers between FROM and TO, inclusive."
+  (declare #.optimize-for-speed)
   (when (and (integerp from)
 	     (integerp to))
     (let (primes)
@@ -99,7 +152,7 @@
       (iter (with k = from)
 	    (cond ((> k to)
 		   (finish))
-		  ((primep k)
+		  ((%primep k)
 		   (push k primes)))
 	    (incf k 2))
       (nreverse primes))))
@@ -113,6 +166,7 @@ Argument N is one-based, i.e.
 
      (nth-prime 1)
       => 2"
+  (declare #.optimize-for-speed)
   (when (integerp n)
     (cond ((< n 1)
 	   nil)
@@ -120,7 +174,7 @@ Argument N is one-based, i.e.
 	   2)
 	  (t
 	   (iter (for k :from 3 :by 2)
-		 (when (primep k)
+		 (when (%primep k)
 		   (decf n)
 		   (when (= n 1)
 		     (leave k)))))
@@ -130,6 +184,7 @@ Argument N is one-based, i.e.
 (defun prime-factors (n)
   "Return a list of prime factors of N.
 If N is prime, return value is the list (N)."
+  (declare #.optimize-for-speed)
   (when (and (integerp n) (> n 1))
     (iter (with n = n)
 	  ;; Trial divisor.
@@ -150,7 +205,9 @@ If N is prime, return value is the list (N)."
 		     (setf n q ; (/ n d)
 			   m (isqrt n)))))
 		((> d 2)
-		 (incf d 2))
+		 (iter (incf d 2)
+		       (while (< d *primes-cache-size*))
+		       (until (%is-prime d))))
 		(t
 		 (setf d 3))
 		))))
