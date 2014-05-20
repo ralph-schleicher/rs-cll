@@ -243,6 +243,52 @@ This is equal to 360 arc degree.
 @node Mathematical Operators, Floating-Point Numbers, Numerical Constants, Numbers
 @subsection Mathematical Operators
 
+@subsubheading Minimum and Maximum
+
+@c ----------------------------------------------------------------------
+@anchor{rs:minf}
+@defmac minf place @k{rest} numbers
+Set the value designated by @var{place} to the minimum of the current
+value and @var{numbers}.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:maxf}
+@defmac maxf place @k{rest} numbers
+Set the value designated by @var{place} to the maximum of the current
+value and @var{numbers}.
+@end defmac
+
+@subsubheading Basic Arithmetics
+
+@c ----------------------------------------------------------------------
+@anchor{rs:addf}
+@defmac addf place @k{rest} numbers
+Add @var{numbers} to the value designated by @var{place}.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:subf}
+@defmac subf place @k{rest} numbers
+Subtract @var{numbers} to the value designated by @var{place}.
+If @var{numbers} is omitted, change the sign of the value.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:mulf}
+@defmac mulf place @k{rest} numbers
+Multiply the value designated by @var{place} by @var{numbers}.
+@end defmac
+
+@c ----------------------------------------------------------------------
+@anchor{rs:divf}
+@defmac divf place @k{rest} numbers
+Divide the value designated by @var{place} by @var{numbers}.
+If @var{numbers} is omitted, invert the value.
+@end defmac
+
+@subsubheading Combined Arithmetics
+
 @c ----------------------------------------------------------------------
 @anchor{rs:fma}
 @defun fma number multiplicand summand
@@ -1520,6 +1566,7 @@ Argument @var{self} is an an object representing the external program.
 @c local variables:
 @c mode: outline-minor
 @c outline-regexp: "@\\(chapt\\|unnum\\|appen\\|section\\|subsection\\)"
+@c time-stamp-time-zone: "UTC"
 @c time-stamp-format: "%:y-%02m-%02d"
 @c time-stamp-start: "^@set UPDATED[    ]+"
 @c time-stamp-end: "$"
