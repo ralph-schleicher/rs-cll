@@ -5,7 +5,7 @@
 @settitle Ralph's Common Lisp Library
 
 @set EDITION 1 (draft)
-@set UPDATED 2013-05-17
+@set UPDATED 2013-10-08
 
 @include package.texi
 
@@ -106,6 +106,7 @@ of routines for programming in Common Lisp.
 * Numbers::
 * Quantities::
 * Characters::
+* Arrays::
 * Strings::
 * Sequences::
 * Streams::
@@ -495,7 +496,7 @@ sign of the angle.
 @end defun
 
 
-@node Characters, Strings, Quantities, Basic Definitions
+@node Characters, Arrays, Quantities, Basic Definitions
 @section Characters
 
 @c ----------------------------------------------------------------------
@@ -540,7 +541,48 @@ Value is the weight of @var{char} as an integer, or nil.
 @end defun
 
 
-@node Strings, Sequences, Characters, Basic Definitions
+@node Arrays, Strings, Characters, Basic Definitions
+@section Arrays
+
+@c ----------------------------------------------------------------------
+@anchor{rs:linear-index-from-subscripts}
+@defun linear-index-from-subscripts dimensions subscripts
+Return the linear index corresponding to a set of subscript values.
+
+@itemize
+@item
+First argument @var{dimensions} is a list of valid array dimensions.
+
+@item
+Second argument @var{subscripts} is a list of valid array indices.
+@end itemize
+
+The return value of the @code{linear-index-from-subscripts} function is
+equal to the value of the form
+
+@lisp
+(apply #'array-row-major-index (make-array @var{dimensions}) @var{subscripts})
+@end lisp
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:subscripts-from-linear-index}
+@defun subscripts-from-linear-index dimensions index
+Return the set of subscript values corresponding to a linear index.
+
+@itemize
+@item
+First argument @var{dimensions} is a list of valid array dimensions.
+
+@item
+Second argument @var{index} is a valid array index.
+@end itemize
+
+This is the inverse function of @code{linear-index-from-subscripts}.
+@end defun
+
+
+@node Strings, Sequences, Arrays, Basic Definitions
 @section Strings
 
 @c ----------------------------------------------------------------------
