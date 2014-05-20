@@ -146,16 +146,14 @@ Argument SPEC is an options specification, that is a list where each
 			      ;; of the loop.
 			      (for rest :initially elem :then (cdr rest))
 			      (if (option-name-p name)
-				  (collect name :into names :at :beginning)
+				  (collect name :into names)
 				(finish))
 			      (finally
 			       (return (apply #'make-option :names (nreverse names) rest))))))
 		     (option-name
 		      (make-option :names (list elem)))))
 	(unless (null opt)
-	  (collect opt :into options :at :beginning))
-	(finally
-	 (return (nreverse options)))))
+	  (collect opt))))
 
 (defun make-option-table (options)
   "Make a hash table for looking up an option by name.
@@ -165,17 +163,35 @@ Value is a hash table.  Hash key is an option name or it's
 abbreviation.  Hash value is the associated option, or t if
 the option name is ambiguous."
   (let ((tab (make-hash-table :test #'equal)))
+    ;; Check that the option names itself are disambiguous.
     (iter (for opt :in options)
 	  (iter (for name :in (option-names opt))
-		(etypecase name
-		  (character
-		   (setf (gethash name tab)
-			 (if (gethash name tab) t opt)))
-		  (string
-		   (iter (for end :from (length name) :downto 1)
-			 (for abbrev = (subseq name 0 end))
-			 (setf (gethash abbrev tab)
-			       (if (gethash abbrev tab) t opt)))))))
+		(for type = (etypecase name
+			      (character
+			       :short)
+			      (string
+			       :long)))
+		(when (gethash name tab)
+		  ;; Duplicate option name.
+		  (error 'parse-error))
+		(setf (gethash name tab) type)))
+    ;; Define abbreviations for long options.
+    (iter (for opt :in options)
+	  (iter (for name :in (option-names opt))
+		(when (stringp name)
+		  (iter (for end :from (length name) :downto 1)
+			(for abbrev = (subseq name 0 end))
+			(for value = (gethash abbrev tab))
+			;; If there is a --long and --longer option,
+			;; then --long is not a valid abbreviation
+			;; for the --longer option.
+			(unless (eq value :long)
+			  (setf (gethash abbrev tab) (if value t opt)))))))
+    ;; Replace type marker by actual option.
+    (iter (for opt :in options)
+	  (iter (for name :in (option-names opt))
+		(setf (gethash name tab) opt)))
+    ;; Done.
     tab))
 
 (export '(optarg optind opterr optopt unprocessed-arguments remaining-arguments))
