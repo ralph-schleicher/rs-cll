@@ -5,7 +5,7 @@
 @settitle Ralph's Common Lisp Library
 
 @set EDITION 1 (draft)
-@set UPDATED 2014-02-28
+@set UPDATED 2014-03-03
 
 @include package.texi
 
@@ -427,6 +427,15 @@ number, utilize lowercase letters.  Otherwise, use uppercase letters.
 @node Quantities, Characters, Numbers, Basic Definitions
 @section Quantities
 
+@menu
+* Angle::
+* Temperature::
+@end menu
+
+
+@node Angle, Temperature, Quantities, Quantities
+@subsection Angle
+
 @c ----------------------------------------------------------------------
 @anchor{rs:radian-from-degree}
 @defun radian-from-degree deg
@@ -493,6 +502,186 @@ Return values are the arc degrees, arc minutes, and arc seconds.  The
 number of arc seconds may be a floating point number with fractions of
 a second.  Fourth value is either plus one or minus one specifying the
 sign of the angle.
+@end defun
+
+
+@node Temperature,  , Angle, Quantities
+@subsection Temperature
+
+The following temperature units are supported:
+
+@itemize
+@item
+kelvin
+
+@item
+degree Celsius
+
+@item
+degree Rankine
+
+@item
+degree Fahrenheit
+@end itemize
+
+@noindent
+All temperature conversion functions are exact as long as the argument
+is an exact number.
+
+@c ----------------------------------------------------------------------
+@anchor{rs:kelvin-from-degree-celsius}
+@defun kelvin-from-degree-celsius value
+Convert temperature from degree Celsius to kelvin.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Celsius.
+@end itemize
+
+Value is the corresponding temperature in kelvin.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:kelvin-from-degree-rankine}
+@defun kelvin-from-degree-rankine value
+Convert temperature from degree Rankine to kelvin.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Rankine.
+@end itemize
+
+Value is the corresponding temperature in kelvin.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:kelvin-from-degree-fahrenheit}
+@defun kelvin-from-degree-fahrenheit value
+Convert temperature from degree Fahrenheit to kelvin.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Fahrenheit.
+@end itemize
+
+Value is the corresponding temperature in kelvin.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-celsius-from-kelvin}
+@defun degree-celsius-from-kelvin value
+Convert temperature from kelvin to degree Celsius.
+
+@itemize
+@item
+Argument @var{value} is the temperature in kelvin.
+@end itemize
+
+Value is the corresponding temperature in .
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-celsius-from-degree-rankine}
+@defun degree-celsius-from-degree-rankine value
+Convert temperature from degree Rankine to degree Celsius.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Rankine.
+@end itemize
+
+Value is the corresponding temperature in degree Celsius.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-celsius-from-degree-fahrenheit}
+@defun degree-celsius-from-degree-fahrenheit value
+Convert temperature from degree Fahrenheit to degree Celsius.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Fahrenheit.
+@end itemize
+
+Value is the corresponding temperature in degree Celsius.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-rankine-from-kelvin}
+@defun degree-rankine-from-kelvin value
+Convert temperature from kelvin to degree Rankine.
+
+@itemize
+@item
+Argument @var{value} is the temperature in kelvin.
+@end itemize
+
+Value is the corresponding temperature in degree Rankine.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-rankine-from-degree-celsius}
+@defun degree-rankine-from-degree-celsius value
+Convert temperature from degree Celsius to degree Rankine.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Celsius.
+@end itemize
+
+Value is the corresponding temperature in degree Rankine.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-rankine-from-degree-fahrenheit}
+@defun degree-rankine-from-degree-fahrenheit value
+Convert temperature from degree Fahrenheit to degree Rankine.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Fahrenheit.
+@end itemize
+
+Value is the corresponding temperature in degree Rankine.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-fahrenheit-from-kelvin}
+@defun degree-fahrenheit-from-kelvin value
+Convert temperature from kelvin to degree Fahrenheit.
+
+@itemize
+@item
+Argument @var{value} is the temperature in kelvin.
+@end itemize
+
+Value is the corresponding temperature in degree Fahrenheit.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-fahrenheit-from-degree-celsius}
+@defun degree-fahrenheit-from-degree-celsius value
+Convert temperature from degree Celsius to degree Fahrenheit.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Celsius.
+@end itemize
+
+Value is the corresponding temperature in degree Fahrenheit.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:degree-fahrenheit-from-degree-rankine}
+@defun degree-fahrenheit-from-degree-rankine value
+Convert temperature from degree Rankine to degree Fahrenheit.
+
+@itemize
+@item
+Argument @var{value} is the temperature in degree Rankine.
+@end itemize
+
+Value is the corresponding temperature in degree Fahrenheit.
 @end defun
 
 
