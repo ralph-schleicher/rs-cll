@@ -587,9 +587,6 @@ PACKAGE_URL=''
 ac_unique_file="lib/rs-cll.asd"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
-rs_cll_extensionsdir
-rs_clldir
-lispdir
 MAINT
 MAINTAINER_MODE_FALSE
 MAINTAINER_MODE_TRUE
@@ -658,7 +655,6 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 enable_maintainer_mode
-with_lisp_dir
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1280,12 +1276,6 @@ Optional Features:
   --enable-maintainer-mode
                           enable make rules and dependencies not useful (and
                           sometimes confusing) to the casual installer
-
-Optional Packages:
-  --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
-  --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
-  --with-lisp-dir=ARG     use ARG as the top-level installation directory for
-                          Lisp files [DATADIR/lisp]
 
 Report bugs to <rs@ralph-schleicher.de>.
 _ACEOF
@@ -2230,7 +2220,7 @@ am__tar='$${TAR-tar} chof - "$$tardir"' am__untar='$${TAR-tar} xf -'
 
 
 
-ac_config_files="$ac_config_files Makefile lib/Makefile doc/Makefile extensions/Makefile"
+ac_config_files="$ac_config_files Makefile doc/Makefile"
 
 
 
@@ -2255,32 +2245,6 @@ fi
 
   MAINT=$MAINTAINER_MODE_TRUE
 
-
-
-ax_lisp_dir="\${datadir}/lisp"
-
-# Check whether --with-lisp-dir was given.
-if test "${with_lisp_dir+set}" = set; then :
-  withval=$with_lisp_dir; case $withval in
-  yes | no)
-    as_fn_error $? "invalid value '$withval' for --with-lisp-dir" "$LINENO" 5
-    ;;
-  *)
-    ax_lisp_dir=$withval
-    ;;
-esac
-fi
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for top-level installation directory for Lisp files" >&5
-$as_echo_n "checking for top-level installation directory for Lisp files... " >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ax_lisp_dir" >&5
-$as_echo "$ax_lisp_dir" >&6; }
-lispdir=$ax_lisp_dir
-
-
-rs_clldir='$(lispdir)/$(PACKAGE_TARNAME)-$(PACKAGE_VERSION)'
-
-rs_cll_extensionsdir='$(rs_clldir)/extensions'
 
 
 
@@ -3011,9 +2975,7 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
-    "extensions/Makefile") CONFIG_FILES="$CONFIG_FILES extensions/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
