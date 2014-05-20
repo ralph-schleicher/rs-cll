@@ -103,6 +103,6 @@ Reading a binary file:
 			 (declare (type fixnum index))
 			 (vector-push-extend (aref buffer index) seq)))
 	     (adjust-array seq (length seq))))
-	  ))))
+	  )))
 
 ;;; streams.lisp ends here
