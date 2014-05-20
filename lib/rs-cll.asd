@@ -63,7 +63,6 @@
 		:components ((:file "math")
 			     (:file "brent")
 			     (:file "polynomials")
-			     (:file "trig")
 			     (:file "primes")))
 	       (:module "misc"
 		:serial t
