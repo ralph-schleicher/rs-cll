@@ -1,6 +1,6 @@
 ;;; diag.lisp --- diagnostic messages.
 
-;; Copyright (C) 2011, 2012 Ralph Schleicher
+;; Copyright (C) 2011 Ralph Schleicher
 
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions
