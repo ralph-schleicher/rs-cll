@@ -347,6 +347,18 @@ Second argument TEMPERATURE is the air temperature in kelvin.
 Value is the air density in kilogram per cubic meter."
   (/ pressure R temperature))
 
+(export 'specific-weight)
+(defun specific-weight (geometric-altitude &optional pressure temperature)
+  "Calculate the specific weight of air.
+
+First argument GEOMETRIC-ALTITUDE is the geometric altitude in meter.
+Second argument PRESSURE is the air pressure in pascal.
+Third argument TEMPERATURE is the air temperature in kelvin.
+
+Value is the specific weight of air in newton per cubic meter."
+  (* (acceleration-of-gravity geometric-altitude)
+     (density pressure temperature)))
+
 (export 'number-density)
 (defun number-density (pressure temperature)
   "Calculate the number density of air.
