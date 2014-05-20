@@ -75,16 +75,16 @@ or \"elevation\"."))
   (defconst standard-acceleration-of-gravity 9.80665
     "Standard acceleration of gravity at sea level in kilogram per square second.")
 
-  (export 'standard-air-pressure)
-  (defconst standard-air-pressure 101325.0
+  (export 'standard-pressure)
+  (defconst standard-pressure 101325.0
     "Standard air pressure at sea level in pascal.")
 
-  (export 'standard-air-temperature)
-  (defconst standard-air-temperature 288.15
+  (export 'standard-temperature)
+  (defconst standard-temperature 288.15
     "Standard air temperature at sea level in kelvin.")
 
-  (export 'standard-air-density)
-  (defconst standard-air-density 1.225
+  (export 'standard-density)
+  (defconst standard-density 1.225
     "Standard air density at sea level in kilogram per cubic meter.")
 
   (export 'avogadro-constant)
@@ -105,9 +105,9 @@ is required to utilize the value 8.31432.")
 
   (export 'specific-gas-constant)
   (defconst specific-gas-constant (if derived-quantities
-				      (/ standard-air-pressure
-					 standard-air-temperature
-					 standard-air-density)
+				      (/ standard-pressure
+					 standard-temperature
+					 standard-density)
 				    287.05287)
     "Specific gas constant of dry air in joule per kilogram kelvin.")
 
@@ -177,7 +177,7 @@ Value is the ratio of the air pressure to the air pressure at base level."
   (defconst layers (labels ((make-layer (Hb Tb L &optional neighbor)
 			      ;; Air pressure at base level.
 			      (let ((pb (if (not neighbor)
-					    standard-air-pressure
+					    standard-pressure
 					  (with-slots ((Hn altitude)
 						       (pn pressure)
 						       (Tn temperature)
