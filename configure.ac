@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.50])
 
-AC_INIT([rs-cll], [20130313.2302], [rs@ralph-schleicher.de])
+AC_INIT([rs-cll], [20130325.1852], [rs@ralph-schleicher.de])
 AM_INIT_AUTOMAKE([foreign no-define dist-bzip2])
 
 AC_CONFIG_SRCDIR([lib/rs-cll.asd])
