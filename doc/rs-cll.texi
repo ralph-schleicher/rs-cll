@@ -5,7 +5,7 @@
 @settitle Ralph's Common Lisp Library
 
 @set EDITION 1 (draft)
-@set UPDATED 2013-10-08
+@set UPDATED 2013-12-04
 
 @include package.texi
 
@@ -850,6 +850,22 @@ Return the distance between a point and the origin in a
 three-dimensional Cartesian coordinate system.
 
 Arguments @var{x}, @var{y}, and @var{z} have to be real numbers.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:real-sin}
+@defun real-sin angle
+Return the sine of @var{angle}.
+
+Argument @var{angle} has to be a real number given in radian.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:real-cos}
+@defun real-cos angle
+Return the cosine of @var{angle}.
+
+Argument @var{angle} has to be a real number given in radian.
 @end defun
 
 
