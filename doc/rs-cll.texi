@@ -5,7 +5,7 @@
 @settitle Ralph's Common Lisp Library
 
 @set EDITION 1 (draft)
-@set UPDATED 2013-03-13
+@set UPDATED 2013-03-25
 
 @include package.texi
 
@@ -510,6 +510,31 @@ Argument @var{char} has to be a character object.
 Return true if @var{char} is a space or horizontal tab character.
 
 Argument @var{char} has to be a character object.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:standard-alpha-char-p}
+@defun standard-alpha-char-p char
+Return true if @var{char} is a standard alphabetic character.
+
+Argument @var{char} has to be a character object.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:standard-digit-char-p}
+@defun standard-digit-char-p char
+Return true if @var{char} is a standard digit character.
+
+@itemize
+@item
+First argument @var{char} has to be a character object.
+
+@item
+Optional second argument @var{radix} is an integer between 2 and 36,
+inclusive.  Default is 10.
+@end itemize
+
+Value is the weight of @var{char} as an integer, or nil.
 @end defun
 
 
