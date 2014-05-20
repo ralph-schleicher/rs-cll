@@ -54,6 +54,64 @@ This is equal to 90 arc degree.")
   "Two times the ratio of a circle's circumference to its diameter.
 This is equal to 360 arc degree.")
 
+(export 'minf)
+(defmacro minf (place &rest numbers &environment env)
+  "Set the value designated by PLACE to the minimum
+of the current value and NUMBERS."
+  (multiple-value-bind (temp-var temp-val new-var set-form get-form)
+      (get-setf-expansion place env)
+    `(let* (,@(mapcar #'list temp-var temp-val)
+	    (,@new-var (min ,get-form ,@numbers)))
+       ,set-form)))
+
+(export 'maxf)
+(defmacro maxf (place &rest numbers &environment env)
+  "Set the value designated by PLACE to the maximum
+of the current value and NUMBERS."
+  (multiple-value-bind (temp-var temp-val new-var set-form get-form)
+      (get-setf-expansion place env)
+    `(let* (,@(mapcar #'list temp-var temp-val)
+	    (,@new-var (max ,get-form ,@numbers)))
+       ,set-form)))
+
+(export 'addf)
+(defmacro addf (place &rest numbers &environment env)
+  "Add NUMBERS to the value designated by PLACE."
+  (multiple-value-bind (temp-var temp-val new-var set-form get-form)
+      (get-setf-expansion place env)
+    `(let* (,@(mapcar #'list temp-var temp-val)
+	    (,@new-var (+ ,get-form ,@numbers)))
+       ,set-form)))
+
+(export 'subf)
+(defmacro subf (place &rest numbers &environment env)
+  "Subtract NUMBERS from the value designated by PLACE.
+If NUMBERS is omitted, change the sign of the value."
+  (multiple-value-bind (temp-var temp-val new-var set-form get-form)
+      (get-setf-expansion place env)
+    `(let* (,@(mapcar #'list temp-var temp-val)
+	    (,@new-var (- ,get-form ,@numbers)))
+       ,set-form)))
+
+(export 'mulf)
+(defmacro mulf (place &rest numbers &environment env)
+  "Multiply the value designated by PLACE by NUMBERS."
+  (multiple-value-bind (temp-var temp-val new-var set-form get-form)
+      (get-setf-expansion place env)
+    `(let* (,@(mapcar #'list temp-var temp-val)
+	    (,@new-var (* ,get-form ,@numbers)))
+       ,set-form)))
+
+(export 'divf)
+(defmacro divf (place &rest numbers &environment env)
+  "Divide the value designated by PLACE by NUMBERS.
+If NUMBERS is omitted, invert the value."
+  (multiple-value-bind (temp-var temp-val new-var set-form get-form)
+      (get-setf-expansion place env)
+    `(let* (,@(mapcar #'list temp-var temp-val)
+	    (,@new-var (/ ,get-form ,@numbers)))
+       ,set-form)))
+
 (export 'fma)
 (defsubst fma (number multiplicand summand)
   "Multiply NUMBER by MULTIPLICAND, then add SUMMAND.
