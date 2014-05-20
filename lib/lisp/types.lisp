@@ -46,4 +46,51 @@ If OBJECT is the empty list, value is true, too."
   "Type specifier for a list of strings."
   '(satisfies list-of-strings-p))
 
+(defun type-size (type-spec)
+  "Attempt to determine the size of a type.
+
+Argument TYPE-SPEC has to be a valid type specifier.
+
+Value is the size of the type in byte, or nil if the size can not
+be determined.
+
+The size only can be determined if TYPE-SPEC is a fully specified
+compound type specifier.  For example,
+
+     (unsigned-byte 8)
+     (integer 0 255)
+     (mod 256)
+
+are fully specified compound type specifiers for an unsigned byte."
+  #-(and)
+  (typep t type-spec)
+  (when (and (subtypep type-spec 'integer) (consp type-spec))
+    (let ((type (first type-spec)))
+      (cond ((or (eq type 'unsigned-byte) (eq type 'signed-byte))
+	     (let ((s (second type-spec)))
+	       (when (integerp s)
+		 (ceiling (/ s 8)))))
+	    ((eq type 'integer)
+	     (let ((low (second type-spec))
+		   (high (third type-spec)))
+	       (when (consp low)
+		 (setf low (first low))
+		 (when (integerp low)
+		   (incf low)))
+	       (when (consp high)
+		 (setf high (first high))
+		 (when (integerp high)
+		   (decf high)))
+	       (when (and (integerp low) (integerp high))
+		 (let ((s (+ (max (integer-length low)
+				  (integer-length high))
+			     (if (or (< low 0) (< high 0)) 1 0))))
+		   (ceiling (/ s 8))))))
+	    ((eq type 'mod)
+	     (let* ((n (second type-spec))
+		    (s (round (log n 2))))
+	       (when (= (expt 2 s) n)
+		 (ceiling (/ s 8)))))
+	    ))))
+
 ;;; types.lisp ends here
