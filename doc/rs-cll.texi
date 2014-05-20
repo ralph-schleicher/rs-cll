@@ -5,7 +5,7 @@
 @settitle Ralph's Common Lisp Library
 
 @set EDITION 1 (draft)
-@set UPDATED 2013-12-04
+@set UPDATED 2014-02-28
 
 @include package.texi
 
@@ -828,6 +828,7 @@ particular grammar.
 * Exponential Functions::
 * Optimization::
 * Polynomials::
+* Prime Numbers::
 @end menu
 
 
@@ -974,7 +975,7 @@ the algorithm did not converge within the given number of iterations.
 @end defun
 
 
-@node Polynomials,  , Optimization, Mathematics
+@node Polynomials, Prime Numbers, Optimization, Mathematics
 @section Polynomials
 
 @c ----------------------------------------------------------------------
@@ -1054,6 +1055,68 @@ Arguments @var{a}, @var{b}, @var{c}, and @var{d} are the coefficients of
 the polynomial.
 
 Value is a list of three numbers.
+@end defun
+
+
+@node Prime Numbers,  , Polynomials, Mathematics
+@section Prime Numbers
+
+@c ----------------------------------------------------------------------
+@anchor{rs:is-prime}
+@defun is-prime n
+Return @var{n} if it is a prime number, or nil.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:next-prime}
+@defun next-prime n
+Return the prime number greater than @var{n}, or nil.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:next-prime*}
+@defun next-prime* n
+Return the prime number greater than or equal to @var{n}, or nil.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:previous-prime}
+@defun previous-prime n
+Return the prime number less than @var{n}, or nil.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:previous-prime*}
+@defun previous-prime* n
+Return the prime number less than or equal to @var{n}, or nil.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:primes-between}
+@defun primes-between from to
+Return a list of prime numbers between @var{from} and @var{to},
+inclusive.
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:nth-prime}
+@defun nth-prime n
+Return the @var{n}th prime number, or nil.
+
+The first prime number is 2.
+Argument @var{n} is one-based, i.e.
+
+@lisp
+(nth-prime 1)
+ @result{} 2
+@end lisp
+@end defun
+
+@c ----------------------------------------------------------------------
+@anchor{rs:prime-factors}
+@defun prime-factors n
+Return a list of prime factors of @var{n}.  If @var{n} is prime, return
+value is the list @code{(@var{n})}.
 @end defun
 
 
