@@ -1,7 +1,7 @@
 This is rs-cll.info, produced by makeinfo version 4.13 from rs-cll.texi.
 
 This is edition 1 (draft), last updated 2013-03-13, of `Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20130313.2202.
+Lisp Library Reference Manual', for RS-CLL version 20130313.2302.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -23,7 +23,7 @@ RS-CLL
 ******
 
 This is edition 1 (draft), last updated 2013-03-13, of `Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20130313.2202.
+Lisp Library Reference Manual', for RS-CLL version 20130313.2302.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -177,6 +177,37 @@ File: rs-cll.info,  Node: Mathematical Operators,  Next: Floating-Point Numbers,
 
 2.5.2 Mathematical Operators
 ----------------------------
+
+Minimum and Maximum
+...................
+
+ -- Macro: minf place &rest numbers
+     Set the value designated by PLACE to the minimum of the current
+     value and NUMBERS.
+
+ -- Macro: maxf place &rest numbers
+     Set the value designated by PLACE to the maximum of the current
+     value and NUMBERS.
+
+Basic Arithmetics
+.................
+
+ -- Macro: addf place &rest numbers
+     Add NUMBERS to the value designated by PLACE.
+
+ -- Macro: subf place &rest numbers
+     Subtract NUMBERS to the value designated by PLACE.  If NUMBERS is
+     omitted, change the sign of the value.
+
+ -- Macro: mulf place &rest numbers
+     Multiply the value designated by PLACE by NUMBERS.
+
+ -- Macro: divf place &rest numbers
+     Divide the value designated by PLACE by NUMBERS.  If NUMBERS is
+     omitted, invert the value.
+
+Combined Arithmetics
+....................
 
  -- Function: fma number multiplicand summand
      Multiply NUMBER by MULTIPLICAND, then add SUMMAND.  Attempt to
@@ -1121,6 +1152,8 @@ Symbol Index
 * 2*pi:                                  Numerical Constants. (line  19)
 * absolute-ascending:                    Sorting Numbers.     (line   7)
 * absolute-descending:                   Sorting Numbers.     (line  12)
+* addf:                                  Mathematical Operators.
+                                                              (line  21)
 * blank-char-p:                          Characters.          (line  12)
 * bounding-indices-if:                   Sequences.           (line  47)
 * bounding-indices-if-not:               Sequences.           (line  58)
@@ -1142,6 +1175,8 @@ Symbol Index
 * degree-from-sexagesimal:               Quantities.          (line  21)
 * diagnostic-message:                    Diagnostic Messages. (line  16)
 * die:                                   Diagnostic Messages. (line  42)
+* divf:                                  Mathematical Operators.
+                                                              (line  31)
 * end-index-if:                          Sequences.           (line  27)
 * end-index-if-not:                      Sequences.           (line  37)
 * ensure-type:                           Conditions.          (line   7)
@@ -1163,13 +1198,13 @@ Symbol Index
 * float-precision*:                      Floating-Point Numbers.
                                                               (line  34)
 * fma:                                   Mathematical Operators.
-                                                              (line   7)
+                                                              (line  38)
 * fmaf:                                  Mathematical Operators.
-                                                              (line  19)
+                                                              (line  50)
 * fsd:                                   Mathematical Operators.
-                                                              (line  13)
+                                                              (line  44)
 * fsdf:                                  Mathematical Operators.
-                                                              (line  23)
+                                                              (line  54)
 * get-working-directory:                 Working Directory.   (line   7)
 * hypot:                                 Trigonometric Functions.
                                                               (line   7)
@@ -1182,6 +1217,12 @@ Symbol Index
 * match-start:                           Regular Expressions. (line  24)
 * match-string:                          Regular Expressions. (line  50)
 * match-strings:                         Regular Expressions. (line  59)
+* maxf:                                  Mathematical Operators.
+                                                              (line  14)
+* minf:                                  Mathematical Operators.
+                                                              (line  10)
+* mulf:                                  Mathematical Operators.
+                                                              (line  28)
 * nothing:                               Data.                (line  25)
 * pi/2:                                  Numerical Constants. (line  15)
 * pi/4:                                  Numerical Constants. (line  11)
@@ -1212,6 +1253,8 @@ Symbol Index
 * start-index-if:                        Sequences.           (line   7)
 * start-index-if-not:                    Sequences.           (line  17)
 * string-match:                          Regular Expressions. (line  11)
+* subf:                                  Mathematical Operators.
+                                                              (line  24)
 * symbol-name*:                          Symbols.             (line   7)
 * temporary-directory:                   Temporary Files and Directories.
                                                               (line  59)
@@ -1264,105 +1307,111 @@ Ref: rs:pi/44255
 Ref: rs:pi/24388
 Ref: rs:2*pi4517
 Node: Mathematical Operators4645
-Ref: rs:fma4829
-Ref: rs:fsd5038
-Ref: rs:fmaf5254
-Ref: rs:fsdf5434
-Node: Floating-Point Numbers5626
-Ref: rs:float-epsilon5806
-Ref: rs:float-negative-epsilon6053
-Ref: rs:float-digits*6309
-Ref: rs:float-precision*6708
-Ref: rs:decimal-digits7097
-Node: Sorting Numbers7288
-Ref: rs:absolute-ascending7446
-Ref: rs:absolute-descending7653
-Node: Number Systems7865
-Ref: rs:roman-numeral7990
-Node: Quantities8228
-Ref: rs:radian-from-degree8358
-Ref: rs:degree-from-radian8556
-Ref: rs:degree-from-sexagesimal8754
-Ref: rs:sexagesimal-from-degree9356
-Node: Characters9781
-Ref: rs:whitespace-char-p9911
-Ref: rs:blank-char-p10051
-Node: Strings10199
-Ref: rs:*random-string-alphabet*10322
-Ref: rs:random-string10449
-Node: Sequences10527
-Ref: rs:start-index-if10635
-Ref: rs:start-index-if-not10998
-Ref: rs:end-index-if11369
-Ref: rs:end-index-if-not11729
-Ref: rs:bounding-indices-if12097
-Ref: rs:bounding-indices-if-not12508
-Node: Mathematics12927
-Node: Trigonometric Functions13152
-Ref: rs:hypot13330
-Ref: rs:hypot313515
-Node: Exponential Functions13709
-Ref: rs:cbrt13884
-Ref: rs:square14021
-Ref: rs:square-root14160
-Ref: rs:cube14381
-Ref: rs:cube-root14518
-Node: Optimization14864
-Ref: rs:brent15009
-Node: Polynomials16383
-Ref: rs:evaluate-polynomial16496
-Ref: rs:quadratic-formula-116815
-Ref: rs:quadratic-formula17043
-Ref: rs:cubic-formula-117279
-Ref: rs:cubic-formula17557
-Node: Miscellaneous17800
-Node: Regular Expressions17979
-Ref: rs:string-match18312
-Ref: rs:match-start18775
-Ref: rs:match-end19082
-Ref: rs:match-data19386
-Ref: rs:save-match-data19482
-Ref: rs:match-string19634
-Ref: rs:match-strings19937
-Ref: rs:replace-match20138
-Node: Programming for the Real World20401
-Node: Environment Variables20952
-Ref: rs:environment-variables21158
-Ref: rs:environment-variable21419
-Node: Program Arguments21977
-Ref: rs:program-invocation-name22164
-Ref: rs:program-invocation-short-name22430
-Ref: rs:program-arguments22597
-Node: Program Termination22834
-Ref: rs:exit-success23023
-Ref: rs:exit-failure23112
-Node: Diagnostic Messages23199
-Ref: rs:diagnostic-message23696
-Ref: rs:say24414
-Ref: rs:die24691
-Ref: rs:standalone-program-p25495
-Ref: rs:standalone-program25582
-Node: Working Directory25672
-Ref: rs:get-working-directory25869
-Ref: rs:set-working-directory26046
-Ref: rs:with-working-directory26570
-Node: Temporary Files and Directories26730
-Ref: rs:temporary-file-name26953
-Ref: rs:temporary-file28252
-Ref: rs:with-temporary-file28768
-Ref: rs:temporary-directory29271
-Ref: rs:with-temporary-directory29545
-Node: External Programs30137
-Ref: rs:execute-program30306
-Ref: rs:with-input-from-program33835
-Ref: rs:with-output-to-program34581
-Ref: rs:with-program-io35308
-Ref: rs:program-input-stream36006
-Ref: rs:program-output-stream36244
-Ref: rs:program-error-stream36486
-Ref: rs:program-exit-status36725
-Ref: rs:close-program-streams36930
-Node: Symbol Index37090
-Node: Concept Index45567
+Ref: rs:minf4870
+Ref: rs:maxf5000
+Ref: rs:addf5167
+Ref: rs:subf5255
+Ref: rs:mulf5407
+Ref: rs:divf5500
+Ref: rs:fma5681
+Ref: rs:fsd5890
+Ref: rs:fmaf6106
+Ref: rs:fsdf6286
+Node: Floating-Point Numbers6478
+Ref: rs:float-epsilon6658
+Ref: rs:float-negative-epsilon6905
+Ref: rs:float-digits*7161
+Ref: rs:float-precision*7560
+Ref: rs:decimal-digits7949
+Node: Sorting Numbers8140
+Ref: rs:absolute-ascending8298
+Ref: rs:absolute-descending8505
+Node: Number Systems8717
+Ref: rs:roman-numeral8842
+Node: Quantities9080
+Ref: rs:radian-from-degree9210
+Ref: rs:degree-from-radian9408
+Ref: rs:degree-from-sexagesimal9606
+Ref: rs:sexagesimal-from-degree10208
+Node: Characters10633
+Ref: rs:whitespace-char-p10763
+Ref: rs:blank-char-p10903
+Node: Strings11051
+Ref: rs:*random-string-alphabet*11174
+Ref: rs:random-string11301
+Node: Sequences11379
+Ref: rs:start-index-if11487
+Ref: rs:start-index-if-not11850
+Ref: rs:end-index-if12221
+Ref: rs:end-index-if-not12581
+Ref: rs:bounding-indices-if12949
+Ref: rs:bounding-indices-if-not13360
+Node: Mathematics13779
+Node: Trigonometric Functions14004
+Ref: rs:hypot14182
+Ref: rs:hypot314367
+Node: Exponential Functions14561
+Ref: rs:cbrt14736
+Ref: rs:square14873
+Ref: rs:square-root15012
+Ref: rs:cube15233
+Ref: rs:cube-root15370
+Node: Optimization15716
+Ref: rs:brent15861
+Node: Polynomials17235
+Ref: rs:evaluate-polynomial17348
+Ref: rs:quadratic-formula-117667
+Ref: rs:quadratic-formula17895
+Ref: rs:cubic-formula-118131
+Ref: rs:cubic-formula18409
+Node: Miscellaneous18652
+Node: Regular Expressions18831
+Ref: rs:string-match19164
+Ref: rs:match-start19627
+Ref: rs:match-end19934
+Ref: rs:match-data20238
+Ref: rs:save-match-data20334
+Ref: rs:match-string20486
+Ref: rs:match-strings20789
+Ref: rs:replace-match20990
+Node: Programming for the Real World21253
+Node: Environment Variables21804
+Ref: rs:environment-variables22010
+Ref: rs:environment-variable22271
+Node: Program Arguments22829
+Ref: rs:program-invocation-name23016
+Ref: rs:program-invocation-short-name23282
+Ref: rs:program-arguments23449
+Node: Program Termination23686
+Ref: rs:exit-success23875
+Ref: rs:exit-failure23964
+Node: Diagnostic Messages24051
+Ref: rs:diagnostic-message24548
+Ref: rs:say25266
+Ref: rs:die25543
+Ref: rs:standalone-program-p26347
+Ref: rs:standalone-program26434
+Node: Working Directory26524
+Ref: rs:get-working-directory26721
+Ref: rs:set-working-directory26898
+Ref: rs:with-working-directory27422
+Node: Temporary Files and Directories27582
+Ref: rs:temporary-file-name27805
+Ref: rs:temporary-file29104
+Ref: rs:with-temporary-file29620
+Ref: rs:temporary-directory30123
+Ref: rs:with-temporary-directory30397
+Node: External Programs30989
+Ref: rs:execute-program31158
+Ref: rs:with-input-from-program34687
+Ref: rs:with-output-to-program35433
+Ref: rs:with-program-io36160
+Ref: rs:program-input-stream36858
+Ref: rs:program-output-stream37096
+Ref: rs:program-error-stream37338
+Ref: rs:program-exit-status37577
+Ref: rs:close-program-streams37782
+Node: Symbol Index37942
+Node: Concept Index47247
 
 End Tag Table
