@@ -1,6 +1,6 @@
 ;;; rs-cll.asd --- ASDF system definition.
 
-;; Copyright (C) 2012, 2013 Ralph Schleicher
+;; Copyright (C) 2012 Ralph Schleicher
 
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions
@@ -38,7 +38,7 @@
   :description "Ralph's Common Lisp library."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
-  :version "20131205.2303"
+  :version "20140301.1359"
   :depends-on (:trivial-features :iterate :cl-fad :cl-ppcre)
   :serial t
   :components ((:file "rs-cll")
