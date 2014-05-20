@@ -32,6 +32,6 @@
 
 ## Code:
 
-SUBDIRS = lib doc
+SUBDIRS = lib doc extensions
 
 ## Makefile.am ends here
