@@ -37,6 +37,7 @@
 (defpackage :rs-cll
   (:use :common-lisp :iterate :cl-fad)
   (:documentation
-   "Ralph's Common Lisp library."))
+   "Ralph's Common Lisp library.")
+  (:nicknames :rs))
 
 ;;; rs-cll.lisp ends here
