@@ -1,7 +1,7 @@
 This is rs-cll.info, produced by makeinfo version 5.2 from rs-cll.texi.
 
-This is edition 1 (draft), last updated 2014-03-03, of 'Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20140303.2107.
+This is edition 1 (draft), last updated 2014-12-13, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20141213.1343.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -21,8 +21,8 @@ File: rs-cll.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 RS-CLL
 ******
 
-This is edition 1 (draft), last updated 2014-03-03, of 'Ralph's Common
-Lisp Library Reference Manual', for RS-CLL version 20140303.2107.
+This is edition 1 (draft), last updated 2014-12-13, of 'Ralph's Common
+Lisp Library Reference Manual', for RS-CLL version 20141213.1343.
 
      Copyright (C) 2013 Ralph Schleicher
 
@@ -907,9 +907,10 @@ File: rs-cll.info,  Node: Miscellaneous,  Next: Programming for the Real World, 
 * Menu:
 
 * Regular Expressions::
+* Unicode Utilities::
 
 
-File: rs-cll.info,  Node: Regular Expressions,  Prev: Miscellaneous,  Up: Miscellaneous
+File: rs-cll.info,  Node: Regular Expressions,  Next: Unicode Utilities,  Prev: Miscellaneous,  Up: Miscellaneous
 
 4.1 Regular Expressions
 =======================
@@ -978,6 +979,71 @@ syntactic sugar for working with the match data.
      Optional argument SUBEXP (a non-negative integer) specifies a
      parenthesized expression.  A value of zero means the entire match.
      This is the default.
+
+
+File: rs-cll.info,  Node: Unicode Utilities,  Prev: Regular Expressions,  Up: Miscellaneous
+
+4.2 Unicode Utilities
+=====================
+
+ -- Function: unicode-string-reader stream sub-char arg
+     Read a sequence of Unicode characters and return it as a Lisp
+     string.
+
+     The Unicode characters are represented as a list of non-negative
+     integral numbers.  Prefix argument defines the Unicode encoding.  A
+     value of 8 means UTF-8, 16 means UTF-16BE, 32 means UTF-32BE, 2
+     means UCS-2BE, and 4 means UCS-4BE. Without prefix argument, the
+     encoding defaults to UTF-8.
+
+     You can enable this feature by evaluating the form
+
+          (eval-when (:compile-toplevel :load-toplevel :execute)
+            (set-dispatch-macro-character #\# #\U #'unicode-string-reader))
+
+     After that, you can read literal Unicode strings via
+
+          #U(71 114 105 97 195 159 32 100 105 39)
+           => "Griass di'"
+
+     If the first element of the list is a string, it is discarded.
+     This feature can be used instead of a comment to record the
+     original string.  For example,
+
+          #U("Griass di'" 71 114 105 97 195 159 32 100 105 39)
+           => "Griass di'"
+
+Here is an Emacs Lisp function to convert a literal string into the
+corresponding 'unicode-string-reader' expression.  You have to place
+point inside a literal string and run this command.  If the string is
+plain ASCII, no conversion is performed.
+
+     (defun octets-from-string (arg)
+       (interactive "P")
+       (let* ((start (save-excursion
+                       (search-backward "\"")
+                       (point)))
+              (end (save-excursion
+                     (search-forward "\"")
+                     (point)))
+              (string (buffer-substring
+                       (1+ start) (1- end)))
+              (octets (encode-coding-string
+                       string 'utf-8)))
+         (unless (every (lambda (o) (< o 128)) octets)
+           (delete-region start end)
+           (goto-char start)
+           (let ((col (current-column)))
+             (save-excursion
+               (insert "#U(\"\"\n")
+               (indent-to-column (+ col 3))
+               (map nil (lambda (o)
+                          (insert (number-to-string o) ? ))
+                    octets)
+               (delete-char -1)
+               (insert ")")
+               (goto-char (+ start 4))
+               (insert string))))))
 
 
 File: rs-cll.info,  Node: Programming for the Real World,  Next: Symbol Index,  Prev: Miscellaneous,  Up: Top
@@ -1579,6 +1645,7 @@ Symbol Index
 * temporary-file-name:                   Temporary Files and Directories.
                                                               (line   6)
 * true:                                  Data.                (line  21)
+* unicode-string-reader:                 Unicode Utilities.   (line   6)
 * whitespace-char-p:                     Characters.          (line   6)
 * with-input-from-program:               External Programs.   (line  77)
 * with-output-to-program:                External Programs.   (line  95)
@@ -1713,53 +1780,55 @@ Ref: rs:primes-between27073
 Ref: rs:nth-prime27179
 Ref: rs:prime-factors27355
 Node: Miscellaneous27481
-Node: Regular Expressions27660
-Ref: rs:string-match27993
-Ref: rs:match-start28456
-Ref: rs:match-end28763
-Ref: rs:match-data29067
-Ref: rs:save-match-data29163
-Ref: rs:match-string29315
-Ref: rs:match-strings29618
-Ref: rs:replace-match29819
-Node: Programming for the Real World30082
-Node: Environment Variables30633
-Ref: rs:environment-variables30839
-Ref: rs:environment-variable31100
-Node: Program Arguments31658
-Ref: rs:program-invocation-name31845
-Ref: rs:program-invocation-short-name32111
-Ref: rs:program-arguments32278
-Node: Program Termination32515
-Ref: rs:exit-success32704
-Ref: rs:exit-failure32793
-Node: Diagnostic Messages32880
-Ref: rs:diagnostic-message33377
-Ref: rs:say34095
-Ref: rs:die34372
-Ref: rs:standalone-program-p35176
-Ref: rs:standalone-program35263
-Node: Working Directory35353
-Ref: rs:get-working-directory35550
-Ref: rs:set-working-directory35727
-Ref: rs:with-working-directory36251
-Node: Temporary Files and Directories36411
-Ref: rs:temporary-file-name36634
-Ref: rs:temporary-file37933
-Ref: rs:with-temporary-file38449
-Ref: rs:temporary-directory38952
-Ref: rs:with-temporary-directory39226
-Node: External Programs39818
-Ref: rs:execute-program39987
-Ref: rs:with-input-from-program43511
-Ref: rs:with-output-to-program44257
-Ref: rs:with-program-io44984
-Ref: rs:program-input-stream45682
-Ref: rs:program-output-stream45920
-Ref: rs:program-error-stream46162
-Ref: rs:program-exit-status46401
-Ref: rs:close-program-streams46606
-Node: Symbol Index46766
-Node: Concept Index58247
+Node: Regular Expressions27682
+Ref: rs:string-match28041
+Ref: rs:match-start28504
+Ref: rs:match-end28811
+Ref: rs:match-data29115
+Ref: rs:save-match-data29211
+Ref: rs:match-string29363
+Ref: rs:match-strings29666
+Ref: rs:replace-match29867
+Node: Unicode Utilities30130
+Ref: rs:unicode-string-reader30270
+Node: Programming for the Real World32556
+Node: Environment Variables33107
+Ref: rs:environment-variables33313
+Ref: rs:environment-variable33574
+Node: Program Arguments34132
+Ref: rs:program-invocation-name34319
+Ref: rs:program-invocation-short-name34585
+Ref: rs:program-arguments34752
+Node: Program Termination34989
+Ref: rs:exit-success35178
+Ref: rs:exit-failure35267
+Node: Diagnostic Messages35354
+Ref: rs:diagnostic-message35851
+Ref: rs:say36569
+Ref: rs:die36846
+Ref: rs:standalone-program-p37650
+Ref: rs:standalone-program37737
+Node: Working Directory37827
+Ref: rs:get-working-directory38024
+Ref: rs:set-working-directory38201
+Ref: rs:with-working-directory38725
+Node: Temporary Files and Directories38885
+Ref: rs:temporary-file-name39108
+Ref: rs:temporary-file40407
+Ref: rs:with-temporary-file40923
+Ref: rs:temporary-directory41426
+Ref: rs:with-temporary-directory41700
+Node: External Programs42292
+Ref: rs:execute-program42461
+Ref: rs:with-input-from-program45985
+Ref: rs:with-output-to-program46731
+Ref: rs:with-program-io47458
+Ref: rs:program-input-stream48156
+Ref: rs:program-output-stream48394
+Ref: rs:program-error-stream48636
+Ref: rs:program-exit-status48875
+Ref: rs:close-program-streams49080
+Node: Symbol Index49240
+Node: Concept Index60794
 
 End Tag Table

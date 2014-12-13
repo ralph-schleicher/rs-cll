@@ -5,7 +5,7 @@
 @settitle Ralph's Common Lisp Library
 
 @set EDITION 1 (draft)
-@set UPDATED 2014-03-03
+@set UPDATED 2014-12-13
 
 @include package.texi
 
@@ -1314,10 +1314,11 @@ value is the list @code{(@var{n})}.
 
 @menu
 * Regular Expressions::
+* Unicode Utilities::
 @end menu
 
 
-@node Regular Expressions,  , Miscellaneous, Miscellaneous
+@node Regular Expressions, Unicode Utilities, Miscellaneous, Miscellaneous
 @section Regular Expressions
 
 The symbols documented in this section are an extension to the
@@ -1413,6 +1414,81 @@ Optional argument @var{subexp} (a non-negative integer) specifies a
 parenthesized expression.  A value of zero means the entire match.
 This is the default.
 @end defun
+
+
+@node Unicode Utilities,  , Regular Expressions, Miscellaneous
+@section Unicode Utilities
+
+@c ----------------------------------------------------------------------
+@anchor{rs:unicode-string-reader}
+@defun unicode-string-reader stream sub-char arg
+Read a sequence of Unicode characters and return it as a Lisp string.
+
+The Unicode characters are represented as a list of non-negative
+integral numbers.  Prefix argument defines the Unicode encoding.  A
+value of 8 means UTF-8, 16 means UTF-16BE, 32 means UTF-32BE, 2 means
+UCS-2BE, and 4 means UCS-4BE.  Without prefix argument, the encoding
+defaults to UTF-8.
+
+You can enable this feature by evaluating the form
+
+@lisp
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (set-dispatch-macro-character #\# #\U #'unicode-string-reader))
+@end lisp
+
+After that, you can read literal Unicode strings via
+
+@lisp
+#U(71 114 105 97 195 159 32 100 105 39)
+ @result{} "Gria@ss{} di'"
+@end lisp
+
+If the first element of the list is a string, it is discarded.  This
+feature can be used instead of a comment to record the original string.
+For example,
+
+@lisp
+#U("Gria@ss{} di'" 71 114 105 97 195 159 32 100 105 39)
+ @result{} "Gria@ss{} di'"
+@end lisp
+@end defun
+
+Here is an Emacs Lisp function to convert a literal string into the
+corresponding @w{@code{unicode-string-reader}} expression.  You have to
+place point inside a literal string and run this command.  If the string
+is plain @acronym{ASCII}, no conversion is performed.
+
+@lisp
+@group
+(defun octets-from-string (arg)
+  (interactive "P")
+  (let* ((start (save-excursion
+                  (search-backward "\"")
+                  (point)))
+         (end (save-excursion
+                (search-forward "\"")
+                (point)))
+         (string (buffer-substring
+                  (1+ start) (1- end)))
+         (octets (encode-coding-string
+                  string 'utf-8)))
+    (unless (every (lambda (o) (< o 128)) octets)
+      (delete-region start end)
+      (goto-char start)
+      (let ((col (current-column)))
+        (save-excursion
+          (insert "#U(\"\"\n")
+          (indent-to-column (+ col 3))
+          (map nil (lambda (o)
+                     (insert (number-to-string o) ? ))
+               octets)
+          (delete-char -1)
+          (insert ")")
+          (goto-char (+ start 4))
+          (insert string))))))
+@end group
+@end lisp
 
 
 @node Programming for the Real World, Symbol Index, Miscellaneous, Top
