@@ -140,53 +140,30 @@ format control string, for example
 
 (export 'say)
 (defun say (datum &rest arguments)
-  "Signal a condition.
+  "Print a condition.
+
 Argument is a condition designator.
-If the condition is not handled, print the condition report to the
-`*error-output*' stream and return the condition object.  Otherwise,
-the value is nil."
+
+Print the condition report to the `*standard-output*' stream and return
+the condition object."
   (let ((c (apply #'the-condition datum arguments)))
-    (unless (signal c)
-      (fresh-line *error-output*)
-      (princ c *error-output*)
-      (fresh-line *error-output*)
-      c)))
+    (fresh-line *standard-output*)
+    (princ c *standard-output*)
+    (fresh-line *standard-output*)
+    c))
 
 (export 'die)
 (defun die (datum &rest arguments)
-  "Signal a fatal condition.
+  "Print a condition and enter the debugger.
+
 Argument is a condition designator.
-If the condition is not handled, print the condition report to the
-`*error-output*' stream and terminate the program."
-  (when (apply #'say datum arguments)
+
+Print the condition report to the `*error-output*' stream and terminate
+the program."
+  (let ((c (apply #'the-condition datum arguments)))
+    (fresh-line *error-output*)
+    (princ c *error-output*)
+    (fresh-line *error-output*)
     (exit-failure)))
-
-(defvar *standalone-program* nil
-  "True means Lisp is running in batch mode.")
-
-(export 'standalone-program-p)
-(defun standalone-program-p ()
-  "Return true if Lisp is running in batch mode."
-  (not (null *standalone-program*)))
-
-(defun standalone-debugger (c hook)
-  "Debugger hook function for catching errors.
-When running in batch mode, terminate the program by calling
-`exit-failure'.  Otherwise, enter the standard debugger."
-  (declare (ignore hook))
-  (when (standalone-program-p)
-    (format *error-output*
-	    "~&~A: internal error~%~A~%"
-	    (program-invocation-short-name) c)
-    (exit-failure)))
-
-(export 'standalone-program)
-(defun standalone-program ()
-  "Disable features available in an interactive Lisp."
-  (setf *standalone-program* t
-	*debugger-hook* #'standalone-debugger)
-  #+sbcl
-  (setf sb-ext:*muffled-warnings* 'warning)
-  (values))
 
 ;;; diag.lisp ends here
