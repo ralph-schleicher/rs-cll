@@ -55,20 +55,40 @@ Argument STATUS has to be an integer in the range from 0 to 255."
   #-(or ccl clisp ecl sbcl)
   (fix-me 'posix-exit))
 
+(defconst exit-success (progn
+			 #+(or unix windows)
+			 0
+			 #-(or unix windows)
+			 (fix-me 'exit-success))
+  "Status code to indicate successful completion.")
+
 (export 'exit-success)
-(defun exit-success ()
+(defun exit-success (&optional (status exit-success))
   "Terminate the program indicating successful completion."
-  #+(or unix windows)
-  (posix-exit 0)
-  #-(or unix windows)
-  (fix-me 'exit-success))
+  (ensure-type status '(integer 0 255))
+  (if *standalone-program*
+      (posix-exit status)
+    (abort (make-condition
+	    'simple-condition
+	    :format-control "Program terminated with status code '~A'."
+	    :format-arguments (list status)))))
+
+(defconst exit-failure (progn
+			 #+(or unix windows)
+			 1
+			 #-(or unix windows)
+			 (fix-me 'exit-failure))
+  "Status code to indicate a failure condition.")
 
 (export 'exit-failure)
-(defun exit-failure ()
+(defun exit-failure (&optional (status exit-failure))
   "Terminate the program indicating a failure condition."
-  #+(or unix windows)
-  (posix-exit 1)
-  #-(or unix windows)
-  (fix-me 'exit-failure))
+  (ensure-type status '(integer 0 255))
+  (if *standalone-program*
+      (posix-exit status)
+    (abort (make-condition
+	    'simple-condition
+	    :format-control "Program terminated with status code '~A'."
+	    :format-arguments (list status)))))
 
 ;;; exit.lisp ends here
