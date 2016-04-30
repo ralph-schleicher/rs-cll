@@ -39,7 +39,7 @@
   (cond ((null directory)
 	 *default-pathname-defaults*)
 	((eq directory t)
-	 (pathname-as-directory
+	 (uiop:ensure-directory-pathname
 	  (or (environment-variable "TMPDIR")
 	      (environment-variable "TMP")
 	      #+unix
@@ -50,9 +50,9 @@
 	      #-(or unix windows)
 	      (fix-me 'temp-dir))))
 	((stringp directory)
-	 (pathname-as-directory directory))
+	 (uiop:ensure-directory-pathname directory))
 	(t
-	 (pathname directory))))
+	 (uiop:pathname-directory-pathname (pathname directory)))))
 
 (export 'temporary-file-name)
 (defun temporary-file-name (&key (prefix "temp") directory)
@@ -82,7 +82,7 @@ fall back to the 'C:\\Temp', directory."
     (iter (for tem = (make-pathname
 		      :name (concatenate 'string prefix (random-string 6))
 		      :defaults defaults))
-	  (unless (file-exists-p tem)
+	  (unless (uiop:file-exists-p tem)
 	    (return tem)))))
 
 (export 'temporary-file)
@@ -144,7 +144,7 @@ Value is the pathname to the newly created directory."
 			:name (concatenate 'string prefix (random-string 6))
 			:defaults defaults))
 	    (multiple-value-setq (dir created)
-	      (ensure-directories-exist (pathname-as-directory tem)))
+	      (ensure-directories-exist (uiop:ensure-directory-pathname tem)))
 	    (when (not (null created))
 	      (return dir))))))
 
