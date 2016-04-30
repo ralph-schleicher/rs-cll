@@ -39,8 +39,8 @@
   :description "Ralph's Common Lisp library."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
-  :version "20141213.1343"
-  :depends-on (:trivial-features :iterate :cl-fad :cl-ppcre :babel)
+  :version "20160430.1353"
+  :depends-on (:trivial-features :alexandria :iterate :cl-ppcre :babel)
   :serial t
   :components ((:file "rs-cll")
 	       (:file "specials")
@@ -73,13 +73,15 @@
 	       ;; Application support.
 	       (:module "app"
 		:serial t
-	   	:components ((:file "environ")
+	   	:components ((:file "specials")
+			     (:file "environ")
 			     (:file "argv")
 			     (:file "exit")
 			     (:file "diag")
 			     (:file "work-dir")
 			     (:file "temp-dir")
-			     (:file "getopt")))
+			     (:file "getopt")
+			     (:file "main")))
 	       (:module "exec"
 		:serial t
 	   	:components ((:file "exec")
