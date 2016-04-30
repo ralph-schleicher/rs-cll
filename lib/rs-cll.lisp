@@ -36,7 +36,7 @@
 (in-package :common-lisp-user)
 
 (defpackage :rs-cll
-  (:use :common-lisp :iterate :cl-fad)
+  (:use :common-lisp :iterate)
   (:documentation
    "Ralph's Common Lisp library.")
   (:nicknames :rs))
