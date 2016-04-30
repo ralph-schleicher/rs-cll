@@ -51,11 +51,12 @@ the package name and the symbol name by two colon characters."
 	  ((eql package (find-package :keyword))
 	   (concatenate 'string ":" name))
 	  (t
-	   (concatenate 'string
-			(package-name package)
-			(multiple-value-bind (sym stat)
-			    (find-symbol name package)
-			  (if (eql stat :external) ":" "::"))
-			name)))))
+	   (multiple-value-bind (sym stat)
+	       (find-symbol name package)
+	     (declare (ignore sym))
+	     (concatenate 'string
+			  (package-name package)
+			  (if (eql stat :external) ":" "::")
+			  name))))))
 
 ;;; symbols.lisp ends here
