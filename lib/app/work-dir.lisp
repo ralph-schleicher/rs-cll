@@ -38,28 +38,13 @@
 (defsubst posix-getcwd ()
   "Return the process's working directory.
 Value is a pathname."
-  #+ccl
-  (ccl:current-directory)
-  #+clisp
-  (ext:cd)
-  #+sbcl
-  (pathname-as-directory (sb-posix:getcwd))
-  #-(or ccl clisp sbcl)
-  (fix-me 'posix-getcwd))
+  (uiop:getcwd))
 
 (defsubst posix-chdir (directory)
   "Set the process's working directory to DIRECTORY.
 Value is the pathname of the new working directory."
-  #+ccl
-  (ccl:cwd directory)
-  #+clisp
-  (ext:cd directory)
-  #+sbcl
-  (progn
-    (sb-posix:chdir directory)
-    (get-working-directory))
-  #-(or ccl clisp sbcl)
-  (fix-me 'posix-chdir))
+  (uiop:chdir directory)
+  (posix-getcwd))
 
 ;; Utilize a get/set pair of functions for the interface
 ;; because the return value of the setter may be different
