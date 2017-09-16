@@ -35,6 +35,14 @@
 
 (in-package :rs-cll)
 
+(defun even-integer-p (object)
+  "Return true if OBJECT is an even integer."
+  (and (integerp object) (evenp object)))
+
+(defun odd-integer-p (object)
+  "Return true if OBJECT is an odd integer."
+  (and (integerp object) (oddp object)))
+
 (export 'list-of-strings-p)
 (defun list-of-strings-p (object)
   "Return true if OBJECT is a list of strings.
