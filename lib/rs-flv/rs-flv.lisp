@@ -1,6 +1,6 @@
-;;; specials.lisp --- special variables.
+;; rs-flv.lisp --- a recipe for file-local variables.
 
-;; Copyright (C) 2013 Ralph Schleicher
+;; Copyright (C) 2014 Ralph Schleicher
 
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions
@@ -33,77 +33,71 @@
 
 ;;; Code:
 
-(in-package :rs-cll)
+(in-package :common-lisp-user)
 
-(export 'optimize-for-speed)
-(defvar optimize-for-speed
-  '(optimize speed (safety 0) (space 0) (debug 1) (compilation-speed 0))
-  "Optimization qualities for generating fast code.
-You have to use this variable via
+(defpackage :rs-flv
+  (:use :common-lisp)
+  (:documentation "File-Local Variables
 
-     (declare #.optimize-for-speed)")
+The ‘rs-flv’ library provides a recipe for file-local variables.
+Typical usage is to wrap your code as follows:
+
+     (eval-when (:compile-toplevel :load-toplevel :execute)
+       (rs-flv:save-special-variables
+        '((*read-default-float-format* double-float))))
+
+     ;; Your code with many literal floating-point numbers goes here.
+
+     (eval-when (:compile-toplevel :load-toplevel :execute)
+       (rs-flv:restore-special-variables))
+
+See <https://common-lisp.net/project/cdr/document/9/index.html> for
+more details on the topic.  See ‘net.didierverna.asdf-flv’ for an
+implementation of CDR 9 that depends on ASDF."))
+
+(in-package :rs-flv)
 
 (defvar special-variables-stack ()
   "Stack of saved special variables.")
 
 (export 'save-special-variables)
-(defmacro save-special-variables (&rest variables)
-  "Save values of special variables.
+(defun save-special-variables (bindings)
+  "Save values of special variables and optionally rebind them.
 
-Each argument is either a symbol or a list of the form
+Argument BINDINGS is a list of variable bindings.
+Each element is either a symbol or a list of the form
 
      (SYMBOL NEW-VALUE)
 
-With that, SYMBOL will be bound to NEW-VALUE after the current
-value of SYMBOL has been saved.
+With that, SYMBOL will be bound to NEW-VALUE after the current value
+of SYMBOL has been saved.  Only special variables can be saved.
 
-You can call `restore-special-variables' to restore the values
-saved by the last call of `save-special-variables'.  Typical
-usage is to wrap your code as follows:
-
-     (eval-when (:compile-toplevel :load-toplevel :execute)
-       (save-special-variables
-        (*read-default-float-format* 'double-float)))
-
-     ;; Your code with many literal floating-point numbers goes here.
-
-     (eval-when (:compile-toplevel :load-toplevel :execute)
-       (restore-special-variables))"
-  (let ((symbol (gensym "SYM"))
-	(value (gensym "VAL"))
-	(define (gensym "DEF"))
-	(arg (gensym "ARG"))
-	(cache (gensym)))
-    `(let ((,cache (iter (with ,symbol)
-			 (with ,value)
-			 (with ,define)
-			 (for ,arg :in (quote ,variables))
-			 (if (consp ,arg)
-			     (progn
-			       (when (/= (length ,arg) 2)
-				 (error 'program-error))
-			       (setf ,symbol (first ,arg)
-				     ,value (second ,arg)
-				     ,define t))
-			   (setf ,symbol ,arg
-				 ,define nil))
-			 ;; Save symbol and it's value.
-			 (collect ,symbol)
-			 (collect (symbol-value ,symbol))
-			 ;; Set new value.
-			 (when ,define
-			   (set ,symbol (eval ,value))))))
-       (push ,cache special-variables-stack)
-       ,cache)))
+You should call ‘restore-special-variables’ to restore the values
+saved by the last call of ‘save-special-variables’."
+  (push (mapcar (lambda (elem)
+		  (multiple-value-bind (symbol new-value new-value-p)
+		      (if (consp elem)
+			  (progn
+			    (when (/= (length elem) 2)
+			      (error 'program-error))
+			    (values (first elem) (second elem) t))
+			(values elem))
+		    (prog1
+			;; Save symbol and it's value.
+			(cons symbol (symbol-value symbol))
+		      ;; Optionally set new value.
+		      (when new-value-p
+			(set symbol new-value)))))
+		bindings)
+	special-variables-stack))
 
 (export 'restore-special-variables)
 (defun restore-special-variables ()
-  "Restore special variables saved by `save-special-variables'."
-  (let ((cache (pop special-variables-stack)))
-    (iter (while cache)
-	  (for symbol = (pop cache))
-	  (for value = (pop cache))
-	  (set symbol value)))
-  (values))
+  "Restore values of special variables saved by ‘save-special-variables’."
+  (mapc (lambda (pair)
+	  (let ((symbol (car pair))
+		(value (cdr pair)))
+	    (set symbol value)))
+	(pop special-variables-stack)))
 
-;;; specials.lisp ends here
+;; rs-flv.lisp ends here
