@@ -35,6 +35,71 @@
 
 (in-package :rs-cll)
 
+(export 'modular-exponentiation)
+(defun modular-exponentiation (base exponent divisor)
+  "Calculate ‘(rem (expt BASE EXPONENT) DIVISOR)’ efficiently.
+
+First argument BASE is the base.  Value has to be a positive number.
+Second argument EXPONENT is the exponent.  Value has to be a non-negative number.
+Third argument DIVISOR is the divisor.  Value has to be a positive number.
+
+Return value is the modulus."
+  (declare #.optimize-for-speed)
+  (check-type base (integer 1))
+  (check-type exponent (integer 0))
+  (check-type divisor (integer 1))
+  (let ((b base)
+	(e exponent)
+	(d divisor))
+    (cond ((= d 1)
+	   0)
+	  ((= e 0)
+	   1)
+	  (t
+	   (when (>= b d)
+	     (setf b (rem b d)))
+	   (iter (with c = 1)
+		 (with r = 0)
+		 (multiple-value-setq (e r)
+		   (truncate e 2))
+		 (when (= r 1)
+		   (setf c (rem (* c b) d)))
+		 (while (> e 0))
+		 (setf b (rem (* b b) d))
+		 (finally
+		  (return c)))))))
+
+(export 'jacobi-symbol)
+(defun jacobi-symbol (a n)
+  "Calculate the Jacobi symbol ‘J(a,n) = (a/n)’.
+
+First argument A is the ‘numerator’.  Value has to be a non-negative integer.
+Second argument N is the ‘denominator’.  Value has to be a positive odd integer.
+
+Return value is either 1, 0, or -1."
+  (declare #.optimize-for-speed)
+  (check-type a (integer 0))
+  (check-type n (and (integer 1) (satisfies odd-integer-p)))
+  (let ((j 1))
+    (loop (when (>= a n)
+	    (setf a (rem a n)))
+	  (cond ((= a 0)
+		 (when (/= n 1)
+		   (setf j 0))
+		 (return))
+		((= a 1)
+		 (return))
+		((evenp a)
+		 (setf a (/ a 2))
+		 (when (member (rem n 8) '(3 5))
+		   (setf j (- j))))
+		(t
+		 ;; A and N are odd.
+		 (rotatef a n)
+		 (when (and (= (rem a 4) 3) (= (rem n 4) 3))
+		   (setf j (- j))))))
+    j))
+
 (defvar *primes-cache-size*
   (min (expt 2 19) ;64 kiB
        (if (evenp array-dimension-limit)
