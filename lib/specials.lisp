@@ -57,8 +57,8 @@ Each argument is either a symbol or a list of the form
 With that, SYMBOL will be bound to NEW-VALUE after the current
 value of SYMBOL has been saved.
 
-You can call `restore-special-variables' to restore the values
-saved by the last call of `save-special-variables'.  Typical
+You can call ‘restore-special-variables’ to restore the values
+saved by the last call of ‘save-special-variables’.  Typical
 usage is to wrap your code as follows:
 
      (eval-when (:compile-toplevel :load-toplevel :execute)
@@ -98,7 +98,7 @@ usage is to wrap your code as follows:
 
 (export 'restore-special-variables)
 (defun restore-special-variables ()
-  "Restore special variables saved by `save-special-variables'."
+  "Restore special variables saved by ‘save-special-variables’."
   (let ((cache (pop special-variables-stack)))
     (iter (while cache)
 	  (for symbol = (pop cache))

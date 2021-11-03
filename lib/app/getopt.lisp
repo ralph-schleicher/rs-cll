@@ -42,7 +42,7 @@
     :initarg :option-name
     :initform nil
     :type (or null character string)))
-  (:documentation "Base class for all `getopt' errors.
+  (:documentation "Base class for all ‘getopt’ errors.
 
 Initial argument OPTION-NAME is the name of the option raising the
 condition, or nil."))
@@ -108,12 +108,12 @@ The default format control takes one argument, the name of the option."))
 
 Slot NAMES is a list of option names.  Characters denote short options
  and strings denote long options.
-Slot KEY is the value returned by `getopt' when it encounters this
- option.  If nil, `getopt' returns the matching option name.  This
+Slot KEY is the value returned by ‘getopt’ when it encounters this
+ option.  If nil, ‘getopt’ returns the matching option name.  This
  is the default.
 Slot ARGUMENT defines whether or not the option has an argument.
  Value is either :no, :optional, or :required.  Default is :no.
-Slot ACTION defines an alternative procedure for `getopt' when it
+Slot ACTION defines an alternative procedure for ‘getopt’ when it
  encounters this option.  If value is a symbol, set it to the supplied
  option argument (a string) iff the option takes an argument.  If an
  optional argument is omitted, set the symbol to nil.  If the option
@@ -135,7 +135,7 @@ Slot ACTION defines an alternative procedure for `getopt' when it
 
 Argument SPEC is an options specification, that is a list where each
  element is either an option name, or a list of option names followed
- by `make-option' initial arguments."
+ by ‘make-option’ initial arguments."
   (iter (for elem :in spec)
 	(for opt = (etypecase elem
 		     (null)
@@ -262,14 +262,14 @@ Initial argument ORDERING defines how to handle options following
  are treated as operands.  This is the default if the environment
  variable POSIXLY_CORRECT or _POSIX_OPTION_ORDER is set.
 Initial argument HELP defines the program argument to print the help
- text.  This is used by the `show-help-hint-and-die' function."))
+ text.  This is used by the ‘show-help-hint-and-die’ function."))
 
 (export 'make-getopt)
 (defun make-getopt (spec &rest init-arguments)
   "Create an option parser object.
 
 First argument SPEC is an options specification.
-Remaining arguments are `getopt' initial arguments.
+Remaining arguments are ‘getopt’ initial arguments.
 
 Return value is an option parser object.
 
@@ -279,12 +279,12 @@ An options specification is a list where each element describes an option.
 
 Slot NAMES is a list of option names.  Characters denote short options
  and strings denote long options.
-Slot KEY is the value returned by `getopt' when it encounters this
- option.  If nil, `getopt' returns the matching option name.  This
+Slot KEY is the value returned by ‘getopt’ when it encounters this
+ option.  If nil, ‘getopt’ returns the matching option name.  This
  is the default.
 Slot ARGUMENT defines whether or not the option has an argument.
  Value is either :no, :optional, or :required.  Default is :no.
-Slot ACTION defines an alternative procedure for `getopt' when it
+Slot ACTION defines an alternative procedure for ‘getopt’ when it
  encounters this option.  If value is a symbol, set it to the supplied
  option argument (a string) iff the option takes an argument.  If an
  optional argument is omitted, set the symbol to nil.  If the option
@@ -378,7 +378,7 @@ Slot ACTION defines an alternative procedure for `getopt' when it
 	    (setf (optarg self) nil
 		  (optopt self) nil)
 	    (cond ((string= arg "--")
-		   ;; The special argument `--' means premature end of
+		   ;; The special argument ‘--’ means premature end of
 		   ;; options.  Skip it like an option.
 		   (skip-option self)
 		   ;; Skip everything else like an operand.

@@ -54,7 +54,7 @@ the remaining elements are the command line arguments."
   "The program name as invoked on the command line.")
 
 (defvar *program-invocation-short-name* nil
-  "Like `*program-invocation-name*' but without the directory part.")
+  "Like ‘*program-invocation-name*’ but without the directory part.")
 
 (export 'program-invocation-name)
 (defun program-invocation-name ()

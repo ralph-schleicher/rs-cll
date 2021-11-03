@@ -51,7 +51,7 @@
 Please send patches to ~A."
 	 (if (null symbol)
 	     "This functionality is not implemented"
-	   (format nil "The ~A `~A' is not defined"
+	   (format nil "The ~A ‘~A’ is not defined"
 		   (or type (if (fboundp symbol)
 				"function"
 			      "symbol"))

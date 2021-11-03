@@ -88,7 +88,7 @@
   (:documentation
    "Condition type for a diagnostic message.
 Slot PROGRAM-NAME is the program name.  Default is the value returned
- by the `program-invocation-short-name' function.  If nil, the program
+ by the ‘program-invocation-short-name’ function.  If nil, the program
  name is not part of the message text.
 Slot FILE-NAME is the file name operated on.  Default nil, that means
  not applicable.
@@ -145,7 +145,7 @@ format control string, for example
 
 Argument is a condition designator.
 
-Print the condition report to the `*standard-output*' stream and return
+Print the condition report to the ‘*standard-output*’ stream and return
 the condition object."
   (let ((c (apply #'the-condition datum arguments)))
     (fresh-line *standard-output*)
@@ -159,7 +159,7 @@ the condition object."
 
 Argument is a condition designator.
 
-Print the condition report to the `*error-output*' stream and terminate
+Print the condition report to the ‘*error-output*’ stream and terminate
 the program."
   (let ((c (apply #'the-condition datum arguments)))
     (fresh-line *error-output*)

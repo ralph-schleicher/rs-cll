@@ -42,7 +42,7 @@
 First argument DIMENSIONS is a list of valid array dimensions.
 Second argument SUBSCRIPTS is a list of valid array indices.
 
-The return value of the `linear-index-from-subscripts' function is
+The return value of the ‘linear-index-from-subscripts’ function is
 equal to the value of the form
 
      (apply #'array-row-major-index (make-array DIMENSIONS) SUBSCRIPTS)"
@@ -65,7 +65,7 @@ equal to the value of the form
 First argument DIMENSIONS is a list of valid array dimensions.
 Second argument INDEX is a valid array index.
 
-This is the inverse function of `linear-index-from-subscripts'."
+This is the inverse function of ‘linear-index-from-subscripts’."
   (declare (type list dimensions) (type fixnum index))
   (let ((subscript 0) (size (apply #'* dimensions)))
     (declare (type fixnum subscript size))

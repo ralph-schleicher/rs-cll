@@ -37,7 +37,7 @@
 
 (defun environ-alist-from-list (environ)
   "Convert a list of environment variables into an alist.
-The function `environ-list-from-alist' does it the other way around."
+The function ‘environ-list-from-alist’ does it the other way around."
   (iter (for var :in environ)
 	(for pos = (position #\= var :test #'equal))
 	(when pos
@@ -47,7 +47,7 @@ The function `environ-list-from-alist' does it the other way around."
 
 (defun environ-list-from-alist (environ)
   "Convert an alist of environment variables into a list.
-The function `environ-alist-from-list' does it the other way around."
+The function ‘environ-alist-from-list’ does it the other way around."
   (iter (for var :in environ)
 	(for name = (car var))
 	(for value = (cdr var))

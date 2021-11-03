@@ -121,7 +121,7 @@ The Lisp process can read from the program's error stream.")
 
 First argument PROGRAM is the absolute program file name (a string).
 Second argument ARGUMENTS are the program arguments (a list of strings).
-Keyword arguments have values as documented by the `execute-program'
+Keyword arguments have values as documented by the ‘execute-program’
  function.
 
 Value is an object representing the properties of the external program.

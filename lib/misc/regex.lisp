@@ -88,7 +88,7 @@ where START is the start index and END is the end index of
 the corresponding parenthesized expression.")
 
 (defun set-match-data (string match-start match-end group-start group-end)
-  "Update global variables from `cl-ppcre:scan' arguments/values."
+  "Update global variables from ‘cl-ppcre:scan’ arguments/values."
   (setf *last-thing-searched* string)
   (macrolet ((set-match (elem start end)
 	       `(if (null ,start)
@@ -123,7 +123,7 @@ Second argument STRING is the target string.
 Keyword arguments START and END are bounding indices in STRING.
  Default values are zero and the length of STRING.
 
-See the `cl-ppcre:scan' function, for more details."
+See the ‘cl-ppcre:scan’ function, for more details."
   (multiple-value-bind (match-start match-end group-start group-end)
       (cl-ppcre:scan (get-regex regexp) string :start start :end (or end (length string)))
     (set-match-data string match-start match-end group-start group-end)

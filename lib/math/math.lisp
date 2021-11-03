@@ -140,7 +140,7 @@ Argument Z has to be a number."
 
 Argument Z has to be a number.
 
-The `square-root' function attempts to propagate the type
+The ‘square-root’ function attempts to propagate the type
 of the argument Z to its value.")
 
 (export 'cube)
@@ -160,7 +160,7 @@ Argument Z has to be a number.
 If argument Z is zero, value is zero.  If argument Z is
 a real number, value is the real cube root of Z.
 
-The `cube-root' function attempts to propagate the type
+The ‘cube-root’ function attempts to propagate the type
 of the argument Z to its value."
   (declare (type number z))
   (cond ((zerop z)

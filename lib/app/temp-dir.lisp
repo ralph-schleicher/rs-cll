@@ -63,12 +63,12 @@ Keyword argument PREFIX is the initial sequence of characters for the
 Keyword argument DIRECTORY specifies the directory in which the file
  name is created.  Value is either nil, t, a string, or a pathname
  designator.  A value of nil means to utilize the directory part of
- `*default-pathname-defaults*', t means to use some system specific
+ ‘*default-pathname-defaults*’, t means to use some system specific
  temporary directory, a string is interpreted as a directory file
  name, and a pathname designator is used as is.
 
 Value is a pathname whose file name is PREFIX followed by six random
-characters (see the `random-string' function).
+characters (see the ‘random-string’ function).
 
 When keyword argument DIRECTORY is t, the system specific temporary
 directory is chosen as follows.  First, the environment variables
@@ -90,9 +90,9 @@ fall back to the 'C:\\Temp', directory."
   "Create a unique file.
 
 Keyword arguments PREFIX and DIRECTORY have the same meaning as for
- the `temporary-file-name' function.
+ the ‘temporary-file-name’ function.
 Keyword arguments DIRECTION, ELEMENT-TYPE, and EXTERNAL-FORMAT have
- the same meaning as for the `open' function.
+ the same meaning as for the ‘open’ function.
 
 Value is a file stream to the newly created file."
   (declare (type (or null string) prefix))
@@ -114,7 +114,7 @@ Value is a file stream to the newly created file."
 
 First argument VAR is the variable name to which the file stream of
  the temporary file is bound.
-Remaining arguments are passed on to the `temporary-file' function.
+Remaining arguments are passed on to the ‘temporary-file’ function.
 
 When control leaves the body, either normally or abnormally, the
 temporary file is automatically closed and deleted.
@@ -134,7 +134,7 @@ Value is the value of the last form of BODY."
   "Create a unique directory.
 
 Keyword arguments PREFIX and DIRECTORY have the same meaning as for
- the `temporary-file-name' function.
+ the ‘temporary-file-name’ function.
 
 Value is the pathname to the newly created directory."
   (declare (type (or null string) prefix))
@@ -154,7 +154,7 @@ Value is the pathname to the newly created directory."
 
 First argument VAR is the variable name to which the pathname of
  the temporary directory is bound.
-Remaining arguments are passed on to the `temporary-directory'
+Remaining arguments are passed on to the ‘temporary-directory’
  function.
 
 When control leaves the body, either normally or abnormally, the

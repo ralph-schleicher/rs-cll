@@ -118,7 +118,7 @@ If NUMBERS is omitted, invert the value."
   "Multiply NUMBER by MULTIPLICAND, then add SUMMAND.
 Attempt to perform a fused multiply-add operation.
 
-This is the inverse of the `fsd' function."
+This is the inverse of the ‘fsd’ function."
   (+ (* number multiplicand) summand))
 
 (export 'fsd)
@@ -126,7 +126,7 @@ This is the inverse of the `fsd' function."
   "Subtract SUBTRAHEND from NUMBER, then divide by DIVISOR.
 Attempt to perform a fused subtract-divide operation.
 
-This is the inverse of the `fma' function."
+This is the inverse of the ‘fma’ function."
   (/ (- number subtrahend) divisor))
 
 (export 'fmaf)

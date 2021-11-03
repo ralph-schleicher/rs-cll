@@ -257,7 +257,7 @@ Argument N is one-based, i.e.
 
 First argument N has to be a number (an integer).
 If optional argument PRIMARY is true, value is a list of cons cells
- where the `car' is the prime factor and the `cdr' is it's order, i.e.
+ where the ‘car’ is the prime factor and the ‘cdr’ is it's order, i.e.
  it's exponent or repeat count.  Otherwise, value is a list of prime
  factors where higher order prime factors occur multiple times.
 

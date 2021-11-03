@@ -38,7 +38,7 @@
 (defun standalone-debugger (c hook)
   "Debugger hook function for catching errors.
 When running in batch mode, terminate the program by calling
-`exit-failure'.  Otherwise, enter the standard debugger."
+‘exit-failure’.  Otherwise, enter the standard debugger."
   (declare (ignore hook))
   (when (standalone-program-p)
     (format *error-output*
