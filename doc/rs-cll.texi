@@ -25,7 +25,6 @@
 @end iftex
 
 @setchapternewpage odd
-@setcontentsaftertitlepage
 
 @c Lambda list keywords.
 @macro k {NAME}
