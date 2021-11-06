@@ -101,6 +101,7 @@
 	   ;; lisp/characters.lisp
 	   #:whitespace-char-p
 	   #:blank-char-p
+	   #:standard-whitespace-char-p
 	   #:standard-alpha-char-p
 	   #:standard-digit-char-p
 	   ;; lisp/arrays.lisp
