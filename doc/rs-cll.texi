@@ -705,6 +705,14 @@ Argument @var{char} has to be a character object.
 @end defun
 
 @c ----------------------------------------------------------------------
+@anchor{rs:standard-whitespace-char-p}
+@defun standard-whitespace-char-p char
+Return true if @var{char} is a standard whitespace character.
+
+Argument @var{char} has to be a character object.
+@end defun
+
+@c ----------------------------------------------------------------------
 @anchor{rs:standard-alpha-char-p}
 @defun standard-alpha-char-p char
 Return true if @var{char} is a standard alphabetic character.
