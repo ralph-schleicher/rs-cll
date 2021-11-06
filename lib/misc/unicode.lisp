@@ -40,7 +40,6 @@
    (coerce sequence '(vector (unsigned-byte 8)))
    :encoding encoding))
 
-(export 'unicode-string-reader)
 (defun unicode-string-reader (stream sub-char arg)
   "Read a sequence of Unicode characters and return it as a Lisp string.
 

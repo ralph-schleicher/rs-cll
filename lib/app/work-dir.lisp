@@ -50,7 +50,6 @@ Value is the pathname of the new working directory."
 ;; because the return value of the setter may be different
 ;; from the argument value.
 
-(export 'get-working-directory)
 (defun get-working-directory ()
   "Return the process's working directory.
 Value is a pathname.
@@ -62,7 +61,6 @@ Signal a file-error if the directory can not be determined."
       (unless (signal (make-condition 'file-error))
 	(error c)))))
 
-(export 'set-working-directory)
 (defun set-working-directory (directory &optional (default t))
   "Set the process's working directory to DIRECTORY.
 Value is the pathname of the new working directory.
@@ -82,7 +80,6 @@ Signal a file-error if the directory can not be changed."
       (setf *default-pathname-defaults* dir))
     dir))
 
-(export 'with-working-directory)
 (defmacro with-working-directory ((directory &rest arg) &body body)
   "Temporarily change the process' working directory to DIRECTORY
 and evaluate BODY."

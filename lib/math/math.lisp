@@ -37,7 +37,6 @@
 
 ;;;; Trigonometric Functions
 
-(export 'hypot)
 (defsubst hypot (x y)
   "Return the distance between a point and the origin
 in a two-dimensional Cartesian coordinate system.
@@ -46,7 +45,6 @@ Arguments X and Y have to be real numbers."
   (declare (type real x y))
   (abs (complex x y)))
 
-(export 'hypot3)
 (defun hypot3 (x y z)
   "Return the distance between a point and the origin
 in a three-dimensional Cartesian coordinate system.
@@ -64,7 +62,6 @@ Arguments X, Y, and Z have to be real numbers."
 	    z (/ z s)))
     (* s (sqrt (+ (* x x) (* y y) (* z z))))))
 
-(export 'real-sin)
 (defun real-sin (angle)
   "Return the sine of ANGLE.
 
@@ -77,7 +74,6 @@ Argument ANGLE has to be a real number given in radian."
 	  (values (round value))
 	value))))
 
-(export 'real-cos)
 (defun real-cos (angle)
   "Return the cosine of ANGLE.
 
@@ -92,7 +88,6 @@ Argument ANGLE has to be a real number given in radian."
 
 ;;;; Exponential Functions
 
-(export 'cbrt)
 (if (realp (expt -8 1/3))
     (defsubst cbrt (number)
       (declare (type number number))
@@ -107,7 +102,6 @@ Argument ANGLE has to be a real number given in radian."
 
 If NUMBER is a real number, value is the real cube root of NUMBER.")
 
-(export 'square)
 (defsubst square (z)
   "Return Z squared, that is Z raised to the power two.
 
@@ -115,7 +109,6 @@ Argument Z has to be a number."
   (declare (type number z))
   (* z z))
 
-(export 'square-root)
 (if (rationalp (sqrt 4/9))
     (progn
       (defsubst square-root (z)
@@ -143,7 +136,6 @@ Argument Z has to be a number.
 The ‘square-root’ function attempts to propagate the type
 of the argument Z to its value.")
 
-(export 'cube)
 (defsubst cube (z)
   "Return Z cubed, that is Z raised to the power three.
 
@@ -151,7 +143,6 @@ Argument Z has to be a number."
   (declare (type number z))
   (* z z z))
 
-(export 'cube-root)
 (defun cube-root (z)
   "Return the cube root of Z.
 

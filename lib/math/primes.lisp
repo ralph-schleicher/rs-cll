@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'modular-exponentiation)
 (defun modular-exponentiation (base exponent divisor)
   "Calculate ‘(rem (expt BASE EXPONENT) DIVISOR)’ efficiently.
 
@@ -69,7 +68,6 @@ Return value is the modulus."
 		 (finally
 		  (return c)))))))
 
-(export 'jacobi-symbol)
 (defun jacobi-symbol (a n)
   "Calculate the Jacobi symbol ‘J(a,n) = (a/n)’.
 
@@ -173,42 +171,36 @@ Argument N has to be an integral number."
 	((= n 3)
 	 2)))
 
-(export 'is-prime)
 (defun is-prime (n)
   "Return N if it is a prime number, or nil."
   (declare #.optimize-for-speed)
   (when (and (integerp n) (> n 1))
     (%is-prime n)))
 
-(export 'next-prime)
 (defun next-prime (n)
   "Return the prime number greater than N, or nil."
   (declare #.optimize-for-speed)
   (when (integerp n)
     (%next-prime n)))
 
-(export 'next-prime*)
 (defun next-prime* (n)
   "Return the prime number greater than or equal to N, or nil."
   (declare #.optimize-for-speed)
   (when (integerp n)
     (if (< n 2) 2 (or (%is-prime n) (%next-prime n)))))
 
-(export 'previous-prime)
 (defun previous-prime (n)
   "Return the prime number less than N, or nil."
   (declare #.optimize-for-speed)
   (when (integerp n)
     (%previous-prime n)))
 
-(export 'previous-prime*)
 (defun previous-prime* (n)
   "Return the prime number less than or equal to N, or nil."
   (declare #.optimize-for-speed)
   (when (integerp n)
     (if (> n 1) (or (%is-prime n) (%previous-prime n)))))
 
-(export 'primes-between)
 (defun primes-between (from to)
   "Return a list of prime numbers between FROM and TO, inclusive."
   (declare #.optimize-for-speed)
@@ -228,7 +220,6 @@ Argument N has to be an integral number."
 	    (incf k 2))
       (nreverse primes))))
 
-(export 'nth-prime)
 (defun nth-prime (n)
   "Return the N-th prime number, or nil.
 
@@ -251,7 +242,6 @@ Argument N is one-based, i.e.
 		     (leave k)))))
 	  )))
 
-(export 'prime-factors)
 (defun prime-factors (n &optional primary)
   "Return a list of prime factors of N.
 

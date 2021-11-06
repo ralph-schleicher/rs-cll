@@ -46,7 +46,6 @@ When running in batch mode, terminate the program by calling
 	    (program-invocation-short-name) (type-of c) c)
     (exit-failure)))
 
-(export 'standalone-program)
 (defun standalone-program ()
   "Disable features available in an interactive Lisp."
   (setf *standalone-program* t
@@ -55,7 +54,6 @@ When running in batch mode, terminate the program by calling
   (setf	sb-ext:*muffled-warnings* 'warning)
   (values))
 
-(export 'define-entry-point)
 (defmacro define-entry-point (name (&optional (standalone-program t)) &body body)
   "Define a function where a program starts its execution.
 Errors are trapped and printed to the *error-output* stream.

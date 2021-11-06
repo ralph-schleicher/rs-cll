@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'symbol-name*)
 (defun symbol-name* (symbol)
   "Return the name of SYMBOL including the package prefix.
 

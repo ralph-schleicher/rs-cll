@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'read-file)
 (defun read-file (&optional (input-stream *standard-input*) element-length)
   "Read all elements from a stream.
 

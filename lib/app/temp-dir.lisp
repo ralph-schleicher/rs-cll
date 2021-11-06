@@ -54,7 +54,6 @@
 	(t
 	 (uiop:pathname-directory-pathname (pathname directory)))))
 
-(export 'temporary-file-name)
 (defun temporary-file-name (&key (prefix "temp") directory)
   "Generate a pathname that may be used for a temporary file.
 
@@ -85,7 +84,6 @@ fall back to the 'C:\\Temp', directory."
 	  (unless (uiop:file-exists-p tem)
 	    (return tem)))))
 
-(export 'temporary-file)
 (defun temporary-file (&key (prefix "temp") directory (direction :output) (element-type 'character) (external-format :default))
   "Create a unique file.
 
@@ -108,7 +106,6 @@ Value is a file stream to the newly created file."
 	  (when (not (null stream))
 	    (return stream)))))
 
-(export 'with-temporary-file)
 (defmacro with-temporary-file ((var &rest arg) &body body)
   "Create a temporary file and evaluate the body forms.
 
@@ -129,7 +126,6 @@ Value is the value of the last form of BODY."
 	   (close ,var))
 	 (ignore-errors (delete-file ,temp))))))
 
-(export 'temporary-directory)
 (defun temporary-directory (&key (prefix "temp") directory)
   "Create a unique directory.
 
@@ -148,7 +144,6 @@ Value is the pathname to the newly created directory."
 	    (when (not (null created))
 	      (return dir))))))
 
-(export 'with-temporary-directory)
 (defmacro with-temporary-directory ((var &rest arg) &body body)
   "Create a temporary directory and evaluate the body forms.
 

@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'optimize-for-speed)
 (defvar optimize-for-speed
   '(optimize speed (safety 0) (space 0) (debug 1) (compilation-speed 0))
   "Optimization qualities for generating fast code.
@@ -46,7 +45,6 @@ You have to use this variable via
 (defvar special-variables-stack ()
   "Stack of saved special variables.")
 
-(export 'save-special-variables)
 (defmacro save-special-variables (&rest variables)
   "Save values of special variables.
 
@@ -96,7 +94,6 @@ usage is to wrap your code as follows:
        (push ,cache special-variables-stack)
        ,cache)))
 
-(export 'restore-special-variables)
 (defun restore-special-variables ()
   "Restore special variables saved by ‘save-special-variables’."
   (let ((cache (pop special-variables-stack)))

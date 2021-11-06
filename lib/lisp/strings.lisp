@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export '*random-string-alphabet*)
 (defparameter *random-string-alphabet*
   #.(concatenate 'string
 		 "0123456789"
@@ -44,7 +43,6 @@
   "The character set for generating random strings.
 Value has to be a vector.")
 
-(export 'random-string)
 (defun random-string (n)
   "Return a string with N random characters."
   (declare (type (integer 0) n))

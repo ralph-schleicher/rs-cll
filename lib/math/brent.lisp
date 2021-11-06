@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'brent)
 (defun brent (f &key (y 0) initial-value lower-bound upper-bound (max-iter 1000) rel-tol (abs-tol 0))
   "Solve univariate function 'y = f(x)' using Brent's method.
 

@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'q-reader)
 (defun q-reader (stream sub-char arg)
   "Read a quoted text.
 

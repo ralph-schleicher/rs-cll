@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'evaluate-polynomial)
 (defun evaluate-polynomial (coefficients number)
   "Evaluate a polynomial.
 
@@ -57,7 +56,6 @@ Second argument NUMBER is the argument at which the polynomial
 		     :do (fmaf value number coeff))))))
     value))
 
-(export 'quadratic-formula-1)
 (defun quadratic-formula-1 (p q)
   "Calculate the roots of a monic quadratic function
 
@@ -72,7 +70,6 @@ Value is a list of two numbers."
     (list (+ u v)
 	  (- u v))))
 
-(export 'quadratic-formula)
 (defun quadratic-formula (a b c)
   "Calculate the roots of a general quadratic function
 
@@ -97,7 +94,6 @@ Value is a list of two numbers."
 ;; http://mathworld.wolfram.com/CubicFormula.html is somewhat chaotic but
 ;; http://mysite.verizon.net/res148h4j/javascript/script_exact_cubic.html
 ;; is nice but harder to find.
-(export 'cubic-formula-1)
 (defun cubic-formula-1 (p q r)
   "Calculate the roots of a monic cubic function
 
@@ -138,7 +134,6 @@ The first element is a real number."
 	  (setf x u))))
     (cons x (quadratic-formula-1 (+ x p) (+ (* (+ x p) x) q)))))
 
-(export 'cubic-formula)
 (defun cubic-formula (a b c d)
   "Calculate the roots of a general cubic function
 

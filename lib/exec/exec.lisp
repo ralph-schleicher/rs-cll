@@ -84,7 +84,6 @@ for your system.")
   (:documentation
    "Default class representing the properties of an external program."))
 
-(export 'program-input-stream)
 (defgeneric program-input-stream (self)
   (:documentation
    "The input stream of an external program, or nil.
@@ -92,7 +91,6 @@ The Lisp process can write to the program's input stream.")
   (:method ((self %program))
     (%program-input-stream self)))
 
-(export 'program-output-stream)
 (defgeneric program-output-stream (self)
   (:documentation
    "The output stream of an external program, or nil.
@@ -100,7 +98,6 @@ The Lisp process can read from the program's output stream.")
   (:method ((self %program))
     (%program-output-stream self)))
 
-(export 'program-error-stream)
 (defgeneric program-error-stream (self)
   (:documentation
    "The error stream of an external program, or nil.
@@ -108,7 +105,6 @@ The Lisp process can read from the program's error stream.")
   (:method ((self %program))
     (%program-error-stream self)))
 
-(export 'program-exit-status)
 (defgeneric program-exit-status (self)
   (:documentation
    "The exit value of an external program or the negative signal value, or nil.")
@@ -133,7 +129,6 @@ Please send patches to <~A@~A>."
 	   (lisp-implementation-type)
 	   "rs" "ralph-schleicher.de")))
 
-(export 'execute-program)
 (defun execute-program (program &optional arguments &key extra-arguments (input t) (if-input-does-not-exist :error) (output t) (if-output-exists :error) (error t) (if-error-exists :error) (wait t))
   "Run an external program.
 
@@ -277,7 +272,6 @@ nil means to fail silently."
 
 ;;;; Syntactic sugar.
 
-(export 'with-input-from-program)
 (defmacro with-input-from-program ((var program &optional arguments &key input (if-input-does-not-exist :error) error (if-error-exists :error)) &body body)
   (let ((p (gensym)))
     `(let* ((,p	(execute-program
@@ -293,7 +287,6 @@ nil means to fail silently."
 	    (progn ,@body)
 	 (ignore-errors (close ,var))))))
 
-(export 'with-output-to-program)
 (defmacro with-output-to-program ((var program &optional arguments &key output (if-output-exists :error) error (if-error-exists :error)) &body body)
   (let ((p (gensym)))
     `(let* ((,p (execute-program
@@ -309,7 +302,6 @@ nil means to fail silently."
 	    (progn ,@body)
 	 (ignore-errors (close ,var))))))
 
-(export 'with-program-io)
 (defmacro with-program-io ((var program &optional arguments &key error (if-error-exists :error)) &body body)
   (let ((p (gensym))
 	(in (gensym))
@@ -332,7 +324,6 @@ nil means to fail silently."
 	 (ignore-errors (close ,out))
 	 (ignore-errors (close ,var))))))
 
-(export 'close-program-streams)
 (defun close-program-streams (self)
   "Close all streams of an external program."
   (when self

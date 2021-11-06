@@ -43,14 +43,12 @@
   "Return true if OBJECT is an odd integer."
   (and (integerp object) (oddp object)))
 
-(export 'list-of-strings-p)
 (defun list-of-strings-p (object)
   "Return true if OBJECT is a list of strings.
 
 If OBJECT is the empty list, value is true, too."
   (and (listp object) (every #'stringp object)))
 
-(export 'list-of-strings)
 (deftype list-of-strings ()
   "Type specifier for a list of strings."
   '(satisfies list-of-strings-p))

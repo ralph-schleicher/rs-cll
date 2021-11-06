@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'start-index-if)
 (defun start-index-if (predicate seq &key (start 0) end key)
   "Return start index of first element in SEQ matching PREDICATE.
 
@@ -46,7 +45,6 @@ If no element matches PREDICATE, return the end index position.
 Likewise if SEQ is empty."
   (or (position-if predicate seq :start start :end end :key key) end (length seq)))
 
-(export 'start-index-if-not)
 (defun start-index-if-not (predicate seq &key (start 0) end key)
   "Return start index of first element in SEQ not matching PREDICATE.
 
@@ -57,7 +55,6 @@ If all elements match PREDICATE, return the end index position.
 Likewise if SEQ is empty."
   (or (position-if-not predicate seq :start start :end end :key key) end (length seq)))
 
-(export 'end-index-if)
 (defun end-index-if (predicate seq &key (start 0) end key)
   "Return end index of last element in SEQ matching PREDICATE.
 
@@ -69,7 +66,6 @@ Likewise if SEQ is empty."
   (let ((pos (position-if predicate seq :from-end t :start start :end end :key key)))
     (if pos (1+ pos) start)))
 
-(export 'end-index-if-not)
 (defun end-index-if-not (predicate seq &key (start 0) end key)
   "Return end index of last element in SEQ not matching PREDICATE.
 
@@ -81,7 +77,6 @@ Likewise if SEQ is empty."
   (let ((pos (position-if-not predicate seq :from-end t :start start :end end :key key)))
     (if pos (1+ pos) start)))
 
-(export 'bounding-indices-if)
 (defun bounding-indices-if (predicate seq &key (start 0) end key)
   "Return start index of first element in SEQ and end index of last element
 in SEQ matching PREDICATE.
@@ -100,7 +95,6 @@ Likewise if SEQ is empty."
 	(values left right)
       (values end end))))
 
-(export 'bounding-indices-if-not)
 (defun bounding-indices-if-not (predicate seq &key (start 0) end key)
   "Return start index of first element in SEQ and end index of last element
 in SEQ not matching PREDICATE.

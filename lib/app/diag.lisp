@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'diagnostic-message)
 (define-condition diagnostic-message (simple-condition)
   ((program-name
     :reader diagnostic-message-program-name
@@ -139,7 +138,6 @@ format control string, for example
 	    :format-arguments (cdr datum)
 	    arguments))))
 
-(export 'say)
 (defun say (datum &rest arguments)
   "Print a condition.
 
@@ -153,7 +151,6 @@ the condition object."
     (fresh-line *standard-output*)
     c))
 
-(export 'die)
 (defun die (datum &rest arguments)
   "Print a condition and enter the debugger.
 

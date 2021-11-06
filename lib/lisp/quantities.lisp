@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'radian-from-degree)
 (defsubst radian-from-degree (deg)
   "Convert a plane angle from degree to radian.
 
@@ -45,7 +44,6 @@ Value is the corresponding angle given in radian."
   (declare (type real deg))
   (* (/ deg 180) pi))
 
-(export 'degree-from-radian)
 (defsubst degree-from-radian (rad)
   "Convert a plane angle from radian to degree.
 
@@ -55,7 +53,6 @@ Value is the corresponding angle given in degree."
   (declare (type real rad))
   (* (/ rad pi) 180))
 
-(export 'degree-from-sexagesimal)
 (defun degree-from-sexagesimal (deg &optional (min 0) (s 0) (sign 1))
   "Join sexagesimal subdivisions of an arc degree into a plane angle.
 
@@ -74,7 +71,6 @@ arguments is a floating-point number, value is a rational number."
 	(float-sign (float sign) (float angle (float sign)))
       (if (minusp sign) (- angle) angle))))
 
-(export 'sexagesimal-from-degree)
 (defun sexagesimal-from-degree (angle)
   "Split a plane angle into sexagesimal subdivisions of an arc degree.
 
@@ -99,62 +95,50 @@ sign of the angle."
 
 ;;;; Temperature
 
-(export 'kelvin-from-degree-celsius)
 (defun kelvin-from-degree-celsius (value)
   "Convert temperature from degree Celsius to kelvin."
   (+ value 27315/100))
 
-(export 'kelvin-from-degree-rankine)
 (defun kelvin-from-degree-rankine (value)
   "Convert temperature from degree Rankine to kelvin."
   (/ value 18/10))
 
-(export 'kelvin-from-degree-fahrenheit)
 (defun kelvin-from-degree-fahrenheit (value)
   "Convert temperature from degree Fahrenheit to kelvin."
   (/ (+ value 45967/100) 18/10))
 
-(export 'degree-celsius-from-kelvin)
 (defun degree-celsius-from-kelvin (value)
   "Convert temperature from kelvin to degree Celsius."
   (- value 27315/100))
 
-(export 'degree-celsius-from-degree-rankine)
 (defun degree-celsius-from-degree-rankine (value)
   "Convert temperature from degree Rankine to degree Celsius."
   (- (/ value 18/10) 27315/100))
 
-(export 'degree-celsius-from-degree-fahrenheit)
 (defun degree-celsius-from-degree-fahrenheit (value)
   "Convert temperature from degree Fahrenheit to degree Celsius."
   (/ (- value 32) 18/10))
 
-(export 'degree-rankine-from-kelvin)
 (defun degree-rankine-from-kelvin (value)
   "Convert temperature from kelvin to degree Rankine."
   (* value 18/10))
 
-(export 'degree-rankine-from-degree-celsius)
 (defun degree-rankine-from-degree-celsius (value)
   "Convert temperature from degree Celsius to degree Rankine."
   (* (+ value 27315/100) 18/10))
 
-(export 'degree-rankine-from-degree-fahrenheit)
 (defun degree-rankine-from-degree-fahrenheit (value)
   "Convert temperature from degree Fahrenheit to degree Rankine."
   (+ value 45967/100))
 
-(export 'degree-fahrenheit-from-kelvin)
 (defun degree-fahrenheit-from-kelvin (value)
   "Convert temperature from kelvin to degree Fahrenheit."
   (- (* value 18/10) 45967/100))
 
-(export 'degree-fahrenheit-from-degree-celsius)
 (defun degree-fahrenheit-from-degree-celsius (value)
   "Convert temperature from degree Celsius to degree Fahrenheit."
   (+ (* value 18/10) 32))
 
-(export 'degree-fahrenheit-from-degree-rankine)
 (defun degree-fahrenheit-from-degree-rankine (value)
   "Convert temperature from degree Rankine to degree Fahrenheit."
   (- value 45967/100))

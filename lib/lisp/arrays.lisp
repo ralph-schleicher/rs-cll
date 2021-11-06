@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'linear-index-from-subscripts)
 (defun linear-index-from-subscripts (dimensions subscripts)
   "Return the linear index corresponding to a set of subscript values.
 
@@ -58,7 +57,6 @@ equal to the value of the form
 	 (reverse dimensions) (reverse subscripts))
     index))
 
-(export 'subscripts-from-linear-index)
 (defun subscripts-from-linear-index (dimensions index)
   "Return the set of subscript values corresponding to a linear index.
 

@@ -38,7 +38,6 @@
 (defvar *standalone-program* nil
   "True means Lisp is running in batch mode.")
 
-(export 'standalone-program-p)
 (defun standalone-program-p ()
   "Return true if Lisp is running in batch mode."
   (not (null *standalone-program*)))

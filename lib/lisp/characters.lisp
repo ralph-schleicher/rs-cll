@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'whitespace-char-p)
 (defun whitespace-char-p (char)
   "Return true if CHAR is a whitespace character.
 
@@ -43,7 +42,6 @@ Argument CHAR has to be a character object."
   (declare (type character char))
   (or (char= char #\Space) (not (graphic-char-p char))))
 
-(export 'blank-char-p)
 (defun blank-char-p (char)
   "Return true if CHAR is a space or horizontal tab character.
 
@@ -51,7 +49,6 @@ Argument CHAR has to be a character object."
   (declare (type character char))
   (or (char= char #\Space) (char= char #\Tab)))
 
-(export 'standard-alpha-char-p)
 (defun standard-alpha-char-p (char)
   "Return true if CHAR is a standard alphabetic character.
 
@@ -60,7 +57,6 @@ Argument CHAR has to be a character object."
   (and (standard-char-p char)
        (alpha-char-p char)))
 
-(export 'standard-digit-char-p)
 (defun standard-digit-char-p (char &optional (radix 10))
   "Return true if CHAR is a standard digit character.
 

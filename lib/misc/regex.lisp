@@ -113,7 +113,6 @@ the corresponding parenthesized expression.")
 		       (aref group-start group)
 		       (aref group-end group))))))
 
-(export 'string-match)
 (defun string-match (regexp string &key (start 0) end)
   "Return start position of first match for REGEXP in STRING, or nil
 if there is no match.
@@ -139,7 +138,6 @@ See the ‘cl-ppcre:scan’ function, for more details."
   (declare (type (integer 0) subexp))
   (cdr (aref *match-data* subexp)))
 
-(export 'match-start)
 (defun match-start (&optional (subexp 0))
   "Return start index of text matched by last search.
 
@@ -152,7 +150,6 @@ Value is nil if there is no match."
   (when (< subexp (length *match-data*))
     (%match-start subexp)))
 
-(export 'match-end)
 (defun match-end (&optional (subexp 0))
   "Return end index of text matched by last search.
 
@@ -165,14 +162,12 @@ Value is nil if there was no match."
   (when (< subexp (length *match-data*))
     (%match-end subexp)))
 
-(export 'match-data)
 (defun match-data ()
   "Return list of bounding indices on what the last search matched."
   (iter (for (start . end) :in-vector *match-data*)
 	(collect start)
 	(collect end)))
 
-(export 'save-match-data)
 (defmacro save-match-data (&body body)
   "Save match data, execute BODY forms, restore match data.
 Value is the value of the last form in BODY."
@@ -186,7 +181,6 @@ Value is the value of the last form in BODY."
   (let ((elem (aref *match-data* subexp)))
     (and elem (subseq *last-thing-searched* (car elem) (cdr elem)))))
 
-(export 'match-string)
 (defun match-string (&optional (subexp 0))
   "Return string of text matched by last search.
 
@@ -199,7 +193,6 @@ Value is nil if there is no match."
   (when (< subexp (length *match-data*))
     (%match-string subexp)))
 
-(export 'match-strings)
 (defun match-strings ()
   "Return strings of text matched by last search.
 
@@ -208,7 +201,6 @@ parenthesized expression did not match."
   (iter (for subexp :from 0 :below (length *match-data*))
 	(collect (%match-string subexp))))
 
-(export 'replace-match)
 (defun replace-match (new-text &optional (subexp 0))
   "Replace text matched by last search.
 

@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'defconst)
 (defmacro defconst (name value &optional doc)
   "Define a constant variable.
 
@@ -44,7 +43,6 @@ is reused when the ‘defconst’ form is evaluated again."
   `(defconstant ,name (if (boundp ',name) (symbol-value ',name) ,value)
      ,@(when doc (list doc))))
 
-(export 'defsubst)
 (defmacro defsubst (name arg-list &body body)
   "Define an inline function.
 
@@ -55,19 +53,16 @@ for inline expansion by the compiler."
      (defun ,name ,arg-list
        ,@body)))
 
-(export 'false)
 (defsubst false (&rest arguments)
   "Ignore all arguments and return nil."
   (declare (ignore arguments))
   nil)
 
-(export 'true)
 (defsubst true (&rest arguments)
   "Ignore all arguments and return t."
   (declare (ignore arguments))
   t)
 
-(export 'nothing)
 (defsubst nothing (&rest arguments)
   "Ignore all arguments and return no values."
   (declare (ignore arguments))

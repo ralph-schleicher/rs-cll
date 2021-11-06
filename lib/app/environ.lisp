@@ -76,7 +76,6 @@ The function ‘environ-alist-from-list’ does it the other way around."
   #-(or clisp sbcl)
   (fix-me 'posix-environ))
 
-(export 'environment-variables)
 (defun environment-variables ()
   "Return all environment variables as an associated list.
 List elements are cons cells of the form
@@ -129,7 +128,6 @@ Value is true on success, or nil if an error occurs."
   #-(or clisp sbcl)
   (fix-me 'posix-unsetenv))
 
-(export 'environment-variable)
 (defun environment-variable (name)
   "Return the value of the environment variable NAME.
 Value is nil if no entry with key NAME exists."

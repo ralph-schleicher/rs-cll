@@ -63,7 +63,6 @@ Argument STATUS has to be an integer in the range from 0 to 255."
 			 (fix-me 'exit-success))
   "Status code to indicate successful completion.")
 
-(export 'exit-success)
 (defun exit-success (&optional (status exit-success))
   "Terminate the program indicating successful completion."
   (ensure-type status '(integer 0 255))
@@ -81,7 +80,6 @@ Argument STATUS has to be an integer in the range from 0 to 255."
 			 (fix-me 'exit-failure))
   "Status code to indicate a failure condition.")
 
-(export 'exit-failure)
 (defun exit-failure (&optional (status exit-failure))
   "Terminate the program indicating a failure condition."
   (ensure-type status '(integer 0 255))

@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'getopt-error)
 (define-condition getopt-error (diagnostic-message)
   ((option-name
     :reader getopt-error-option-name
@@ -47,7 +46,6 @@
 Initial argument OPTION-NAME is the name of the option raising the
 condition, or nil."))
 
-(export 'unknown-option-name-error)
 (define-condition unknown-option-name-error (getopt-error)
   ()
   (:default-initargs
@@ -57,7 +55,6 @@ condition, or nil."))
 
 The default format control takes one argument, the name of the option."))
 
-(export 'ambiguous-option-name-error)
 (define-condition ambiguous-option-name-error (getopt-error)
   ()
   (:default-initargs
@@ -67,7 +64,6 @@ The default format control takes one argument, the name of the option."))
 
 The default format control takes one argument, the name of the option."))
 
-(export 'missing-option-argument-error)
 (define-condition missing-option-argument-error (getopt-error)
   ()
   (:default-initargs
@@ -77,7 +73,6 @@ The default format control takes one argument, the name of the option."))
 
 The default format control takes one argument, the name of the option."))
 
-(export 'superfluous-option-argument-error)
 (define-condition superfluous-option-argument-error (getopt-error)
   ()
   (:default-initargs
@@ -195,7 +190,6 @@ the option name is ambiguous."
     ;; Done.
     tab))
 
-(export '(optarg optind opterr optopt unprocessed-arguments remaining-arguments))
 (defclass getopt ()
   ((optarg
     :accessor optarg
@@ -264,7 +258,6 @@ Initial argument ORDERING defines how to handle options following
 Initial argument HELP defines the program argument to print the help
  text.  This is used by the ‘show-help-hint-and-die’ function."))
 
-(export 'make-getopt)
 (defun make-getopt (spec &rest init-arguments)
   "Create an option parser object.
 
@@ -350,7 +343,6 @@ Slot ACTION defines an alternative procedure for ‘getopt’ when it
   (incf (first-operand self) (- (optind self) (last-operand self)))
   (setf (last-operand self) (optind self)))
 
-(export 'show-help-hint-and-die)
 (defun show-help-hint-and-die (self)
   (when (help-option self)
     (format *error-output*
@@ -359,7 +351,6 @@ Slot ACTION defines an alternative procedure for ‘getopt’ when it
 	    (help-option self)))
   (exit-failure))
 
-(export 'getopt)
 (defun getopt (self)
   "Parse program arguments."
   (labels ((err (self condition-name)

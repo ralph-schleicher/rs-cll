@@ -56,7 +56,6 @@ the remaining elements are the command line arguments."
 (defvar *program-invocation-short-name* nil
   "Like ‘*program-invocation-name*’ but without the directory part.")
 
-(export 'program-invocation-name)
 (defun program-invocation-name ()
   "Return the program name as invoked on the command line.
 
@@ -73,7 +72,6 @@ Value has to be a string, a pathname, or a file stream."
   (setf *program-invocation-name* (namestring value)
 	*program-invocation-short-name* nil))
 
-(export 'program-invocation-short-name)
 (defun program-invocation-short-name ()
   "Return the program name as invoked on the command line
 but without the directory part.
@@ -86,7 +84,6 @@ Value is a string."
 (defvar *program-arguments* nil
   "The list of program arguments.")
 
-(export 'program-arguments)
 (defun program-arguments ()
   "Return the list of program arguments.
 

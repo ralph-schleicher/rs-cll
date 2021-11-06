@@ -35,7 +35,6 @@
 
 (in-package :rs-cll)
 
-(export 'ensure-type)
 (defun ensure-type (object type)
   "Signal a type error if OBJECT is not of the type TYPE.
 Otherwise, return OBJECT."
