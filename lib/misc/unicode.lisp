@@ -63,21 +63,46 @@ This feature can be used instead of a comment to record the
 original string.  For example,
 
      #U(\"Griaß di'\"
-        71 114 105 97 195 159 32 100 105 39)"
+        71 114 105 97 195 159 32 100 105 39)
+
+The ‘unicode-string-reader’ function also supports a syntax for
+reading Unicode code points as characters.  That is,
+
+     #U+03B1 = (code-char #x03B1) = #\α"
   (declare (ignore sub-char))
-  (let ((encoding (ecase arg
-		    ((8 nil) :UTF-8)
-		    (16 :UTF-16BE)
-		    (32 :UTF-32BE)
-		    (2 :UCS-2BE)
-		    (4 :UCS-4BE)))
-	(octets (progn
-		  ;; Read a list.
-		  (unless (char= (read-char stream t nil t) #\()
-		    (error 'parse-error))
-		  (read-delimited-list #\) stream t))))
-    (when (stringp (first octets))
-      (setf octets (rest octets)))
-    (string-from-octets octets encoding)))
+  (ecase (read-char stream t nil t)
+    (#\(
+     ;; Read a list.
+     (let ((encoding (ecase arg
+		       ((8 nil) :UTF-8)
+		       (16 :UTF-16BE)
+		       (32 :UTF-32BE)
+		       (2 :UCS-2BE)
+		       (4 :UCS-4BE)))
+	   (octets (read-delimited-list #\) stream t)))
+       (when (stringp (first octets))
+	 (setf octets (rest octets)))
+       (string-from-octets octets encoding)))
+    (#\+
+     ;; Read an Unicode code point.
+     (unless (null arg)
+       (error "Invalid prefix argument."))
+     (let (code)
+       (iter (for char = (read-char stream nil nil t))
+	     (when (null char)
+	       (finish))
+	     (alexandria:if-let ((digit (standard-digit-char-p char 16)))
+		 (setf code (if (null code) digit (+ (* code 16) digit)))
+	       ;; Some other character.
+	       (multiple-value-bind (macro-character-p non-terminating-p)
+		   (get-macro-character char)
+		 (unless (or (and macro-character-p (not non-terminating-p))
+			     (standard-whitespace-char-p char))
+		   (error "Invalid digit character."))
+		 (unread-char char stream)
+		 (finish))))
+       (when (null code)
+	 (error "Missing character code."))
+       (code-char code)))))
 
 ;;; unicode.lisp ends here
