@@ -35,20 +35,6 @@
 
 (in-package :rs-cll)
 
-(defun whitespace-char-p (char)
-  "Return true if CHAR is a whitespace character.
-
-Argument CHAR has to be a character object."
-  (declare (type character char))
-  (or (char= char #\Space) (not (graphic-char-p char))))
-
-(defun blank-char-p (char)
-  "Return true if CHAR is a space or horizontal tab character.
-
-Argument CHAR has to be a character object."
-  (declare (type character char))
-  (or (char= char #\Space) (char= char #\Tab)))
-
 (defun standard-alpha-char-p (char)
   "Return true if CHAR is a standard alphabetic character.
 
@@ -68,5 +54,34 @@ Value is the weight of CHAR as an integer, or nil."
   (declare (type character char))
   (and (standard-char-p char)
        (digit-char-p char radix)))
+
+(defun standard-whitespace-char-p (char)
+  "Return true if CHAR is a standard whitespace character.
+
+Argument CHAR has to be a character object."
+  (declare (type character char))
+  (or (char= char #\Space)
+      (char= char #\Newline)
+      (and (standard-char-p char)
+           (not (graphic-char-p char)))))
+
+(defun whitespace-char-p (char)
+  "Return true if CHAR is a whitespace character.
+
+Argument CHAR has to be a character object."
+  (declare (type character char))
+  (cond #+(and sbcl sb-unicode)
+	(t (sb-unicode:whitespace-p char))
+	#+cl-unicode
+	(t (cl-unicode:has-binary-property char "White_Space"))
+	;; Save default.
+	(t (standard-whitespace-char-p char))))
+
+(defun blank-char-p (char)
+  "Return true if CHAR is a space or horizontal tab character.
+
+Argument CHAR has to be a character object."
+  (declare (type character char))
+  (or (char= char #\Space) (char= char #\Tab)))
 
 ;;; characters.lisp ends here
