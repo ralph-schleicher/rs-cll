@@ -40,7 +40,7 @@
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
   :version "20160430.1353"
-  :depends-on (:trivial-features :alexandria :iterate :uiop :cl-ppcre :babel)
+  :depends-on (:trivial-features :alexandria :iterate :uiop :cl-ppcre :babel :cl-unicode)
   :serial t
   :components ((:file "rs-cll")
 	       (:file "specials")
